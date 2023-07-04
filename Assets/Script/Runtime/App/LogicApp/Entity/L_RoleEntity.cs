@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Oshi.Template;
 using UnityEngine;
 
-public class L_PropEntity : MonoBehaviour {
+public class L_RoleEntity : MonoBehaviour {
 
     int id;
     public int ID => id;
@@ -23,7 +23,7 @@ public class L_PropEntity : MonoBehaviour {
 
     }
 
-    public void FromTM(PropTM tm) {
+    public void FromTM(RoleTM tm) {
     }
 
     public void TearDown() {

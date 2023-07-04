@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace Oshi.Modifier {
-    public class EntityEditorElement : MonoBehaviour {
+    public class SolidEditorElement : MonoBehaviour {
 
         public int typeID;
 

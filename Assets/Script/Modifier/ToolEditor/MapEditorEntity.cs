@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Oshi.Generic;
 using Oshi.Template;
 using UnityEditor;
 using UnityEngine;
@@ -23,8 +24,17 @@ namespace Oshi.Modifier {
                 return;
             }
 
-            // Entity
-            model.mapTM.entities = GetEntityArray();
+            // Role
+            model.mapTM.roleArray = GetRoleArray();
+
+            // Prop
+            model.mapTM.propArray = GetPropArray();
+
+            // Solid
+            model.mapTM.solidArray = GetSolidArray();
+
+            // Anchor
+            model.mapTM.anchorArray = GetAnchorArray();
 
             model.mapTM.id = mapID;
             model.mapTM.size = mapSize;
@@ -37,20 +47,83 @@ namespace Oshi.Modifier {
 
         }
 
-        EntitySpawnTM[] GetEntityArray() {
+        RoleSpawnTM[] GetRoleArray() {
 
-            var group = transform.Find("editor_entity_group");
-            var goes = group.transform.GetComponentsInChildren<EntityEditorElement>();
+            var group = transform.Find("editor_role_group");
+            var goes = group.transform.GetComponentsInChildren<RoleEditorElement>();
             if (goes == null || goes.Length == 0) {
                 return null;
             }
 
-            var arr = new EntitySpawnTM[goes.Length];
+            var arr = new RoleSpawnTM[goes.Length];
             for (int i = 0; i < goes.Length; i++) {
                 var go = goes[i];
-                EntitySpawnTM spawner;
+                RoleSpawnTM spawner;
                 spawner.typeID = go.typeID;
-                spawner.position = go.transform.position;
+                spawner.position = go.transform.position.ToVector2Int();
+                arr[i] = spawner;
+            }
+
+            return arr;
+
+        }
+
+        PropSpawnTM[] GetPropArray() {
+
+            var group = transform.Find("editor_prop_group");
+            var goes = group.transform.GetComponentsInChildren<PropEditorElement>();
+            if (goes == null || goes.Length == 0) {
+                return null;
+            }
+
+            var arr = new PropSpawnTM[goes.Length];
+            for (int i = 0; i < goes.Length; i++) {
+                var go = goes[i];
+                PropSpawnTM spawner;
+                spawner.typeID = go.typeID;
+                spawner.position = go.transform.position.ToVector2Int();
+                arr[i] = spawner;
+            }
+
+            return arr;
+
+        }
+
+        SolidSpawnTM[] GetSolidArray() {
+
+            var group = transform.Find("editor_solid_group");
+            var goes = group.transform.GetComponentsInChildren<SolidEditorElement>();
+            if (goes == null || goes.Length == 0) {
+                return null;
+            }
+
+            var arr = new SolidSpawnTM[goes.Length];
+            for (int i = 0; i < goes.Length; i++) {
+                var go = goes[i];
+                SolidSpawnTM spawner;
+                spawner.typeID = go.typeID;
+                spawner.position = go.transform.position.ToVector2Int();
+                arr[i] = spawner;
+            }
+
+            return arr;
+
+        }
+
+        AnchorSpawnTM[] GetAnchorArray() {
+
+            var group = transform.Find("editor_anchor_group");
+            var goes = group.transform.GetComponentsInChildren<AnchorEditorElement>();
+            if (goes == null || goes.Length == 0) {
+                return null;
+            }
+
+            var arr = new AnchorSpawnTM[goes.Length];
+            for (int i = 0; i < goes.Length; i++) {
+                var go = goes[i];
+                AnchorSpawnTM spawner;
+                spawner.typeID = go.typeID;
+                spawner.position = go.transform.position.ToVector2Int();
                 arr[i] = spawner;
             }
 

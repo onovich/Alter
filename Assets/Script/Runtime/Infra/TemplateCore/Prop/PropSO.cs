@@ -3,9 +3,9 @@ using UnityEngine;
 
 namespace Oshi.Template {
 
-    public struct EntitySO {
+    public struct PropSO {
 
-        public EntityTM tm;
+        public PropTM tm;
 
     }
 

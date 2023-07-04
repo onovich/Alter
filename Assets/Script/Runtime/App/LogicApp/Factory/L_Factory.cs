@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Bill.Infra;
+using Oshi.Template;
 using UnityEngine;
 
 namespace Oshi.Logic.Factory {
@@ -29,11 +30,51 @@ namespace Oshi.Logic.Factory {
 
         }
 
-        public void CreateEntity(int typeID, Vector2 position) {
+        public L_RoleEntity CreateRole(RoleSpawnTM spawnTM) {
 
-
+            // Args
+            var typeID = spawnTM.typeID;
+            var position = spawnTM.position;
 
             // TM
+            var templateCore = infraContext.TemplateCore;
+            var roleTM = templateCore.GetRole(typeID);
+
+            // Entity
+            var entity = new L_RoleEntity();
+            entity.Ctor();
+
+            // From TM
+            entity.FromTM(roleTM);
+
+            // From Spawn TM
+            entity.SetPos(position);
+
+            return entity;
+
+        }
+
+        public L_PropEntity CreateProp(PropSpawnTM spawnTM) {
+
+            // Args
+            var typeID = spawnTM.typeID;
+            var position = spawnTM.position;
+
+            // TM
+            var templateCore = infraContext.TemplateCore;
+            var propTM = templateCore.GetProp(typeID);
+
+            // Entity
+            var entity = new L_PropEntity();
+            entity.Ctor();
+
+            // From TM
+            entity.FromTM(propTM);
+
+            // From Spawn TM
+            entity.SetPos(position);
+
+            return entity;
 
         }
 

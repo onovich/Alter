@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Oshi.Template;
 using UnityEngine;
 
-public class L_PropEntity : MonoBehaviour {
+public class L_AnchorEntity : MonoBehaviour {
 
     int id;
     public int ID => id;
@@ -19,11 +19,9 @@ public class L_PropEntity : MonoBehaviour {
     public int Dir => dir;
     public void SetDir(int value) => dir = value;
 
-    public void Ctor() {
+    public void Ctor() { }
 
-    }
-
-    public void FromTM(PropTM tm) {
+    public void FromTM(AnchorTM tm) {
     }
 
     public void TearDown() {

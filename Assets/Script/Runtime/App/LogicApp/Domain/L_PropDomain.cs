@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Oshi.Logic {
 
-    public class L_EntityDomain {
+    public class L_PropDomain {
 
         L_Context context;
         L_AllDomain allDomain;

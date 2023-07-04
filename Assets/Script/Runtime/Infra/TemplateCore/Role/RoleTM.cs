@@ -3,11 +3,12 @@ using UnityEngine;
 
 namespace Oshi.Template {
 
-    public struct EntityTM {
+    public struct RoleTM {
 
         public int typeID;
         public bool isMovable;
-        public bool isTarget;
+        public bool isPlayer;
+        public bool isEnemy;
         public string sprName;
 
     }

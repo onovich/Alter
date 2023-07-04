@@ -6,15 +6,15 @@ namespace Oshi.Logic {
 
     public class L_AllDomain {
 
-        L_EntityDomain entityDomain;
-        public L_EntityDomain EntityDomain => entityDomain;
+        L_MapDomain mapDomain;
+        public L_MapDomain MapDomain => mapDomain;
 
         public L_AllDomain() {
-            entityDomain = new L_EntityDomain();
+            mapDomain = new L_MapDomain();
         }
 
         public void Inject(L_Context context) {
-            entityDomain.Inject(context, this);
+            mapDomain.Inject(context, this);
         }
 
     }

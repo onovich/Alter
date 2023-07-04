@@ -14,10 +14,10 @@ public class L_MapEntity : MonoBehaviour {
     Vector2 offset;
     public Vector2 Offset => offset;
 
-    public List<L_Entity> entitySlot;
+    public List<L_PropEntity> entitySlot;
 
     public void Ctor() {
-        entitySlot = new List<L_Entity>();
+        entitySlot = new List<L_PropEntity>();
     }
 
     public void FromTM(MapTM tm) {

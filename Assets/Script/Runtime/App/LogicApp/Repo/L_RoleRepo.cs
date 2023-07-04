@@ -7,21 +7,21 @@ using UnityEngine;
 
 namespace Oshi.Logic {
 
-    public class L_EntityRepo {
+    public class L_RoleRepo {
 
-        SortedList<int, L_Entity> all;
+        SortedList<int, L_RoleEntity> all;
 
-        L_Entity[] array;
+        L_RoleEntity[] array;
 
-        List<L_Entity> roleList_temp;
+        List<L_RoleEntity> roleList_temp;
 
-        public L_EntityRepo() {
-            all = new SortedList<int, L_Entity>();
-            array = new L_Entity[0];
-            roleList_temp = new List<L_Entity>();
+        public L_RoleRepo() {
+            all = new SortedList<int, L_RoleEntity>();
+            array = new L_RoleEntity[0];
+            roleList_temp = new List<L_RoleEntity>();
         }
 
-        public void Add(L_Entity entity) {
+        public void Add(L_RoleEntity entity) {
             if (entity == null) {
                 OshiLog.Error("AddRole Error: entity is null");
                 return;
@@ -34,7 +34,7 @@ namespace Oshi.Logic {
             }
         }
 
-        public void Remove(L_Entity entity) {
+        public void Remove(L_RoleEntity entity) {
             if (all.Remove(entity.ID)) {
                 array = all.Values.ToArray();
                 OshiLog.Log($"实体仓库[逻辑层] 移除 {entity.ID}");
@@ -49,7 +49,7 @@ namespace Oshi.Logic {
             all.Clear();
         }
 
-        public void ForEach(Predicate<L_Entity> match, Action<L_Entity> action) {
+        public void ForEach(Predicate<L_RoleEntity> match, Action<L_RoleEntity> action) {
             var values = all.Values;
             for (int i = 0; i < values.Count; i += 1) {
                 var v = values[i];

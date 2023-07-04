@@ -3,10 +3,10 @@ using UnityEngine;
 
 namespace Oshi.Template {
 
-    public struct EntitySpawnTM {
+    public struct RoleSpawnTM {
 
         public int typeID;
-        public Vector2 position;
+        public Vector2Int position;
 
     }
 
