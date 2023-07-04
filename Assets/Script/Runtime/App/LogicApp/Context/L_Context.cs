@@ -9,8 +9,6 @@ namespace Oshi.Logic {
 
     public class L_Context {
 
-        // Repo
-
         // Domain
         L_AllDomain allDomain;
         public L_AllDomain AllDomain => allDomain;
@@ -23,8 +21,29 @@ namespace Oshi.Logic {
         UI_SetterAPI uiSetter;
         public UI_SetterAPI UISetter => uiSetter;
 
+        // Map
+        L_MapEntity mapEntity;
+        public L_MapEntity MapEntity => mapEntity;
+
+        // Repo
+        L_RoleRepo roleRepo;
+        public L_RoleRepo RoleRepo => roleRepo;
+
+        L_PropRepo propRepo;
+        public L_PropRepo PropRepo => propRepo;
+
+        L_SolidRepo solidRepo;
+        public L_SolidRepo SolidRepo => solidRepo;
+
+        L_AnchorRepo anchorRepo;
+        public L_AnchorRepo AnchorRepo => anchorRepo;
+
         public L_Context() {
             allDomain = new L_AllDomain();
+            roleRepo = new L_RoleRepo();
+            propRepo = new L_PropRepo();
+            solidRepo = new L_SolidRepo();
+            anchorRepo = new L_AnchorRepo();
         }
 
         public void Inject(InfraContext infraContext,

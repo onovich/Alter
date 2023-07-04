@@ -11,7 +11,22 @@ namespace Oshi.Render {
         Camera mainCamera;
         public Camera MainCamera => mainCamera;
 
+        // Map
+        R_MapEntity mapEntity;
+        public R_MapEntity MapEntity => mapEntity;
+
         // Repo
+        R_RoleRepo roleRepo;
+        public R_RoleRepo RoleRepo => roleRepo;
+
+        R_PropRepo propRepo;
+        public R_PropRepo PropRepo => propRepo;
+
+        R_SolidRepo solidRepo;
+        public R_SolidRepo SolidRepo => solidRepo;
+
+        R_AnchorRepo anchorRepo;
+        public R_AnchorRepo AnchorRepo => anchorRepo;
 
         // Domain
         R_AllDomain allDomain;
@@ -19,6 +34,10 @@ namespace Oshi.Render {
 
         public R_Context() {
             allDomain = new R_AllDomain();
+            roleRepo = new R_RoleRepo();
+            propRepo = new R_PropRepo();
+            solidRepo = new R_SolidRepo();
+            anchorRepo = new R_AnchorRepo();
         }
 
         public void Inject(Camera mainCamera,

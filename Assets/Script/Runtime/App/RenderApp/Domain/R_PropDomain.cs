@@ -4,9 +4,9 @@ using UnityEngine;
 
 namespace Oshi.Render {
 
-    public class R_EntityDomain {
+    public class R_PropDomain {
 
-        public R_EntityDomain() {
+        public R_PropDomain() {
         }
 
         public void Inject(R_Context context, R_AllDomain allDomain) {
