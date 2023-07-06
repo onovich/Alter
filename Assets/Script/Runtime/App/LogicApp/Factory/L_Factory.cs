@@ -81,6 +81,54 @@ namespace Oshi.Logic.Factory {
 
         }
 
+        public L_SolidEntity CreateSolid(SolidSpawnTM spawnTM) {
+
+            // Args
+            var typeID = spawnTM.typeID;
+            var position = spawnTM.position;
+
+            // TM
+            var templateCore = infraContext.TemplateCore;
+            var solidTM = templateCore.GetSolid(typeID);
+
+            // Entity
+            var entity = new L_SolidEntity();
+            entity.Ctor();
+
+            // From TM
+            entity.FromTM(solidTM);
+
+            // From Spawn TM
+            entity.SetPos(position);
+
+            return entity;
+
+        }
+
+        public L_AnchorEntity CreateAnchor(AnchorSpawnTM spawnTM) {
+
+            // Args
+            var typeID = spawnTM.typeID;
+            var position = spawnTM.position;
+
+            // TM
+            var templateCore = infraContext.TemplateCore;
+            var anchorTM = templateCore.GetAnchor(typeID);
+
+            // Entity
+            var entity = new L_AnchorEntity();
+            entity.Ctor();
+
+            // From TM
+            entity.FromTM(anchorTM);
+
+            // From Spawn TM
+            entity.SetPos(position);
+
+            return entity;
+
+        }
+
     }
 
 }
