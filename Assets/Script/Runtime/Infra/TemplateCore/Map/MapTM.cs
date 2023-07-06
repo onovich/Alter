@@ -13,7 +13,6 @@ namespace Oshi.Template {
         public PropSpawnTM[] propArray;
         public SolidSpawnTM[] solidArray;
         public AnchorSpawnTM[] anchorArray;
-        public SolidSpawnTM[] solidSpawnArray;
 
     }
 

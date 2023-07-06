@@ -11,6 +11,10 @@ namespace Oshi.Render {
         Camera mainCamera;
         public Camera MainCamera => mainCamera;
 
+        // WorldRoot
+        Transform worldRoot;
+        public Transform WorldRoot => worldRoot;
+
         // Map
         R_MapEntity mapEntity;
         public R_MapEntity MapEntity => mapEntity;

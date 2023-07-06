@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Oshi.Generic;
 using Oshi.Template;
 using UnityEngine;
 
@@ -11,23 +12,33 @@ public class L_SolidEntity : MonoBehaviour {
     int typeID;
     public int TypeID => typeID;
 
-    Vector2Int pos;
-    public Vector2Int Pos => pos;
-    public void SetPos(Vector2Int value) => pos = value;
-
     int dir;
     public int Dir => dir;
     public void SetDir(int value) => dir = value;
+
+    public Vector2Int Pos => transform.position.ToVector2Int();
+    public void SetPos(Vector2Int pos) => transform.position = pos.ToVector3();
 
     public void Ctor() {
 
     }
 
     public void FromTM(SolidTM tm) {
+
+        this.typeID = tm.typeID;
+
+    }
+
+    public void FromSpawnTM(SolidSpawnTM tm) {
+
+        transform.position = tm.position.ToVector3();
+
     }
 
     public void TearDown() {
+
         Destroy(gameObject);
+
     }
 
 }

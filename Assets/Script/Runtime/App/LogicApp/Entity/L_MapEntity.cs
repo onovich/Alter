@@ -14,20 +14,31 @@ public class L_MapEntity : MonoBehaviour {
     Vector2 offset;
     public Vector2 Offset => offset;
 
-    public List<L_PropEntity> entitySlot;
+    L_PropEntity[] propArray;
+    public L_PropEntity[] PropArray => propArray;
+
+    L_RoleEntity[] roleArray;
+    public L_RoleEntity[] RoleArray => roleArray;
+
+    L_SolidEntity[] solidArray;
+    public L_SolidEntity[] SolidArray => solidArray;
 
     public void Ctor() {
-        entitySlot = new List<L_PropEntity>();
-    }
 
-    public void FromTM(MapTM tm) {
-        this.id = tm.id;
-        this.size = tm.size;
-        this.offset = tm.offset;
     }
 
     public void TearDown() {
+
         Destroy(gameObject);
+
+    }
+
+    public void FromTM(MapTM tm) {
+
+        this.id = tm.id;
+        this.size = tm.size;
+        this.offset = tm.offset;
+
     }
 
 }

@@ -11,6 +11,9 @@ namespace Oshi.Logic.Factory {
         L_Context logicContext;
         InfraContext infraContext;
 
+        public L_Factory() {
+        }
+
         public void Inject(L_Context logicContext, InfraContext infraContext) {
             this.logicContext = logicContext;
             this.infraContext = infraContext;
