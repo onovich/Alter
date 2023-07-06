@@ -62,6 +62,69 @@ namespace Oshi.Render {
 
         }
 
+        public void CreateSolid(int typeID, Vector2Int pos, Transform parent) {
+
+            // TM
+            var templateCore = infraContext.TemplateCore;
+            var solidTM = templateCore.GetSolid(typeID);
+
+            // GO
+            var assetCore = infraContext.AssetCore;
+            var prefab = assetCore.GetSolid(typeID);
+            var go = GameObject.Instantiate(prefab, parent);
+
+            // Entity
+            var entity = go.GetComponent<R_SolidEntity>();
+            entity.Ctor();
+
+            // Init
+            var id = 0;
+            entity.Init(id, typeID, pos);
+
+        }
+
+        public void CreateAnchor(int typeID, Vector2Int pos, Transform parent) {
+
+            // TM
+            var templateCore = infraContext.TemplateCore;
+            var solidTM = templateCore.GetAnchor(typeID);
+
+            // GO
+            var assetCore = infraContext.AssetCore;
+            var prefab = assetCore.GetAnchor(typeID);
+            var go = GameObject.Instantiate(prefab, parent);
+
+            // Entity
+            var entity = go.GetComponent<R_AnchorEntity>();
+            entity.Ctor();
+
+            // Init
+            var id = 0;
+            entity.Init(id, typeID, pos);
+
+        }
+
+        public void CreateProp(int typeID, Vector2Int pos, Transform parent) {
+
+            // TM
+            var templateCore = infraContext.TemplateCore;
+            var solidTM = templateCore.GetProp(typeID);
+
+            // GO
+            var assetCore = infraContext.AssetCore;
+            var prefab = assetCore.GetProp(typeID);
+            var go = GameObject.Instantiate(prefab, parent);
+
+            // Entity
+            var entity = go.GetComponent<R_PropEntity>();
+            entity.Ctor();
+
+            // Init
+            var id = 0;
+            entity.Init(id, typeID, pos);
+
+        }
+
     }
 
 }

@@ -18,28 +18,20 @@ public class R_RoleEntity : MonoBehaviour {
     public int Dir => dir;
     public void SetDir(int value) => dir = value;
 
-    public void Ctor() {
+    public void Ctor() { }
 
-    }
-
-    public void Init(int id, int typeID, Vector2Int pos) {
-
-    }
+    public void Init(int id, int typeID, Vector2Int pos) { }
 
     public void FromTM(PropTM tm) {
-
         this.typeID = tm.typeID;
-
     }
 
     public void FromSpawnTM(PropSpawnTM tm) {
-
         transform.position = tm.position.ToVector3();
-
     }
 
     public void TearDown() {
-
+        Destroy(gameObject);
     }
 
 }

@@ -23,28 +23,20 @@ public class R_MapEntity : MonoBehaviour {
     R_SolidEntity[] solidArray;
     public R_SolidEntity[] SolidArray => solidArray;
 
-    public void Ctor() {
-
-    }
+    public void Ctor() { }
 
     public void Init(int id, Vector2Int size, Vector2 offset) {
-
         this.id = id;
-
     }
 
     public void TearDown() {
-
         Destroy(gameObject);
-
     }
 
     public void FromTM(MapTM tm) {
-
         this.id = tm.id;
         this.size = tm.size;
         this.offset = tm.offset;
-
     }
 
 }
