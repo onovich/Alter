@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 namespace Oshi.Modifier {
@@ -15,7 +16,14 @@ namespace Oshi.Modifier {
             Gizmos.color = color;
             var size = Vector3.one;
 
+            var style = new GUIStyle() {
+                fontSize = 15,
+                alignment = TextAnchor.MiddleCenter,
+                normal = new GUIStyleState() { textColor = Color.white }
+            };
+
             Gizmos.DrawWireCube(transform.position, size);
+            Handles.Label(transform.position, "人", style);
 
         }
 

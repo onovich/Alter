@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 namespace Oshi.Modifier {
@@ -18,20 +19,47 @@ namespace Oshi.Modifier {
 
             if (isTarget) {
                 var color = Color.red;
-                color.a = 0.5f;
+                color.a = .5f;
+                Gizmos.color = color;
+
+                var style = new GUIStyle() {
+                    fontSize = 15,
+                    alignment = TextAnchor.MiddleCenter,
+                    normal = new GUIStyleState() { textColor = Color.white }
+                };
+
                 Gizmos.DrawCube(transform.position, size);
+                Handles.Label(transform.position, "目", style);
             }
 
             if (isEntrance) {
                 var color = Color.white;
-                color.a = 0.5f;
+                color.a = .5f;
+                Gizmos.color = color;
+
+                var style = new GUIStyle() {
+                    fontSize = 15,
+                    alignment = TextAnchor.MiddleCenter,
+                    normal = new GUIStyleState() { textColor = Color.white }
+                };
+
                 Gizmos.DrawCube(transform.position, size);
+                Handles.Label(transform.position, "入", style);
             }
 
             if (isExport) {
                 var color = Color.green;
-                color.a = 0.5f;
+                color.a = .5f;
+                Gizmos.color = color;
+
+                var style = new GUIStyle() {
+                    fontSize = 15,
+                    alignment = TextAnchor.MiddleCenter,
+                    normal = new GUIStyleState() { textColor = Color.white }
+                };
+
                 Gizmos.DrawCube(transform.position, size);
+                Handles.Label(transform.position, "离", style);
             }
 
         }
