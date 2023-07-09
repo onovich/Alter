@@ -131,6 +131,18 @@ namespace Oshi.Modifier {
 
         }
 
+        void OnDrawGizmos() {
+
+            var color = Color.white;
+            color.a = 1;
+
+            Gizmos.color = color;
+            var size = mapSize.ToVector3();
+
+            Gizmos.DrawWireCube(transform.position, size);
+
+        }
+
     }
 
 }

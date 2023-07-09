@@ -7,6 +7,18 @@ namespace Oshi.Modifier {
 
         public int typeID;
 
+        void OnDrawGizmos() {
+
+            var color = Color.yellow;
+            color.a = 0.5f;
+
+            Gizmos.color = color;
+            var size = Vector3.one;
+
+            Gizmos.DrawWireCube(transform.position, size);
+
+        }
+
     }
 
 }
