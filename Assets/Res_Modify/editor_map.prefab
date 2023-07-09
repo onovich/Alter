@@ -114,7 +114,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mapID: 0
-  model: {fileID: 0}
+  model: {fileID: 11400000, guid: 3ec7ce2c3942a42ab8d26e6a2de2d1d5, type: 2}
   mapSize: {x: 14, y: 14}
   offset: {x: 0, y: 0}
 --- !u!1 &5280198230196219993
