@@ -13,6 +13,10 @@ namespace Oshi.Logic {
         L_AllDomain allDomain;
         public L_AllDomain AllDomain => allDomain;
 
+        // Factory
+        L_Factory factory;
+        public L_Factory Factory => factory;
+
         // Render
         R_SetterAPI renderSetter;
         public R_SetterAPI RenderSetter => renderSetter;
@@ -44,6 +48,7 @@ namespace Oshi.Logic {
             propRepo = new L_PropRepo();
             solidRepo = new L_SolidRepo();
             anchorRepo = new L_AnchorRepo();
+            factory = new L_Factory();
         }
 
         public void Inject(InfraContext infraContext,
@@ -52,6 +57,7 @@ namespace Oshi.Logic {
             this.allDomain.Inject(this);
             this.renderSetter = renderSetter;
             this.uiSetter = uiSetter;
+            this.factory.Inject(this, infraContext);
         }
 
     }

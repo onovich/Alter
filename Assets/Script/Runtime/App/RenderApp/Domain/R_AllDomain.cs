@@ -34,7 +34,7 @@ namespace Oshi.Render {
 
         public void Inject(R_Context context) {
             this.context = context;
-            this.mapDomain.Inject(context, this);
+            this.mapDomain.Inject(context);
             this.anchorDomain.Inject(context, this);
             this.propDomain.Inject(context, this);
             this.roleDomain.Inject(context, this);

@@ -15,6 +15,11 @@ namespace Oshi.Render {
             this.context = context;
         }
 
+        public void CreateMap(int mapID) {
+            var mapDomain = context.AllDomain.R_MapDomain;
+            mapDomain.CreateMap(mapID);
+        }
+
     }
 
 }

@@ -11,6 +11,10 @@ namespace Oshi.Render {
         Camera mainCamera;
         public Camera MainCamera => mainCamera;
 
+        // Factory
+        R_Factory factory;
+        public R_Factory Factory => factory;
+
         // WorldRoot
         Transform worldRoot;
         public Transform WorldRoot => worldRoot;
@@ -48,6 +52,7 @@ namespace Oshi.Render {
                            InfraContext infraContext) {
             this.mainCamera = mainCamera;
             this.allDomain.Inject(this);
+            this.factory.Inject(this, infraContext);
         }
 
     }

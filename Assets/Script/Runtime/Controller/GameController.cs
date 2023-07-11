@@ -28,7 +28,8 @@ namespace Oshi {
         }
 
         public void Enter() {
-
+            var mapDomain = logicApp.Context.AllDomain.MapDomain;
+            mapDomain.CreateMap();
         }
 
         public void Exit() {

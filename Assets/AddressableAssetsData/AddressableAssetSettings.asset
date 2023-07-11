@@ -86,7 +86,8 @@ MonoBehaviour:
     m_ProfileVersion: 1
   m_LabelTable:
     m_LabelNames:
-    - default
+    - GO_Map
+    - SO_Map
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: b5ff85c165d764f58975032a05d4e0e6, type: 2}

@@ -7,11 +7,16 @@ namespace Oshi.Logic {
     public class L_MapDomain {
 
         L_Context context;
-        L_AllDomain allDomain;
 
-        public void Inject(L_Context context, L_AllDomain allDomain) {
+        public void Inject(L_Context context) {
             this.context = context;
-            this.allDomain = allDomain;
+        }
+
+        public void CreateMap() {
+            var factory = context.Factory;
+            factory.CreateMap(1);
+            var renderSetter = context.RenderSetter;
+            renderSetter.CreateMap(1);
         }
 
     }

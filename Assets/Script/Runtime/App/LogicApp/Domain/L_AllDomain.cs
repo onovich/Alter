@@ -14,7 +14,7 @@ namespace Oshi.Logic {
         }
 
         public void Inject(L_Context context) {
-            mapDomain.Inject(context, this);
+            mapDomain.Inject(context);
         }
 
     }

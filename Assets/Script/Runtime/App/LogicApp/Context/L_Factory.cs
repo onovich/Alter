@@ -4,7 +4,7 @@ using Bill.Infra;
 using Oshi.Template;
 using UnityEngine;
 
-namespace Oshi.Logic.Factory {
+namespace Oshi.Logic {
 
     public class L_Factory {
 

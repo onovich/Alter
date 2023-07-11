@@ -45,7 +45,7 @@ namespace Oshi.Infra {
 
         public async Task LoadRoleAssets() {
             AssetLabelReference labelReference = new AssetLabelReference();
-            labelReference.labelString = "SO_Role";
+            labelReference.labelString = "GO_Role";
             var list = await Addressables.LoadAssetsAsync<GameObject>(labelReference, null).Task;
             for (int i = 0; i < list.Count; i++) {
                 var go = list[i];
@@ -55,7 +55,7 @@ namespace Oshi.Infra {
 
         public async Task LoadSolidAssets() {
             AssetLabelReference labelReference = new AssetLabelReference();
-            labelReference.labelString = "SO_Solid";
+            labelReference.labelString = "GO_Solid";
             var list = await Addressables.LoadAssetsAsync<GameObject>(labelReference, null).Task;
             for (int i = 0; i < list.Count; i++) {
                 var go = list[i];
@@ -65,7 +65,7 @@ namespace Oshi.Infra {
 
         public async Task LoadAnchorAssets() {
             AssetLabelReference labelReference = new AssetLabelReference();
-            labelReference.labelString = "SO_Anchor";
+            labelReference.labelString = "GO_Anchor";
             var list = await Addressables.LoadAssetsAsync<GameObject>(labelReference, null).Task;
             for (int i = 0; i < list.Count; i++) {
                 var go = list[i];
@@ -75,7 +75,7 @@ namespace Oshi.Infra {
 
         public async Task LoadPropAssets() {
             AssetLabelReference labelReference = new AssetLabelReference();
-            labelReference.labelString = "SO_Prop";
+            labelReference.labelString = "GO_Prop";
             var list = await Addressables.LoadAssetsAsync<GameObject>(labelReference, null).Task;
             for (int i = 0; i < list.Count; i++) {
                 var go = list[i];
@@ -85,7 +85,7 @@ namespace Oshi.Infra {
 
         public async Task LoadMapAssets() {
             AssetLabelReference labelReference = new AssetLabelReference();
-            labelReference.labelString = "SO_Map";
+            labelReference.labelString = "GO_Map";
             var list = await Addressables.LoadAssetsAsync<GameObject>(labelReference, null).Task;
             for (int i = 0; i < list.Count; i++) {
                 var go = list[i];
