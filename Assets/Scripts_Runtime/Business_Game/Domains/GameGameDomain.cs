@@ -30,6 +30,7 @@ namespace Alter {
             // 临时代码
             var blockTypeID = 1;
             var spawnPoint = mapTM.spawnPoint;
+            GameBlockDomain.SpawnBlock(ctx, blockTypeID, spawnPoint);
             GameBlockDomain.SpawnCellArrFromBlock(ctx, blockTypeID, spawnPoint);
 
             // UI

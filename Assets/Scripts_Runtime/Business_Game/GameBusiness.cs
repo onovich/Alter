@@ -56,18 +56,11 @@ namespace Alter {
                 GameGameDomain.ApplyFallingFrame(ctx, dt);
 
                 // Cell In Block
-                var cellLen = ctx.cellRepo.TakeAllCurrentBlock(out var cellArr);
-                for (int i = 0; i < cellLen; i++) {
-                    var cell = cellArr[i];
-                    GameCellFSMController.TickFSM(ctx, cell, dt);
-                }
-                ctx.cellRepo.ClearPosMap();
-                for (int i = 0; i < cellLen; i++) {
-                    var cell = cellArr[i];
-                    ctx.cellRepo.UpdatePos(cell.lastPosInt, cell);
-                }
-                GameCellDomain.ApplyCheckAllCellLanding(ctx);
-                GameCellDomain.ApplyConstraint(ctx);
+                var block = ctx.currentBlock;
+                GameBlockFSMController.TickFSM(ctx, block, dt);
+
+                GameBlockDomain.ApplyCheckLanding(ctx);
+                GameBlockDomain.ApplyConstraint(ctx);
                 GameGameDomain.ResetFallingFrame(ctx);
 
                 // All Cell

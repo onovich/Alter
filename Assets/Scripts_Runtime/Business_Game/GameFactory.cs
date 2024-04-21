@@ -28,6 +28,24 @@ namespace Alter {
             return map;
         }
 
+        public static BlockEntity Block_Spawn(IDRecordService idRecordService,
+                                               AssetsInfraContext assetsInfraContext,
+                                               Vector2Int pos) {
+
+            var prefab = assetsInfraContext.Entity_GetBlock();
+            var block = GameObject.Instantiate(prefab).GetComponent<BlockEntity>();
+            block.Ctor();
+
+            // Set ID
+            var id = idRecordService.PickBlockEntityID();
+            block.entityID = id;
+
+            // Set Pos
+            block.Pos_SetPos(pos);
+
+            return block;
+        }
+
         public static CellEntity Cell_Spawn(IDRecordService idRecordService,
                                                AssetsInfraContext assetsInfraContext,
                                                Vector2Int pos) {

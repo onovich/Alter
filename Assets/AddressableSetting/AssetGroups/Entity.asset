@@ -24,7 +24,13 @@ MonoBehaviour:
     - Entity
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: bb481405b7bed4b7bad0292737b59bbe
-    m_Address: SubEntity_Cell
+    m_Address: Entity_Cell
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Entity
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: be774bb27c0174dd7bc5aa3b77067ce4
+    m_Address: Entity_Block
     m_ReadOnly: 0
     m_SerializedLabels:
     - Entity

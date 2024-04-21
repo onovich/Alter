@@ -1,12 +1,10 @@
 namespace Alter {
 
-    public enum CellFSMStatus {
+    public enum BlockFSMStatus {
         
         None,
         Moving,
         Landing,
-        Hanging,
-        Dying,   
 
     }
 

@@ -8,32 +8,12 @@ namespace Alter {
 
         Dictionary<int, CellEntity> all;
         Dictionary<Vector2Int, CellEntity> posMap;
-        Dictionary<int, CellEntity> currentBlock;
         CellEntity[] temp;
 
         public CellRepository() {
             all = new Dictionary<int, CellEntity>();
             posMap = new Dictionary<Vector2Int, CellEntity>();
-            currentBlock = new Dictionary<int, CellEntity>();
             temp = new CellEntity[220];
-        }
-
-        public void SetCurrentBlock(int index, CellEntity cell) {
-            currentBlock[index] = cell;
-        }
-
-        public void RemoveCurrentBlock(int index) {
-            currentBlock.Remove(index);
-        }
-
-        public int TakeAllCurrentBlock(out CellEntity[] cells) {
-            int count = currentBlock.Count;
-            if (count > temp.Length) {
-                temp = new CellEntity[(int)(count * 1.5f)];
-            }
-            currentBlock.Values.CopyTo(temp, 0);
-            cells = temp;
-            return count;
         }
 
         public void Add(CellEntity cell) {
@@ -113,7 +93,6 @@ namespace Alter {
         public void Clear() {
             all.Clear();
             posMap.Clear();
-            currentBlock.Clear();
             Array.Clear(temp, 0, temp.Length);
         }
 

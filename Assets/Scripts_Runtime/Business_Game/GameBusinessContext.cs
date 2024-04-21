@@ -13,6 +13,7 @@ namespace Alter {
         public MapEntity currentMapEntity;
 
         public CellRepository cellRepo;
+        public BlockEntity currentBlock;
 
         // App
         public UIAppContext uiContext;
@@ -47,9 +48,8 @@ namespace Alter {
             cellRepo.Clear();
         }
 
-        // Block
-        public void Cell_ForEach(Action<CellEntity> onAction) {
-            cellRepo.ForEach(onAction);
+        public void SetCurrentBlock(BlockEntity block) {
+            currentBlock = block;
         }
 
     }

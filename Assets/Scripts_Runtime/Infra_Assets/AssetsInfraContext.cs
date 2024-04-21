@@ -32,6 +32,14 @@ namespace Alter {
             return prefab;
         }
 
+        public GameObject Entity_GetBlock() {
+            var has = Entity_TryGet("Entity_Block", out var prefab);
+            if (!has) {
+                GLog.LogError($"Entity_Block not found");
+            }
+            return prefab;
+        }
+
         public GameObject Entity_GetCell() {
             var has = Entity_TryGet("Entity_Cell", out var prefab);
             if (!has) {
