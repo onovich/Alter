@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 3433530738972530475}
   - component: {fileID: 7108934069062860741}
   m_Layer: 0
-  m_Name: SubEntity_Cell
+  m_Name: Entity_Cell
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -6,17 +6,17 @@ namespace Alter {
 
     public class CellRepository {
 
-        Dictionary<int, CellSubEntity> all;
-        Dictionary<Vector2Int, CellSubEntity> posMap;
-        CellSubEntity[] temp;
+        Dictionary<int, CellEntity> all;
+        Dictionary<Vector2Int, CellEntity> posMap;
+        CellEntity[] temp;
 
         public CellRepository() {
-            all = new Dictionary<int, CellSubEntity>();
-            posMap = new Dictionary<Vector2Int, CellSubEntity>();
-            temp = new CellSubEntity[1000];
+            all = new Dictionary<int, CellEntity>();
+            posMap = new Dictionary<Vector2Int, CellEntity>();
+            temp = new CellEntity[1000];
         }
 
-        public void Add(CellSubEntity cell) {
+        public void Add(CellEntity cell) {
             all.Add(cell.entityID, cell);
             posMap.Add(cell.PosInt, cell);
         }
@@ -30,31 +30,31 @@ namespace Alter {
             return has && cell.entityID != index;
         }
 
-        public int TakeAll(out CellSubEntity[] cells) {
+        public int TakeAll(out CellEntity[] cells) {
             int count = all.Count;
             if (count > temp.Length) {
-                temp = new CellSubEntity[(int)(count * 1.5f)];
+                temp = new CellEntity[(int)(count * 1.5f)];
             }
             all.Values.CopyTo(temp, 0);
             cells = temp;
             return count;
         }
 
-        public void UpdatePos(Vector2Int oldPos, CellSubEntity cell) {
+        public void UpdatePos(Vector2Int oldPos, CellEntity cell) {
             posMap.Remove(oldPos);
             posMap.Add(cell.PosInt, cell);
         }
 
-        public void Remove(CellSubEntity cell) {
+        public void Remove(CellEntity cell) {
             all.Remove(cell.entityID);
             posMap.Remove(cell.PosInt);
         }
 
-        public bool TryGetBlock(int index, out CellSubEntity cell) {
+        public bool TryGetBlock(int index, out CellEntity cell) {
             return all.TryGetValue(index, out cell);
         }
 
-        public bool TryGetBlockByPos(Vector2Int pos, out CellSubEntity cell) {
+        public bool TryGetBlockByPos(Vector2Int pos, out CellEntity cell) {
             return posMap.TryGetValue(pos, out cell);
         }
 
@@ -66,14 +66,14 @@ namespace Alter {
             return Vector2.SqrMagnitude(cell.Pos - pos) <= range * range;
         }
 
-        public void ForEach(Action<CellSubEntity> action) {
+        public void ForEach(Action<CellEntity> action) {
             foreach (var cell in all.Values) {
                 action(cell);
             }
         }
 
-        public CellSubEntity GetNeareast(Vector2 pos, float radius) {
-            CellSubEntity nearestBlock = null;
+        public CellEntity GetNeareast(Vector2 pos, float radius) {
+            CellEntity nearestBlock = null;
             float nearestDist = float.MaxValue;
             float radiusSqr = radius * radius;
             foreach (var cell in all.Values) {

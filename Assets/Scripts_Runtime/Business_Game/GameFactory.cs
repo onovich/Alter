@@ -28,12 +28,12 @@ namespace Alter {
             return map;
         }
 
-        public static CellSubEntity Cell_Spawn(IDRecordService idRecordService,
+        public static CellEntity Cell_Spawn(IDRecordService idRecordService,
                                                AssetsInfraContext assetsInfraContext,
                                                Vector2Int pos) {
 
             var prefab = assetsInfraContext.Entity_GetCell();
-            var cell = GameObject.Instantiate(prefab).GetComponent<CellSubEntity>();
+            var cell = GameObject.Instantiate(prefab).GetComponent<CellEntity>();
             cell.Ctor();
 
             // Set ID

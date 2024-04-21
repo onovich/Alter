@@ -33,9 +33,9 @@ namespace Alter {
         }
 
         public GameObject Entity_GetCell() {
-            var has = Entity_TryGet("SubEntity_Cell", out var prefab);
+            var has = Entity_TryGet("Entity_Cell", out var prefab);
             if (!has) {
-                GLog.LogError($"SubEntity Cell not found");
+                GLog.LogError($"Entity_Cell not found");
             }
             return prefab;
         }

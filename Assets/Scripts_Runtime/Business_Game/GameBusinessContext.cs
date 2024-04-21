@@ -48,7 +48,7 @@ namespace Alter {
         }
 
         // Block
-        public void Cell_ForEach(Action<CellSubEntity> onAction) {
+        public void Cell_ForEach(Action<CellEntity> onAction) {
             cellRepo.ForEach(onAction);
         }
 

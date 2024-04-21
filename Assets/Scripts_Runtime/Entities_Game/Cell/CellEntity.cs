@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Alter {
 
-    public class CellSubEntity : MonoBehaviour {
+    public class CellEntity : MonoBehaviour {
 
         public int entityID;
 
