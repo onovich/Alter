@@ -30,7 +30,7 @@ namespace Alter {
 
         public static void ApplyConstraint(GameBusinessContext ctx) {
             var block = ctx.currentBlock;
-            var offset = block.Move_GetConstraintOffset(ctx.currentMapEntity.mapSize, ctx.currentMapEntity.PosInt, block.PosInt);
+            var offset = block.Move_GetConstraintOffset(ctx.currentMapEntity.mapSize, ctx.currentMapEntity.PosInt);
             block.Pos_SetPos(block.PosInt + offset);
         }
 
@@ -40,6 +40,14 @@ namespace Alter {
         }
 
         public static void ApplyCheckLanding(GameBusinessContext ctx) {
+            var block = ctx.currentBlock;
+            if (CheckInAir(ctx, block)) {
+                return;
+            }
+            // if (CheckNextIsNotLandingCell(ctx, block)) {
+            //     return;
+            // }
+            block.fsmComponent.Landing_Enter();
         }
 
         public static void ApplyFalling(GameBusinessContext ctx, BlockEntity block) {
@@ -60,9 +68,12 @@ namespace Alter {
             return block.Move_CheckInAir(mapSize, mapPos, pos, dir);
         }
 
-        static bool CheckNextIsNotLandingCell(GameBusinessContext ctx, BlockEntity block) {
-            return true;
-        }
+        // static bool CheckNextIsNotLandingCell(GameBusinessContext ctx, BlockEntity block) {
+        //     var pos = block.PosInt;
+        //     var map = ctx.currentMapEntity;
+        //     var nextPos = pos + Vector2Int.down;
+
+        // }
 
     }
 

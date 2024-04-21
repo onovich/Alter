@@ -59,8 +59,6 @@ namespace Alter {
                 var block = ctx.currentBlock;
                 GameBlockFSMController.TickFSM(ctx, block, dt);
 
-                GameBlockDomain.ApplyCheckLanding(ctx);
-                GameBlockDomain.ApplyConstraint(ctx);
                 GameGameDomain.ResetFallingFrame(ctx);
 
                 // All Cell

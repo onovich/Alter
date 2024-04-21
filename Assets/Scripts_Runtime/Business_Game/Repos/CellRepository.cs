@@ -54,16 +54,16 @@ namespace Alter {
             posMap.Remove(cell.PosInt);
         }
 
-        public bool TryGetBlock(int index, out CellEntity cell) {
+        public bool TryGetCell(int index, out CellEntity cell) {
             return all.TryGetValue(index, out cell);
         }
 
-        public bool TryGetBlockByPos(Vector2Int pos, out CellEntity cell) {
+        public bool TryGetCellByPos(Vector2Int pos, out CellEntity cell) {
             return posMap.TryGetValue(pos, out cell);
         }
 
         public bool IsInRange(int entityID, in Vector2 pos, float range) {
-            bool has = TryGetBlock(entityID, out var cell);
+            bool has = TryGetCell(entityID, out var cell);
             if (!has) {
                 return false;
             }

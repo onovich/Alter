@@ -45,12 +45,16 @@ namespace Alter {
             cellList.Add(cell);
         }
 
+        public bool Cell_IsInBlock(int cellID) {
+            return cellList.Exists(cell => cell.entityID == cellID);
+        }
+
         // Move
-        public Vector2Int Move_GetConstraintOffset(Vector2Int constraintSize, Vector2Int constraintCenter, Vector2Int pos) {
+        public Vector2Int Move_GetConstraintOffset(Vector2Int constraintSize, Vector2Int constraintCenter) {
             Vector2Int blockMin = PosInt;
             Vector2Int blockMax = PosInt + size;
 
-            Vector2Int min = constraintCenter - constraintSize / 2 + constraintCenter;
+            Vector2Int min = constraintCenter - constraintSize / 2 + constraintCenter + Vector2Int.up;
             Vector2Int max = constraintCenter + constraintSize / 2 + constraintCenter;
 
             Vector2Int offset = Vector2Int.zero;
@@ -60,7 +64,7 @@ namespace Alter {
             if (blockMin.x <= min.x) {
                 offset.x += min.x - blockMin.x;
             }
-            if (blockMin.y <= min.y) {
+            if (blockMin.y < min.y) {
                 offset.y += min.y - blockMin.y;
             }
             return offset;
