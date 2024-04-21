@@ -71,6 +71,7 @@ namespace Alter {
             for (int i = 0; i < cellLen; i++) {
                 var cell = cellArr[i];
                 cell.fsmComponent.Landing_Enter();
+                ctx.cellRepo.RemoveCurrentBlock(cell.entityID);
             }
         }
 

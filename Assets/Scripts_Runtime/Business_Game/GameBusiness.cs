@@ -55,8 +55,8 @@ namespace Alter {
 
                 GameGameDomain.ApplyFallingFrame(ctx, dt);
 
-                // Cell
-                var cellLen = ctx.cellRepo.TakeAll(out var cellArr);
+                // Cell In Block
+                var cellLen = ctx.cellRepo.TakeAllCurrentBlock(out var cellArr);
                 for (int i = 0; i < cellLen; i++) {
                     var cell = cellArr[i];
                     GameCellFSMController.TickFSM(ctx, cell, dt);
@@ -72,6 +72,8 @@ namespace Alter {
                 }
 
                 GameGameDomain.ResetFallingFrame(ctx);
+
+                // All Cell
 
                 // Result
                 GameGameDomain.ApplyGameResult(ctx);

@@ -14,6 +14,7 @@ namespace Alter {
             blockTM.ForEachCellsLocalPos((localPos) => {
                 var cellPos = pos + localPos;
                 var cell = GameCellDomain.Spawn(ctx, cellPos);
+                ctx.cellRepo.SetCurrentBlock(cell.entityID, cell);
                 cell.fsmComponent.Moving_Enter();
             });
         }
