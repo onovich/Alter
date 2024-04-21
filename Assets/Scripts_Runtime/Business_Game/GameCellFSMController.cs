@@ -29,14 +29,11 @@ namespace Alter {
 
         static void TickFSM_Moving(GameBusinessContext ctx, CellEntity cell, float fixdt) {
             CellFSMComponent fsm = cell.fsmComponent;
-            if (!ctx.gameEntity.IsFallingFrame) {
-                return;
-            }
-
             if (fsm.moving_isEntering) {
                 fsm.moving_isEntering = false;
             }
-
+            var moveDir = ctx.inputEntity.moveAxis;
+            GameCellDomain.ApplyMove(ctx, cell, moveDir);
             GameCellDomain.ApplyFalling(ctx, cell);
         }
 

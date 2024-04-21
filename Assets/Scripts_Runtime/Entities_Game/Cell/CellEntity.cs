@@ -51,6 +51,14 @@ namespace Alter {
             return true;
         }
 
+        public bool Move_CheckInAir(Vector2Int constraintSize, Vector2 constraintCenter, Vector2 pos, Vector2Int axis) {
+            Vector2Int min = (constraintCenter - constraintSize / 2 + constraintCenter).RoundToVector2Int();
+            if (pos.y + axis.y <= min.y) {
+                return false;
+            }
+            return true;
+        }
+
         public void TearDown() {
             Destroy(gameObject);
         }

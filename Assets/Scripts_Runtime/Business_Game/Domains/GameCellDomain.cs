@@ -19,8 +19,23 @@ namespace Alter {
         }
 
         public static void ApplyFalling(GameBusinessContext ctx, CellEntity cell) {
+            if (!ctx.gameEntity.IsFallingFrame) {
+                return;
+            }
             var dir = Vector2Int.down;
             var pos = cell.PosInt;
+            cell.Pos_SetPos(pos + dir);
+        }
+
+        public static void ApplyMove(GameBusinessContext ctx, CellEntity cell, Vector2Int dir) {
+            var pos = cell.PosInt;
+            var allow = cell.Move_CheckInConstraint(ctx.currentMapEntity.mapSize,
+                                                   ctx.currentMapEntity.Pos,
+                                                   pos,
+                                                   dir);
+            if (!allow) {
+                return;
+            }
             cell.Pos_SetPos(pos + dir);
         }
 
@@ -65,7 +80,7 @@ namespace Alter {
             var map = ctx.currentMapEntity;
             var mapSize = map.mapSize;
             var mapPos = map.Pos;
-            return cell.Move_CheckInConstraint(mapSize, mapPos, pos, dir);
+            return cell.Move_CheckInAir(mapSize, mapPos, pos, dir);
         }
 
         static bool CheckNextIsNotLandingCell(GameBusinessContext ctx, CellEntity cell) {
