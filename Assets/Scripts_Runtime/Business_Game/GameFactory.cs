@@ -29,8 +29,9 @@ namespace Alter {
         }
 
         public static BlockEntity Block_Spawn(IDRecordService idRecordService,
-                                               AssetsInfraContext assetsInfraContext,
-                                               Vector2Int pos) {
+                                              TemplateInfraContext templateInfraContext,
+                                              AssetsInfraContext assetsInfraContext,
+                                              Vector2Int pos) {
 
             var prefab = assetsInfraContext.Entity_GetBlock();
             var block = GameObject.Instantiate(prefab).GetComponent<BlockEntity>();
@@ -43,6 +44,12 @@ namespace Alter {
             // Set Pos
             block.Pos_SetPos(pos);
 
+            // Set Size
+            var has = templateInfraContext.Block_TryGet(id, out var blockTM);
+            if (!has) {
+                GLog.LogError($"Block {id} not found");
+            }
+            block.size = blockTM.size;
             return block;
         }
 

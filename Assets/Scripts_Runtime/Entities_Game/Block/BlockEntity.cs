@@ -12,6 +12,8 @@ namespace Alter {
         public Vector2 Pos => transform.position;
         public Vector2Int PosInt => Pos_GetPosInt();
 
+        public Vector2Int size;
+
         public Vector2Int lastPosInt;
 
         // FSM
@@ -45,17 +47,21 @@ namespace Alter {
 
         // Move
         public Vector2Int Move_GetConstraintOffset(Vector2Int constraintSize, Vector2 constraintCenter, Vector2Int pos) {
+            Vector2Int blockMin = PosInt;
+            Vector2Int blockMax = PosInt + size - Vector2Int.right;
+           
             Vector2Int min = (constraintCenter - constraintSize / 2 + constraintCenter).RoundToVector2Int();
             Vector2Int max = (constraintCenter + constraintSize / 2 + constraintCenter).RoundToVector2Int() - Vector2Int.right;
+            
             Vector2Int offset = Vector2Int.zero;
-            if (pos.x > max.x) {
-                offset.x += max.x - pos.x;
+            if (blockMax.x > max.x) {
+                offset.x += max.x - blockMax.x;
             }
-            if (pos.x <= min.x) {
-                offset.x += min.x - pos.x;
+            if (blockMin.x <= min.x) {
+                offset.x += min.x - blockMin.x;
             }
-            if (pos.y <= min.y) {
-                offset.y += min.y - pos.y;
+            if (blockMin.y <= min.y) {
+                offset.y += min.y - blockMin.y;
             }
             return offset;
         }

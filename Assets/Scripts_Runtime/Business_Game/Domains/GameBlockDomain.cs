@@ -6,6 +6,7 @@ namespace Alter {
 
         public static void SpawnBlock(GameBusinessContext ctx, int typeID, Vector2Int pos) {
             var block = GameFactory.Block_Spawn(ctx.idRecordService,
+                                                ctx.templateInfraContext,
                                                 ctx.assetsInfraContext,
                                                 pos);
             ctx.SetCurrentBlock(block);
@@ -28,7 +29,9 @@ namespace Alter {
         }
 
         public static void ApplyConstraint(GameBusinessContext ctx) {
-
+            var block = ctx.currentBlock;
+            var offset = block.Move_GetConstraintOffset(ctx.currentMapEntity.mapSize, ctx.currentMapEntity.Pos, block.PosInt);
+            block.Pos_SetPos(block.PosInt + offset);
         }
 
         public static void ApplyMove(GameBusinessContext ctx, BlockEntity block, Vector2Int dir) {
