@@ -20,11 +20,8 @@ namespace Alter {
             block.TearDown();
         }
 
-        static void ResetBlock(GameBusinessContext ctx, BlockEntity block) {
-            var originalPos = block.originalPos;
-            var oldPos = block.PosInt;
-            block.Pos_SetPos(originalPos);
-            ctx.blockRepo.UpdatePos(oldPos, block);
+        public static void ApplyFalling(GameBusinessContext ctx, BlockEntity block) {
+            block.Pos_SetPos(block.Pos + Vector2.down);
         }
 
     }

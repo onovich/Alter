@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Alter {
@@ -10,6 +11,7 @@ namespace Alter {
 
             // Game
             var game = ctx.gameEntity;
+            game.SetFrameInterval(config.gameIntervalTime);
             game.fsmComponent.Gaming_Enter(config.gameTotalTime);
 
             // Map
@@ -41,6 +43,11 @@ namespace Alter {
             if (enterTime <= 0) {
                 UIApp.GameOver_Open(ctx.uiContext, fsm.gameOver_result);
             }
+        }
+
+        public static void ApplyFrame(GameBusinessContext ctx, float dt, Action onNextFrame) {
+            var game = ctx.gameEntity;
+            game.Tick(dt, onNextFrame);
         }
 
         public static void RestartGame(GameBusinessContext ctx) {

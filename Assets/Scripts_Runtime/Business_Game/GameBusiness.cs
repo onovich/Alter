@@ -53,14 +53,20 @@ namespace Alter {
             var map = ctx.currentMapEntity;
             if (status == GameStatus.Gaming) {
 
-                // Block
-                var blockLen = ctx.blockRepo.TakeAll(out var blockArr);
-                for (int i = 0; i < blockLen; i++) {
-                    var block = blockArr[i];
-                }
+                GameGameDomain.ApplyFrame(ctx, dt, () => {
 
-                // Result
-                GameGameDomain.ApplyGameResult(ctx);
+                    // Block
+                    var blockLen = ctx.blockRepo.TakeAll(out var blockArr);
+                    for (int i = 0; i < blockLen; i++) {
+                        var block = blockArr[i];
+                        GameBlockDomain.ApplyFalling(ctx, block);
+                    }
+
+                    // Result
+                    GameGameDomain.ApplyGameResult(ctx);
+
+                });
+
             }
             if (status == GameStatus.GameOver) {
                 GameGameDomain.ApplyGameOver(ctx, dt);

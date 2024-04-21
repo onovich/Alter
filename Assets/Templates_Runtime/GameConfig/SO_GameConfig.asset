@@ -14,9 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameResetEnterTime: 1
   gameTotalTime: 60
-  ownerRoleTypeID: 1
   originalMapTypeID: 1
-  cameraDeadZoneNormalizedSize: {x: 0, y: 0}
+  gameIntervalTime: 0.083333336
   cameraShakeFrequency_roleDamage: 6
   cameraShakeAmplitude_roleDamage: 0.2
   cameraShakeDuration_roleDamage: 0.1
