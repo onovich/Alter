@@ -131,4 +131,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityID: 0
   lastPosInt: {x: 0, y: 0}
-  spr: {fileID: 0}
+  spr: {fileID: 3621040511150740472}

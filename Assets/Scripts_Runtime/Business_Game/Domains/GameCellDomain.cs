@@ -32,27 +32,51 @@ namespace Alter {
             }
         }
 
-        public static bool CheckConstraint(GameBusinessContext ctx, CellEntity cell) {
+        public static void ApplyCheckAllCellLanding(GameBusinessContext ctx) {
+            var cellLen = ctx.cellRepo.TakeAll(out var cellArr);
+            bool notInLand = true;
+            for (int i = 0; i < cellLen; i++) {
+                var cell = cellArr[i];
+                if (cell.fsmComponent.Status == CellFSMStatus.Landing) {
+                    continue;
+                }
+                notInLand &= GameCellDomain.CheckInConstraint(ctx, cell);
+                notInLand &= GameCellDomain.CheckNextIsNotLandingCell(ctx, cell);
+                if (!notInLand) {
+                    break;
+                }
+            }
+
+            if (notInLand) {
+                return;
+            }
+            for (int i = 0; i < cellLen; i++) {
+                var cell = cellArr[i];
+                cell.fsmComponent.Landing_Enter();
+            }
+        }
+
+        static bool CheckInConstraint(GameBusinessContext ctx, CellEntity cell) {
             var dir = Vector2Int.down;
             var pos = cell.PosInt;
             var map = ctx.currentMapEntity;
             var mapSize = map.mapSize;
             var mapPos = map.Pos;
-            return cell.Move_CheckConstraint(mapSize, mapPos, pos, dir);
+            return cell.Move_CheckInConstraint(mapSize, mapPos, pos, dir);
         }
 
-        public static bool CheckNextIsLandingCell(GameBusinessContext ctx, CellEntity cell) {
+        static bool CheckNextIsNotLandingCell(GameBusinessContext ctx, CellEntity cell) {
             var dir = Vector2Int.down;
             var pos = cell.PosInt;
             var nextPos = pos + dir;
             var has = ctx.cellRepo.TryGetBlockByPos(nextPos, out var _);
             if (!has) {
-                return false;
-            }
-            if (cell.fsmComponent.Status == CellFSMStatus.Landing) {
                 return true;
             }
-            return false;
+            if (cell.fsmComponent.Status == CellFSMStatus.Landing) {
+                return false;
+            }
+            return true;
         }
 
     }
