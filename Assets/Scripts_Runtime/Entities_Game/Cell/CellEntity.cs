@@ -10,11 +10,14 @@ namespace Alter {
         public Vector2 Pos => transform.position;
         public Vector2Int PosInt => Pos_GetPosInt();
 
+        // FSM
+        public CellFSMComponent fsmComponent;
+
         // Render
         [SerializeField] SpriteRenderer spr;
 
         public void Ctor() {
-
+            fsmComponent = new CellFSMComponent();
         }
 
         public void Pos_SetPos(Vector2Int pos) {

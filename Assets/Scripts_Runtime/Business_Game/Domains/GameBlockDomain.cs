@@ -13,6 +13,7 @@ namespace Alter {
             blockTM.ForEachCellsLocalPos((localPos) => {
                 var cellPos = pos + localPos;
                 var cell = GameCellDomain.Spawn(ctx, cellPos);
+                cell.fsmComponent.Moving_Enter();
             });
         }
 
