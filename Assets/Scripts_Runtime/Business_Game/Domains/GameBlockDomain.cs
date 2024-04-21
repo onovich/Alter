@@ -30,7 +30,7 @@ namespace Alter {
 
         public static void ApplyConstraint(GameBusinessContext ctx) {
             var block = ctx.currentBlock;
-            var offset = block.Move_GetConstraintOffset(ctx.currentMapEntity.mapSize, ctx.currentMapEntity.Pos, block.PosInt);
+            var offset = block.Move_GetConstraintOffset(ctx.currentMapEntity.mapSize, ctx.currentMapEntity.PosInt, block.PosInt);
             block.Pos_SetPos(block.PosInt + offset);
         }
 
@@ -56,7 +56,7 @@ namespace Alter {
             var pos = block.PosInt;
             var map = ctx.currentMapEntity;
             var mapSize = map.mapSize;
-            var mapPos = map.Pos;
+            var mapPos = map.PosInt;
             return block.Move_CheckInAir(mapSize, mapPos, pos, dir);
         }
 

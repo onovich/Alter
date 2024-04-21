@@ -46,13 +46,13 @@ namespace Alter {
         }
 
         // Move
-        public Vector2Int Move_GetConstraintOffset(Vector2Int constraintSize, Vector2 constraintCenter, Vector2Int pos) {
+        public Vector2Int Move_GetConstraintOffset(Vector2Int constraintSize, Vector2Int constraintCenter, Vector2Int pos) {
             Vector2Int blockMin = PosInt;
-            Vector2Int blockMax = PosInt + size - Vector2Int.right;
-           
-            Vector2Int min = (constraintCenter - constraintSize / 2 + constraintCenter).RoundToVector2Int();
-            Vector2Int max = (constraintCenter + constraintSize / 2 + constraintCenter).RoundToVector2Int() - Vector2Int.right;
-            
+            Vector2Int blockMax = PosInt + size;
+
+            Vector2Int min = constraintCenter - constraintSize / 2 + constraintCenter;
+            Vector2Int max = constraintCenter + constraintSize / 2 + constraintCenter;
+
             Vector2Int offset = Vector2Int.zero;
             if (blockMax.x > max.x) {
                 offset.x += max.x - blockMax.x;
@@ -66,8 +66,8 @@ namespace Alter {
             return offset;
         }
 
-        public bool Move_CheckInAir(Vector2Int constraintSize, Vector2 constraintCenter, Vector2 pos, Vector2Int axis) {
-            Vector2Int min = (constraintCenter - constraintSize / 2 + constraintCenter).RoundToVector2Int();
+        public bool Move_CheckInAir(Vector2Int constraintSize, Vector2Int constraintCenter, Vector2Int pos, Vector2Int axis) {
+            Vector2Int min = constraintCenter - constraintSize / 2 + constraintCenter;
             if (pos.y + axis.y <= min.y) {
                 return false;
             }

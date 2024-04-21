@@ -11,8 +11,8 @@ namespace Alter {
         public Vector2Int mapSize;
         [SerializeField] SpriteRenderer spr;
 
-        public Vector2 spawnPoint;
-        public Vector2 Pos => transform.position;
+        public Vector2Int spawnPoint;
+        public Vector2Int PosInt => transform.position.RoundToVector2Int();
 
         public float timer;
 
