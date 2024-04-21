@@ -39,16 +39,20 @@ namespace Alter {
         }
 
         // Move
-        public bool Move_CheckInConstraint(Vector2Int constraintSize, Vector2 constraintCenter, Vector2 pos, Vector2Int axis) {
+        public Vector2Int Move_GetConstraintOffset(Vector2Int constraintSize, Vector2 constraintCenter, Vector2Int pos) {
             Vector2Int min = (constraintCenter - constraintSize / 2 + constraintCenter).RoundToVector2Int();
-            Vector2Int max = (constraintCenter + constraintSize / 2 + constraintCenter).RoundToVector2Int();
-            if (pos.x + axis.x >= max.x || pos.x + axis.x < min.x) {
-                return false;
+            Vector2Int max = (constraintCenter + constraintSize / 2 + constraintCenter).RoundToVector2Int() - Vector2Int.right;
+            Vector2Int offset = Vector2Int.zero;
+            if (pos.x > max.x) {
+                offset.x += max.x - pos.x;
             }
-            if (pos.y + axis.y <= min.y) {
-                return false;
+            if (pos.x <= min.x) {
+                offset.x += min.x - pos.x;
             }
-            return true;
+            if (pos.y <= min.y) {
+                offset.y += min.y - pos.y;
+            }
+            return offset;
         }
 
         public bool Move_CheckInAir(Vector2Int constraintSize, Vector2 constraintCenter, Vector2 pos, Vector2Int axis) {

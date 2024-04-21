@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Alter {
@@ -27,23 +28,30 @@ namespace Alter {
             cell.Pos_SetPos(pos + dir);
         }
 
-        public static void CheckAndMarkMovable(GameBusinessContext ctx) {
+        public static void ApplyConstraint(GameBusinessContext ctx) {
             var cellLen = ctx.cellRepo.TakeAllCurrentBlock(out var cellArr);
-            var dir = ctx.inputEntity.moveAxis;
-            bool allow = true;
+            var offset = Vector2Int.zero;
             for (int i = 0; i < cellLen; i++) {
                 var cell = cellArr[i];
                 var pos = cell.PosInt;
-                allow &= cell.Move_CheckInConstraint(ctx.currentMapEntity.mapSize,
-                                                      ctx.currentMapEntity.Pos,
-                                                      pos,
-                                                      dir);
-                if (!allow) {
-                    break;
+
+                var _offset = cell.Move_GetConstraintOffset(ctx.currentMapEntity.mapSize,
+                                                        ctx.currentMapEntity.Pos,
+                                                        pos);
+                if (Mathf.Abs(_offset.x) >= Mathf.Abs(offset.x)) {
+                    offset.x = _offset.x;
+                }
+                if (Mathf.Abs(_offset.y) >= Mathf.Abs(offset.y)) {
+                    offset.y = _offset.y;
                 }
             }
-            if (!allow) {
-                ctx.inputEntity.ResetMoveAxis();
+            if (offset == Vector2Int.zero) {
+                return;
+            }
+            for (int i = 0; i < cellLen; i++) {
+                var cell = cellArr[i];
+                var pos = cell.PosInt;
+                cell.Pos_SetPos(pos + offset);
             }
         }
 
