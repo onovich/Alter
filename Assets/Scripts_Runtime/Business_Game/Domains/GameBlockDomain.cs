@@ -39,6 +39,14 @@ namespace Alter {
             block.Pos_SetPos(pos + dir);
         }
 
+        public static void ApplyRotate(GameBusinessContext ctx) {
+            if (ctx.inputEntity.isRotate == false) {
+                return;
+            }
+            var block = ctx.currentBlock;
+            block.Rotate();
+        }
+
         public static void ApplyCheckLanding(GameBusinessContext ctx) {
             var block = ctx.currentBlock;
             if (CheckInAir(ctx, block) && CheckNextIsNoCell(ctx, block)) {
@@ -80,6 +88,11 @@ namespace Alter {
             });
 
             return noCell;
+        }
+
+        public static void UnSpawn(GameBusinessContext ctx, BlockEntity cell) {
+            ctx.SetCurrentBlock(null);
+            cell.TearDown();
         }
 
     }

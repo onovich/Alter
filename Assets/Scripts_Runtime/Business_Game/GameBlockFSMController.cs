@@ -30,7 +30,8 @@ namespace Alter {
             }
             var moveDir = ctx.inputEntity.moveAxis;
             GameBlockDomain.ApplyMove(ctx, block, moveDir);
-            GameBlockDomain.ApplyFalling(ctx, block);
+            GameBlockDomain.ApplyRotate(ctx);
+            // GameBlockDomain.ApplyFalling(ctx, block);
             GameBlockDomain.ApplyCheckLanding(ctx);
             GameBlockDomain.ApplyConstraint(ctx);
         }

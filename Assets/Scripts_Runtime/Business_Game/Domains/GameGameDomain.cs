@@ -87,6 +87,12 @@ namespace Alter {
                 GameCellDomain.UnSpawn(ctx, cell);
             }
 
+            // Block
+            var block = ctx.currentBlock;
+            if (block != null) {
+                GameBlockDomain.UnSpawn(ctx, block);
+            }
+
             // Repo
             ctx.Reset();
 

@@ -50,6 +50,7 @@ namespace Alter {
                 GLog.LogError($"Block {id} not found");
             }
             block.size = blockTM.size;
+
             return block;
         }
 

@@ -49,6 +49,17 @@ namespace Alter {
             return cellList.Exists(cell => cell.entityID == cellID);
         }
 
+        public void Rotate() {
+            Vector2Int center = PosInt + size / 2;
+            foreach (var cell in cellList) {
+                Vector2Int offset = cell.PosInt - center;
+                Vector2Int newPos = center + new Vector2Int(offset.y, -offset.x);
+                cell.Pos_SetPos(newPos);
+            }
+            size = new Vector2Int(size.y, size.x);
+            center = new Vector2Int(center.y, center.x);
+        }
+
         // Move
         public Vector2Int Move_GetConstraintOffset(Vector2Int constraintSize, Vector2Int constraintCenter) {
             Vector2Int blockMin = PosInt;
@@ -76,6 +87,12 @@ namespace Alter {
                 return false;
             }
             return true;
+        }
+
+        private void OnDrawGizmos() {
+            Gizmos.color = Color.green;
+            var center = PosInt + size / 2;
+            Gizmos.DrawWireCube(center.ToVector3Int(), size.ToVector3Int());
         }
 
         public void TearDown() {

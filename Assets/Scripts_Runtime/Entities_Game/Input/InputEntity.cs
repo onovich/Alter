@@ -7,6 +7,7 @@ namespace Alter {
     public class InputEntity {
 
         public Vector2Int moveAxis;
+        public bool isRotate;
 
         float inputTimer;
         float inputInterval;
@@ -40,7 +41,7 @@ namespace Alter {
                 moveAxis.x = 1;
             }
             if (keybindingCom.IsKeyPressing(InputKeyEnum.MoveUp)) {
-                moveAxis.y = 1;
+                isRotate = true;
             }
             if (keybindingCom.IsKeyPressing(InputKeyEnum.MoveDown)) {
                 moveAxis.y = -1;
@@ -56,6 +57,7 @@ namespace Alter {
 
         public void Reset() {
             moveAxis = Vector2Int.zero;
+            isRotate = false;
         }
 
     }
