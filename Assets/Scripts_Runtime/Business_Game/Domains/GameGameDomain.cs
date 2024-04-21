@@ -20,71 +20,10 @@ namespace Alter {
                 GLog.LogError($"MapTM Not Found {mapTypeID}");
             }
 
-            // Role
             var player = ctx.playerEntity;
 
-            // - Owner
             var spawnPoint = mapTM.spawnPoint;
-            var owner = GameRoleDomain.Spawn(ctx,
-                                             config.ownerRoleTypeID,
-                                             spawnPoint);
-            player.ownerRoleEntityID = owner.entityID;
             ctx.ownerSpawnPoint = spawnPoint;
-
-            // Block
-            var blockTMArr = mapTM.blockTMArr;
-            var blockPosArr = mapTM.blockPosArr;
-            var blockSizeArr = mapTM.blockSizeArr;
-            var blockIndexArr = mapTM.blockIndexArr;
-            for (int i = 0; i < blockTMArr.Length; i++) {
-                var blockTM = blockTMArr[i];
-                var pos = blockPosArr[i];
-                var size = blockSizeArr[i];
-                var index = blockIndexArr[i];
-                var _ = GameBlockDomain.Spawn(ctx, blockTM.typeID, index, pos, size);
-            }
-
-            // Wall
-            var wallTMArr = mapTM.wallTMArr;
-            var wallPosArr = mapTM.wallPosArr;
-            var wallSizeArr = mapTM.wallSizeArr;
-            var wallIndexArr = mapTM.wallIndexArr;
-            for (int i = 0; i < wallTMArr.Length; i++) {
-                var wallTM = wallTMArr[i];
-                var pos = wallPosArr[i];
-                var size = wallSizeArr[i];
-                var index = wallIndexArr[i];
-                var _ = GameWallDomain.Spawn(ctx, wallTM.typeID, index, pos, size);
-            }
-
-            // Goal
-            var goalTMArr = mapTM.goalTMArr;
-            var goalPosArr = mapTM.goalPosArr;
-            var goalSizeArr = mapTM.goalSizeArr;
-            var goalIndexArr = mapTM.goalIndexArr;
-            for (int i = 0; i < goalTMArr.Length; i++) {
-                var goalTM = goalTMArr[i];
-                var pos = goalPosArr[i];
-                var size = goalSizeArr[i];
-                var index = goalIndexArr[i];
-                var _ = GameGoalDomain.Spawn(ctx, goalTM.typeID, index, pos, size);
-            }
-
-            // Spike
-            var spikeTMArr = mapTM.spikeTMArr;
-            var spikePosArr = mapTM.spikePosArr;
-            var spikeSizeArr = mapTM.spikeSizeArr;
-            var spikeIndexArr = mapTM.spikeIndexArr;
-            for (int i = 0; i < spikeTMArr.Length; i++) {
-                var spikeTM = spikeTMArr[i];
-                var pos = spikePosArr[i];
-                var size = spikeSizeArr[i];
-                var index = spikeIndexArr[i];
-                var _ = GameSpikeDomain.Spawn(ctx, spikeTM.typeID, index, pos, size);
-            }
-
-            // Camera
-            CameraApp.Init(ctx.cameraContext, owner.transform, Vector2.zero, mapTM.cameraConfinerWorldMax, mapTM.cameraConfinerWorldMin);
 
             // UI
             UIApp.GameInfo_Open(ctx.uiContext);
@@ -113,69 +52,8 @@ namespace Alter {
         }
 
         public static void ApplyGameResult(GameBusinessContext ctx) {
-            var owner = ctx.Role_GetOwner();
             var game = ctx.gameEntity;
             var config = ctx.templateInfraContext.Config_Get();
-
-            if (owner == null) {
-                game.fsmComponent.GameOver_Enter(config.gameResetEnterTime, GameResult.Lose);
-                return;
-            }
-            if (owner.fsmCom.status != RoleFSMStatus.Idle) {
-                return;
-            }
-
-            // Check Role Dead
-            var dead = CheckRoleDead(ctx);
-            if (dead) {
-                game.fsmComponent.GameOver_Enter(config.gameResetEnterTime, GameResult.Lose);
-                return;
-            }
-
-            // Check Time Finish
-            var timeFinish = CheckTimeFinish(ctx, Time.deltaTime);
-            if (timeFinish) {
-                game.fsmComponent.GameOver_Enter(config.gameResetEnterTime, GameResult.Lose);
-                return;
-            }
-
-            // Check Goal
-            var inGoal = CheckInGoal(ctx);
-            if (inGoal) {
-                game.fsmComponent.GameOver_Enter(config.gameResetEnterTime, GameResult.Win);
-            }
-        }
-
-        static bool CheckRoleDead(GameBusinessContext ctx) {
-            var owner = ctx.Role_GetOwner();
-            if (owner == null || owner.needTearDown) {
-                return true;
-            }
-            return false;
-        }
-
-        static bool CheckInGoal(GameBusinessContext ctx) {
-            var game = ctx.gameEntity;
-            var fsm = game.fsmComponent;
-
-            bool inGoal = true;
-            var config = ctx.templateInfraContext.Config_Get();
-
-            ctx.Block_ForEach((block) => {
-                inGoal &= GameBlockDomain.CheckInGoal(ctx, block);
-            });
-            return inGoal;
-        }
-
-        public static bool CheckTimeFinish(GameBusinessContext ctx, float dt) {
-            var game = ctx.gameEntity;
-            var fsm = game.fsmComponent;
-
-            fsm.Gaming_DecTimer(dt);
-            var time = fsm.gaming_gameTime;
-
-            var config = ctx.templateInfraContext.Config_Get();
-            return time <= 0;
         }
 
         public static void ExitGame(GameBusinessContext ctx) {
@@ -186,39 +64,11 @@ namespace Alter {
             // Map
             GameMapDomain.UnSpawn(ctx);
 
-            // Role
-            int roleLen = ctx.roleRepo.TakeAll(out var roleArr);
-            for (int i = 0; i < roleLen; i++) {
-                var role = roleArr[i];
-                GameRoleDomain.UnSpawn(ctx, role);
-            }
-
             // Block
             int blockLen = ctx.blockRepo.TakeAll(out var blockArr);
             for (int i = 0; i < blockLen; i++) {
                 var block = blockArr[i];
                 GameBlockDomain.UnSpawn(ctx, block);
-            }
-
-            // Wall
-            int wallLen = ctx.wallRepo.TakeAll(out var wallArr);
-            for (int i = 0; i < wallLen; i++) {
-                var wall = wallArr[i];
-                GameWallDomain.UnSpawn(ctx, wall);
-            }
-
-            // Goal
-            int goalLen = ctx.goalRepo.TakeAll(out var goalArr);
-            for (int i = 0; i < goalLen; i++) {
-                var goal = goalArr[i];
-                GameGoalDomain.UnSpawn(ctx, goal);
-            }
-
-            // Spike
-            int spikeLen = ctx.spikeRepo.TakeAll(out var spikeArr);
-            for (int i = 0; i < spikeLen; i++) {
-                var spike = spikeArr[i];
-                GameSpikeDomain.UnSpawn(ctx, spike);
             }
 
             // Repo

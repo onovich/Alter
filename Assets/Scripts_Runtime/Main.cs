@@ -21,7 +21,6 @@ namespace Alter {
 
         UIAppContext uiAppContext;
         VFXAppContext vfxAppContext;
-        CameraAppContext cameraAppContext;
 
         bool isLoadedAssets;
         bool isTearDown;
@@ -43,7 +42,6 @@ namespace Alter {
 
             uiAppContext = new UIAppContext("UI", mainCanvas, hudFakeCanvas, mainCamera);
             vfxAppContext = new VFXAppContext("VFX", vfxRoot);
-            cameraAppContext = new CameraAppContext(mainCamera, new Vector2(Screen.width, Screen.height));
 
             assetsInfraContext = new AssetsInfraContext();
             templateInfraContext = new TemplateInfraContext();
@@ -56,10 +54,7 @@ namespace Alter {
             gameBusinessContext.templateInfraContext = templateInfraContext;
             gameBusinessContext.uiContext = uiAppContext;
             gameBusinessContext.vfxContext = vfxAppContext;
-            gameBusinessContext.cameraContext = cameraAppContext;
             gameBusinessContext.mainCamera = mainCamera;
-
-            cameraAppContext.templateInfraContext = templateInfraContext;
 
             // TODO Camera
 

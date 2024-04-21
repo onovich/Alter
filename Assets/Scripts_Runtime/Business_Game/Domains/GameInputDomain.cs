@@ -7,12 +7,6 @@ namespace Alter {
             inputEntity.ProcessInput(ctx.mainCamera, dt);
         }
 
-        public static void Owner_BakeInput(GameBusinessContext ctx, RoleEntity owner) {
-            InputEntity inputEntity = ctx.inputEntity;
-            ref RoleInputComponent inputCom = ref owner.inputCom;
-            inputCom.moveAxis = inputEntity.moveAxis;
-        }
-
     }
 
 }

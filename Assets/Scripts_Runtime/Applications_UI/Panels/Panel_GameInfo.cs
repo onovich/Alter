@@ -9,7 +9,6 @@ namespace Alter.UI {
     public class Panel_GameInfo : MonoBehaviour, IPanel {
 
         [SerializeField] Text timeText;
-        [SerializeField] Text gameStageCounterText;
         [SerializeField] Button restartBtn;
 
         public Action OnRestartBtnClickHandle;
@@ -22,10 +21,6 @@ namespace Alter.UI {
 
         public void RefreshTime(float time) {
             timeText.text = time.ToString("F0");
-        }
-
-        public void RefreshGameStageCounter(int counter) {
-            gameStageCounterText.text = counter.ToString();
         }
 
         public void OnDestroy() {

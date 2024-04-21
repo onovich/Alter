@@ -12,8 +12,8 @@ namespace Alter {
             var easingType = config.cameraShakeEasingType_roleDamage;
             var easingMode = config.cameraShakeEasingMode_roleDamage;
 
-            var cameraID = ctx.cameraContext.mainCameraID;
-            CameraApp.ShakeOnce(ctx.cameraContext,cameraID, shakeFrequency, shakeAmplitude, shakeDuration, easingType, easingMode);
+            // var cameraID = ctx.cameraContext.mainCameraID;
+            // CameraApp.ShakeOnce(ctx.cameraContext,cameraID, shakeFrequency, shakeAmplitude, shakeDuration, easingType, easingMode);
 
         }
 
