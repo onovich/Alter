@@ -33,6 +33,9 @@ namespace Alter {
         }
 
         public static void ApplyCheckAllCellLanding(GameBusinessContext ctx) {
+            if (!ctx.gameEntity.IsFallingFrame) {
+                return;
+            }
             var cellLen = ctx.cellRepo.TakeAll(out var cellArr);
             bool notInLand = true;
             for (int i = 0; i < cellLen; i++) {

@@ -8,18 +8,22 @@ namespace Alter {
         int currentFallingFrame;
         float fallingInterval;
 
+        bool isFallingFrame;
+        public bool IsFallingFrame => isFallingFrame;
+
         public GameFSMComponent fsmComponent;
 
         public GameEntity() {
             fsmComponent = new GameFSMComponent();
             currentFallingFrame = 0;
+            isFallingFrame = false;
         }
 
         public void SetFallingInterval(float fallingInterval) {
             this.fallingInterval = fallingInterval;
         }
 
-        public void ApplyFallingInterval(float dt, Action onNextFrame) {
+        public void ApplyFallingInterval(float dt) {
             fallingTimer += dt;
             if (fallingTimer < fallingInterval) {
                 return;
@@ -27,7 +31,12 @@ namespace Alter {
             fallingTimer -= fallingInterval;
 
             currentFallingFrame++;
-            onNextFrame.Invoke();
+            isFallingFrame = true;
+        }
+
+        public void ResetFallingFrame() {
+            currentFallingFrame = 0;
+            isFallingFrame = false;
         }
 
     }

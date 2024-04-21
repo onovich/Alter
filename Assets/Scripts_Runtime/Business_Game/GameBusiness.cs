@@ -53,28 +53,28 @@ namespace Alter {
             var map = ctx.currentMapEntity;
             if (status == GameStatus.Gaming) {
 
-                GameGameDomain.ApplyFrame(ctx, dt, () => {
+                GameGameDomain.ApplyFallingFrame(ctx, dt);
 
-                    // Cell
-                    var cellLen = ctx.cellRepo.TakeAll(out var cellArr);
-                    for (int i = 0; i < cellLen; i++) {
-                        var cell = cellArr[i];
-                        GameCellFSMController.TickFSM(ctx, cell, dt);
-                    }
-                    ctx.cellRepo.ClearPosMap();
-                    for (int i = 0; i < cellLen; i++) {
-                        var cell = cellArr[i];
-                        ctx.cellRepo.UpdatePos(cell.lastPosInt, cell);
-                    }
-                    for (int i = 0; i < cellLen; i++) {
-                        var cell = cellArr[i];
-                        GameCellDomain.ApplyCheckAllCellLanding(ctx);
-                    }
+                // Cell
+                var cellLen = ctx.cellRepo.TakeAll(out var cellArr);
+                for (int i = 0; i < cellLen; i++) {
+                    var cell = cellArr[i];
+                    GameCellFSMController.TickFSM(ctx, cell, dt);
+                }
+                ctx.cellRepo.ClearPosMap();
+                for (int i = 0; i < cellLen; i++) {
+                    var cell = cellArr[i];
+                    ctx.cellRepo.UpdatePos(cell.lastPosInt, cell);
+                }
+                for (int i = 0; i < cellLen; i++) {
+                    var cell = cellArr[i];
+                    GameCellDomain.ApplyCheckAllCellLanding(ctx);
+                }
 
-                    // Result
-                    GameGameDomain.ApplyGameResult(ctx);
+                GameGameDomain.ResetFallingFrame(ctx);
 
-                });
+                // Result
+                GameGameDomain.ApplyGameResult(ctx);
 
             }
             if (status == GameStatus.GameOver) {

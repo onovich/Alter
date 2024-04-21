@@ -49,9 +49,14 @@ namespace Alter {
             }
         }
 
-        public static void ApplyFrame(GameBusinessContext ctx, float dt, Action onFallingFrame) {
+        public static void ApplyFallingFrame(GameBusinessContext ctx, float dt) {
             var game = ctx.gameEntity;
-            game.ApplyFallingInterval(dt, onFallingFrame);
+            game.ApplyFallingInterval(dt);
+        }
+
+        public static void ResetFallingFrame(GameBusinessContext ctx) {
+            var game = ctx.gameEntity;
+            game.ResetFallingFrame();
         }
 
         public static void RestartGame(GameBusinessContext ctx) {
