@@ -41,12 +41,9 @@ namespace Alter {
 
         public static void ApplyCheckLanding(GameBusinessContext ctx) {
             var block = ctx.currentBlock;
-            if (CheckInAir(ctx, block)) {
+            if (CheckInAir(ctx, block) && CheckNextIsNoCell(ctx, block)) {
                 return;
             }
-            // if (CheckNextIsNotLandingCell(ctx, block)) {
-            //     return;
-            // }
             block.fsmComponent.Landing_Enter();
         }
 
@@ -68,12 +65,22 @@ namespace Alter {
             return block.Move_CheckInAir(mapSize, mapPos, pos, dir);
         }
 
-        // static bool CheckNextIsNotLandingCell(GameBusinessContext ctx, BlockEntity block) {
-        //     var pos = block.PosInt;
-        //     var map = ctx.currentMapEntity;
-        //     var nextPos = pos + Vector2Int.down;
+        static bool CheckNextIsNoCell(GameBusinessContext ctx, BlockEntity block) {
+            var pos = block.PosInt;
+            var size = block.size;
+            pos += Vector2Int.down;
+            var noCell = true;
+            GridUtils.ForEachBottomGridBySize(pos, size, (grid) => {
+                var has = ctx.cellRepo.TryGetCellByPos(grid, out var cell);
+                noCell &= (!has) ||
+                          (has && !block.Cell_IsInBlock(cell.entityID));
+                if (!noCell) {
+                    return;
+                }
+            });
 
-        // }
+            return noCell;
+        }
 
     }
 
