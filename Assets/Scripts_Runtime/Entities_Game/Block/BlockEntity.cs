@@ -12,7 +12,7 @@ namespace Alter {
         public Vector2 Pos => transform.position;
         public Vector2Int PosInt => Pos_GetPosInt();
 
-        public Vector2Int size;
+        public BoundsInt bounds;
 
         public Vector2Int lastPosInt;
 
@@ -50,20 +50,22 @@ namespace Alter {
         }
 
         public void Rotate() {
-            Vector2Int center = PosInt + size / 2;
+            var _size = new Vector2(bounds.Size.x, bounds.Size.y);
+            Vector2Int center = PosInt + (_size / 2).RoundToVector2Int();
             foreach (var cell in cellList) {
                 Vector2Int offset = cell.PosInt - center;
                 Vector2Int newPos = center + new Vector2Int(offset.y, -offset.x);
                 cell.Pos_SetPos(newPos);
             }
-            size = new Vector2Int(size.y, size.x);
+            var size = new Vector2Int(bounds.Size.y, bounds.Size.x);
             center = new Vector2Int(center.y, center.x);
+            bounds = new BoundsInt(center, size);
         }
 
         // Move
         public Vector2Int Move_GetConstraintOffset(Vector2Int constraintSize, Vector2Int constraintCenter) {
             Vector2Int blockMin = PosInt;
-            Vector2Int blockMax = PosInt + size;
+            Vector2Int blockMax = PosInt + bounds.Size;
 
             Vector2Int min = constraintCenter - constraintSize / 2 + constraintCenter + Vector2Int.up;
             Vector2Int max = constraintCenter + constraintSize / 2 + constraintCenter;
@@ -91,8 +93,8 @@ namespace Alter {
 
         private void OnDrawGizmos() {
             Gizmos.color = Color.green;
-            var center = PosInt + size / 2;
-            Gizmos.DrawWireCube(center.ToVector3Int(), size.ToVector3Int());
+            var center = PosInt + bounds.Size / 2;
+            Gizmos.DrawWireCube(center.ToVector3Int(), bounds.Size.ToVector3Int());
         }
 
         public void TearDown() {

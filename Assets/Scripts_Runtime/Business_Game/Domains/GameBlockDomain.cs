@@ -75,7 +75,7 @@ namespace Alter {
 
         static bool CheckNextIsNoCell(GameBusinessContext ctx, BlockEntity block) {
             var pos = block.PosInt;
-            var size = block.size;
+            var size = block.bounds.Size;
             pos += Vector2Int.down;
             var noCell = true;
             GridUtils.ForEachBottomGridBySize(pos, size, (grid) => {

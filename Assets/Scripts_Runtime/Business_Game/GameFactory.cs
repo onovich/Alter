@@ -44,12 +44,14 @@ namespace Alter {
             // Set Pos
             block.Pos_SetPos(pos);
 
-            // Set Size
+            // Set Bounds
             var has = templateInfraContext.Block_TryGet(id, out var blockTM);
             if (!has) {
                 GLog.LogError($"Block {id} not found");
             }
-            block.size = blockTM.size;
+            var center = pos + blockTM.size / 2;
+            var bounds = new BoundsInt(center, blockTM.size);
+            block.bounds = bounds;
 
             return block;
         }

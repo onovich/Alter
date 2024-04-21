@@ -16,7 +16,7 @@ MonoBehaviour:
   gameTotalTime: 60
   originalMapTypeID: 1
   gameFallingIntervalTime: 0.33333334
-  gameInputIntervalTime: 0.05
+  gameInputIntervalTime: 0.1
   cameraShakeFrequency_roleDamage: 6
   cameraShakeAmplitude_roleDamage: 0.2
   cameraShakeDuration_roleDamage: 0.1
