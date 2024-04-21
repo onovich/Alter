@@ -8,13 +8,26 @@ namespace Alter {
 
         public Vector2Int moveAxis;
 
+        float inputTimer;
+        float inputInterval;
+
         InputKeybindingComponent keybindingCom;
 
         public void Ctor() {
             keybindingCom.Ctor();
         }
 
+        public void SetInputInterval(float inputInterval) {
+            this.inputInterval = inputInterval;
+        }
+
         public void ProcessInput(Camera camera, float dt) {
+
+            inputTimer += dt;
+            if (inputTimer < inputInterval) {
+                return;
+            }
+            inputTimer -= inputInterval;
 
             if (keybindingCom.IsKeyPressing(InputKeyEnum.MoveLeft)) {
                 moveAxis.x = -1;

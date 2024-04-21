@@ -4,7 +4,7 @@ namespace Alter {
 
     public class GameEntity {
 
-        float timer;
+        float fallingTimer;
         int currentFallingFrame;
         float fallingInterval;
 
@@ -19,12 +19,12 @@ namespace Alter {
             this.fallingInterval = fallingInterval;
         }
 
-        public void Tick(float dt, Action onNextFrame) {
-            timer += dt;
-            if (timer < fallingInterval) {
+        public void ApplyFallingInterval(float dt, Action onNextFrame) {
+            fallingTimer += dt;
+            if (fallingTimer < fallingInterval) {
                 return;
             }
-            timer -= fallingInterval;
+            fallingTimer -= fallingInterval;
 
             currentFallingFrame++;
             onNextFrame.Invoke();

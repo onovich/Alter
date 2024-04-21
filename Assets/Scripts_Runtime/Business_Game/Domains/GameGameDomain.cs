@@ -9,6 +9,10 @@ namespace Alter {
 
             var config = ctx.templateInfraContext.Config_Get();
 
+            // Input
+            var input = ctx.inputEntity;
+            input.SetInputInterval(config.gameInputIntervalTime);
+
             // Game
             var game = ctx.gameEntity;
             game.SetFallingInterval(config.gameFallingIntervalTime);
@@ -45,9 +49,9 @@ namespace Alter {
             }
         }
 
-        public static void ApplyFrame(GameBusinessContext ctx, float dt, Action onNextFrame) {
+        public static void ApplyFrame(GameBusinessContext ctx, float dt, Action onFallingFrame) {
             var game = ctx.gameEntity;
-            game.Tick(dt, onNextFrame);
+            game.ApplyFallingInterval(dt, onFallingFrame);
         }
 
         public static void RestartGame(GameBusinessContext ctx) {
