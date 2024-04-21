@@ -21,14 +21,38 @@ namespace Alter {
         public static void ApplyFalling(GameBusinessContext ctx, CellEntity cell) {
             var dir = Vector2Int.down;
             var pos = cell.PosInt;
+            cell.Pos_SetPos(pos + dir);
+        }
+
+        public static void ApplyAllLand(GameBusinessContext ctx) {
+            var cellLen = ctx.cellRepo.TakeAll(out var cellArr);
+            for (int i = 0; i < cellLen; i++) {
+                var cell = cellArr[i];
+                cell.fsmComponent.Landing_Enter();
+            }
+        }
+
+        public static bool CheckConstraint(GameBusinessContext ctx, CellEntity cell) {
+            var dir = Vector2Int.down;
+            var pos = cell.PosInt;
             var map = ctx.currentMapEntity;
             var mapSize = map.mapSize;
             var mapPos = map.Pos;
-            var nextIsInBound = !cell.Move_CheckConstraint(mapSize, mapPos, pos, dir);
-            if (nextIsInBound) {
-                return;
+            return cell.Move_CheckConstraint(mapSize, mapPos, pos, dir);
+        }
+
+        public static bool CheckNextIsLandingCell(GameBusinessContext ctx, CellEntity cell) {
+            var dir = Vector2Int.down;
+            var pos = cell.PosInt;
+            var nextPos = pos + dir;
+            var has = ctx.cellRepo.TryGetBlockByPos(nextPos, out var _);
+            if (!has) {
+                return false;
             }
-            cell.Pos_SetPos(cell.PosInt + Vector2Int.down);
+            if (cell.fsmComponent.Status == CellFSMStatus.Landing) {
+                return true;
+            }
+            return false;
         }
 
     }

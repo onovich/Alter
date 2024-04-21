@@ -40,6 +40,10 @@ namespace Alter {
             return count;
         }
 
+        public void ClearPosMap() {
+            posMap.Clear();
+        }
+
         public void UpdatePos(Vector2Int oldPos, CellEntity cell) {
             posMap.Remove(oldPos);
             posMap.Add(cell.PosInt, cell);

@@ -59,7 +59,11 @@ namespace Alter {
                     var cellLen = ctx.cellRepo.TakeAll(out var cellArr);
                     for (int i = 0; i < cellLen; i++) {
                         var cell = cellArr[i];
-                        GameCellFSMController.FixedTickFSM(ctx, cell, dt);
+                        GameCellFSMController.TickFSM(ctx, cell, dt);
+                    }
+                    ctx.cellRepo.ClearPosMap();
+                    for (int i = 0; i < cellLen; i++) {
+                        ctx.cellRepo.UpdatePos(cellArr[i].lastPosInt, cellArr[i]);
                     }
 
                     // Result

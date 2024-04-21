@@ -10,6 +10,8 @@ namespace Alter {
         public Vector2 Pos => transform.position;
         public Vector2Int PosInt => Pos_GetPosInt();
 
+        public Vector2Int lastPosInt;
+
         // FSM
         public CellFSMComponent fsmComponent;
 
@@ -18,6 +20,10 @@ namespace Alter {
 
         public void Ctor() {
             fsmComponent = new CellFSMComponent();
+        }
+
+        public void RecordLatPos() {
+            lastPosInt = PosInt;
         }
 
         public void Pos_SetPos(Vector2Int pos) {
@@ -38,6 +44,7 @@ namespace Alter {
             if (pos.y + axis.y >= max.y || pos.y + axis.y <= min.y) {
                 return false;
             }
+            // Debug.Log($"Move_CheckConstraint: min = {min}; max = {max}; pos = {pos}; axis = {axis}");
             return true;
         }
 

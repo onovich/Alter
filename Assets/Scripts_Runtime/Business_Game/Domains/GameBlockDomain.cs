@@ -10,6 +10,7 @@ namespace Alter {
                 GLog.LogError($"Block {typeID} not found");
                 return;
             }
+            var map = ctx.currentMapEntity;
             blockTM.ForEachCellsLocalPos((localPos) => {
                 var cellPos = pos + localPos;
                 var cell = GameCellDomain.Spawn(ctx, cellPos);

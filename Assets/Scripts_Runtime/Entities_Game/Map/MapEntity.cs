@@ -22,7 +22,6 @@ namespace Alter {
 
         public void Mesh_SetSize(Vector2Int size) {
             spr.size = size;
-            spr.transform.position -= new Vector3(-1 / 2f, size.y / 2, 0);
         }
 
         public void IncTimer(float dt) {

@@ -4,7 +4,7 @@ namespace Alter {
 
     public static class GameCellFSMController {
 
-        public static void FixedTickFSM(GameBusinessContext ctx, CellEntity cell, float dt) {
+        public static void TickFSM(GameBusinessContext ctx, CellEntity cell, float dt) {
 
             FixedTickFSM_Any(ctx, cell, dt);
 
@@ -33,6 +33,14 @@ namespace Alter {
                 fsm.moving_isEntering = false;
             }
 
+            var allow = GameCellDomain.CheckConstraint(ctx, cell);
+            allow &= !GameCellDomain.CheckNextIsLandingCell(ctx, cell);
+            if (!allow) {
+                GameCellDomain.ApplyAllLand(ctx);
+                return;
+            }
+
+            cell.RecordLatPos();
             GameCellDomain.ApplyFalling(ctx, cell);
         }
 
