@@ -18,7 +18,7 @@ namespace Alter {
         public Vector2Int size;
         public bool[] cells;
 
-        public void ForEachCellsOffset(Action<Vector2Int> action) {
+        public void ForEachCellsLocalPos(Action<Vector2Int> action) {
             for (var x = 0; x < size.x; x++) {
                 for (var y = 0; y < size.y; y++) {
                     var index = x + y * size.x;

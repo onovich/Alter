@@ -33,6 +33,12 @@ namespace Alter {
             cell.transform.SetParent(cellsRoot);
         }
 
+        public void ForEachCells(Action<CellSubEntity> action) {
+            foreach (var cell in cells) {
+                action(cell);
+            }
+        }
+
         // Pos
         public void Pos_SetPos(Vector2 pos) {
             transform.position = pos;

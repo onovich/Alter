@@ -57,8 +57,8 @@ namespace Alter {
             block.originalPos = pos;
 
             // Set Cell
-            blockTM.ForEachCellsOffset(cellOffset => {
-                var cellPos = pos + cellOffset;
+            blockTM.ForEachCellsLocalPos(localPos => {
+                var cellPos = pos + localPos;
                 var cell = SpawnCellSubEntity(assetsInfraContext, cellPos, block);
             });
 
