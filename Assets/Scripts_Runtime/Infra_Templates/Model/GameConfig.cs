@@ -11,16 +11,9 @@ namespace Alter {
         [Header("Game Config")]
         public float gameResetEnterTime;
         public float gameTotalTime;
-
-        // Role
-        [Header("Role Config")]
-        public int ownerRoleTypeID;
         public int originalMapTypeID;
 
         // Camera
-        [Header("DeadZone Config")]
-        public Vector2 cameraDeadZoneNormalizedSize;
-
         [Header("Shake Config")]
         public float cameraShakeFrequency_roleDamage;
         public float cameraShakeAmplitude_roleDamage;

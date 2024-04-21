@@ -40,6 +40,14 @@ namespace Alter {
             return prefab;
         }
 
+        public GameObject Entity_GetCell() {
+            var has = Entity_TryGet("SubEntity_Cell", out var prefab);
+            if (!has) {
+                GLog.LogError($"SubEntity Cell not found");
+            }
+            return prefab;
+        }
+
     }
 
 }

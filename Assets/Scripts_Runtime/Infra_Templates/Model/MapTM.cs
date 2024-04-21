@@ -9,7 +9,6 @@ namespace Alter {
 
         public int typeID;
         public int seed;
-        public Vector2Int spawnPointTopOffset;
         public Vector2Int mapSize;
         public Vector2Int spawnPoint;
 

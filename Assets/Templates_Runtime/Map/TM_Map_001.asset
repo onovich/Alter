@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9a1e22956f2334251b773b2a1967c65b, type: 3}
-  m_Name: SO_Map_001
+  m_Name: TM_Map_001
   m_EditorClassIdentifier: 
   typeID: 1
   seed: 0

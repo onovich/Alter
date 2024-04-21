@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Alter {
@@ -10,9 +11,6 @@ namespace Alter {
         public int typeID;
         public string typeName;
 
-        // Render
-        [SerializeField] SpriteRenderer spr;
-
         // Pos
         public Vector2 Pos => transform.position;
         public Vector2Int PosInt => Pos_GetPosInt();
@@ -21,7 +19,18 @@ namespace Alter {
         // Size
         public Vector2Int sizeInt;
 
+        // Cells
+        [SerializeField] Transform cellsRoot;
+        List<CellSubEntity> cells;
+
         public void Ctor() {
+            cells = new List<CellSubEntity>();
+        }
+
+        // Cells
+        public void AddCell(CellSubEntity cell) {
+            cells.Add(cell);
+            cell.transform.SetParent(cellsRoot);
         }
 
         // Pos
@@ -33,7 +42,7 @@ namespace Alter {
             return transform.position.RoundToVector3Int().ToVector2Int();
         }
 
-        // Push
+        // Move
         public bool Move_CheckConstraint(Vector2 constraintSize, Vector2 constraintCenter, Vector2 pos, Vector2 axis) {
             var min = constraintCenter - constraintSize / 2 + constraintCenter - Vector2.one;
             var max = constraintCenter + constraintSize / 2 + constraintCenter;
@@ -44,21 +53,6 @@ namespace Alter {
                 return false;
             }
             return true;
-        }
-
-        // Size
-        public void Size_SetSize(Vector2Int size) {
-            spr.size = size;
-            this.sizeInt = size;
-        }
-
-        // Mesh
-        public void Mesh_Set(Sprite sp) {
-            this.spr.sprite = sp;
-        }
-
-        public void Mesh_SetMaterial(Material mat) {
-            this.spr.material = mat;
         }
 
         public void TearDown() {

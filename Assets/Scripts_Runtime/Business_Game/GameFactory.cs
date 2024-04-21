@@ -33,8 +33,7 @@ namespace Alter {
                                  AssetsInfraContext assetsInfraContext,
                                  int typeID,
                                  int index,
-                                 Vector2Int pos,
-                                 Vector2Int size) {
+                                 Vector2Int pos) {
 
             var has = templateInfraContext.Block_TryGet(typeID, out var blockTM);
             if (!has) {
@@ -57,14 +56,30 @@ namespace Alter {
             block.Pos_SetPos(pos);
             block.originalPos = pos;
 
-            // Set Size
-            block.Size_SetSize(size);
-
-            // Set Mesh
-            block.Mesh_Set(blockTM.mesh);
-            block.Mesh_SetMaterial(blockTM.meshMaterial);
+            // Set Cell
+            blockTM.ForEachCellsOffset(cellOffset => {
+                var cellPos = pos + cellOffset;
+                var cell = SpawnCellSubEntity(assetsInfraContext, cellPos, block);
+            });
 
             return block;
+        }
+
+        static CellSubEntity SpawnCellSubEntity(AssetsInfraContext assetsInfraContext,
+                                                Vector2Int pos,
+                                                BlockEntity block) {
+
+            var prefab = assetsInfraContext.Entity_GetCell();
+            var cell = GameObject.Instantiate(prefab).GetComponent<CellSubEntity>();
+            cell.Ctor();
+
+            // Set Pos
+            cell.Pos_SetPos(pos);
+
+            // Set Parent
+            block.AddCell(cell);
+
+            return cell;
         }
 
     }

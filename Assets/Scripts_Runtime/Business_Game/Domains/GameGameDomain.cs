@@ -20,15 +20,14 @@ namespace Alter {
                 GLog.LogError($"MapTM Not Found {mapTypeID}");
             }
 
-            var player = ctx.playerEntity;
-
+            // Block
+            // 临时代码
+            var blockTypeID = 1;
             var spawnPoint = mapTM.spawnPoint;
-            ctx.ownerSpawnPoint = spawnPoint;
+            var block = GameBlockDomain.Spawn(ctx, blockTypeID, 0, spawnPoint);
 
             // UI
             UIApp.GameInfo_Open(ctx.uiContext);
-
-            // Cursor
 
         }
 
