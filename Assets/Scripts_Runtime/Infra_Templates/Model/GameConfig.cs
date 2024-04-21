@@ -12,7 +12,8 @@ namespace Alter {
         public float gameResetEnterTime;
         public float gameTotalTime;
         public int originalMapTypeID;
-        public float gameIntervalTime;
+        public float gameFallingIntervalTime;
+        public float gameInputIntervalTime;
 
         // Camera
         [Header("Shake Config")]

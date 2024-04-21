@@ -11,7 +11,7 @@ namespace Alter {
 
             // Game
             var game = ctx.gameEntity;
-            game.SetFrameInterval(config.gameIntervalTime);
+            game.SetFallingInterval(config.gameFallingIntervalTime);
             game.fsmComponent.Gaming_Enter(config.gameTotalTime);
 
             // Map

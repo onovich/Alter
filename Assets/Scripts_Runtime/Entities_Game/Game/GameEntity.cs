@@ -5,28 +5,28 @@ namespace Alter {
     public class GameEntity {
 
         float timer;
-        int currentFrame;
-        float frameInterval;
+        int currentFallingFrame;
+        float fallingInterval;
 
         public GameFSMComponent fsmComponent;
 
         public GameEntity() {
             fsmComponent = new GameFSMComponent();
-            currentFrame = 0;
+            currentFallingFrame = 0;
         }
 
-        public void SetFrameInterval(float interval) {
-            frameInterval = interval;
+        public void SetFallingInterval(float fallingInterval) {
+            this.fallingInterval = fallingInterval;
         }
 
         public void Tick(float dt, Action onNextFrame) {
             timer += dt;
-            if (timer < frameInterval) {
+            if (timer < fallingInterval) {
                 return;
             }
-            timer -= frameInterval;
+            timer -= fallingInterval;
 
-            currentFrame++;
+            currentFallingFrame++;
             onNextFrame.Invoke();
         }
 
