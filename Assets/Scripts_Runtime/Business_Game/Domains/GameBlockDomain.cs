@@ -4,24 +4,16 @@ namespace Alter {
 
     public static class GameBlockDomain {
 
-        public static BlockEntity Spawn(GameBusinessContext ctx, int typeID, int index, Vector2Int pos) {
-            var block = GameFactory.Block_Spawn(ctx.templateInfraContext,
-                                              ctx.assetsInfraContext,
-                                              typeID,
-                                              index,
-                                              pos);
-
-            ctx.blockRepo.Add(block);
-            return block;
-        }
-
-        public static void UnSpawn(GameBusinessContext ctx, BlockEntity block) {
-            ctx.blockRepo.Remove(block);
-            block.TearDown();
-        }
-
-        public static void ApplyFalling(GameBusinessContext ctx, BlockEntity block) {
-            block.Pos_SetPos(block.Pos + Vector2.down);
+        public static void SpawnCellArrFromBlock(GameBusinessContext ctx, int typeID, Vector2Int pos) {
+            var has = ctx.templateInfraContext.Block_TryGet(typeID, out var blockTM);
+            if (!has) {
+                GLog.LogError($"Block {typeID} not found");
+                return;
+            }
+            blockTM.ForEachCellsLocalPos((localPos) => {
+                var cellPos = pos + localPos;
+                var cell = GameCellDomain.Spawn(ctx, cellPos);
+            });
         }
 
     }

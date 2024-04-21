@@ -28,56 +28,20 @@ namespace Alter {
             return map;
         }
 
-
-        public static BlockEntity Block_Spawn(TemplateInfraContext templateInfraContext,
-                                 AssetsInfraContext assetsInfraContext,
-                                 int typeID,
-                                 int index,
-                                 Vector2Int pos) {
-
-            var has = templateInfraContext.Block_TryGet(typeID, out var blockTM);
-            if (!has) {
-                GLog.LogError($"Block {typeID} not found");
-            }
-
-            var prefab = assetsInfraContext.Entity_GetBlock();
-            var block = GameObject.Instantiate(prefab).GetComponent<BlockEntity>();
-            block.Ctor();
-
-            // Base Info
-            block.typeID = typeID;
-            block.entityIndex = index;
-            block.typeName = blockTM.typeName;
-
-            // Rename
-            block.gameObject.name = $"Block - {block.typeName} - {block.entityIndex}";
-
-            // Set Pos
-            block.Pos_SetPos(pos);
-            block.originalPos = pos;
-
-            // Set Cell
-            blockTM.ForEachCellsLocalPos(localPos => {
-                var cellPos = pos + localPos;
-                var cell = SpawnCellSubEntity(assetsInfraContext, cellPos, block);
-            });
-
-            return block;
-        }
-
-        static CellSubEntity SpawnCellSubEntity(AssetsInfraContext assetsInfraContext,
-                                                Vector2Int pos,
-                                                BlockEntity block) {
+        public static CellSubEntity Cell_Spawn(IDRecordService idRecordService,
+                                               AssetsInfraContext assetsInfraContext,
+                                               Vector2Int pos) {
 
             var prefab = assetsInfraContext.Entity_GetCell();
             var cell = GameObject.Instantiate(prefab).GetComponent<CellSubEntity>();
             cell.Ctor();
 
+            // Set ID
+            var id = idRecordService.PickCellEntityID();
+            cell.entityID = id;
+
             // Set Pos
             cell.Pos_SetPos(pos);
-
-            // Set Parent
-            block.AddCell(cell);
 
             return cell;
         }

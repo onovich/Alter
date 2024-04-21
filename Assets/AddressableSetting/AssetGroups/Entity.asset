@@ -23,12 +23,6 @@ MonoBehaviour:
     m_SerializedLabels:
     - Entity
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 50d2bea22f8b543d48cd05ae2ea9baa8
-    m_Address: Entity_Block
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Entity
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: bb481405b7bed4b7bad0292737b59bbe
     m_Address: SubEntity_Cell
     m_ReadOnly: 0

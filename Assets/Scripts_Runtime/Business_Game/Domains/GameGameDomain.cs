@@ -26,7 +26,7 @@ namespace Alter {
             // 临时代码
             var blockTypeID = 1;
             var spawnPoint = mapTM.spawnPoint;
-            var block = GameBlockDomain.Spawn(ctx, blockTypeID, 0, spawnPoint);
+            GameBlockDomain.SpawnCellArrFromBlock(ctx, blockTypeID, spawnPoint);
 
             // UI
             UIApp.GameInfo_Open(ctx.uiContext);
@@ -70,11 +70,11 @@ namespace Alter {
             // Map
             GameMapDomain.UnSpawn(ctx);
 
-            // Block
-            int blockLen = ctx.blockRepo.TakeAll(out var blockArr);
-            for (int i = 0; i < blockLen; i++) {
-                var block = blockArr[i];
-                GameBlockDomain.UnSpawn(ctx, block);
+            // Cell
+            int cellLen = ctx.cellRepo.TakeAll(out var cellArr);
+            for (int i = 0; i < cellLen; i++) {
+                var cell = cellArr[i];
+                GameCellDomain.UnSpawn(ctx, cell);
             }
 
             // Repo

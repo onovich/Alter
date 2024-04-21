@@ -12,7 +12,7 @@ namespace Alter {
         public InputEntity inputEntity; // External
         public MapEntity currentMapEntity;
 
-        public BlockRepository blockRepo;
+        public CellRepository cellRepo;
 
         // App
         public UIAppContext uiContext;
@@ -38,18 +38,18 @@ namespace Alter {
             gameEntity = new GameEntity();
             playerEntity = new PlayerEntity();
             idRecordService = new IDRecordService();
-            blockRepo = new BlockRepository();
+            cellRepo = new CellRepository();
             hitResults = new RaycastHit2D[100];
         }
 
         public void Reset() {
             idRecordService.Reset();
-            blockRepo.Clear();
+            cellRepo.Clear();
         }
 
         // Block
-        public void Block_ForEach(Action<BlockEntity> onAction) {
-            blockRepo.ForEach(onAction);
+        public void Cell_ForEach(Action<CellSubEntity> onAction) {
+            cellRepo.ForEach(onAction);
         }
 
     }

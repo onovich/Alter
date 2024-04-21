@@ -55,11 +55,11 @@ namespace Alter {
 
                 GameGameDomain.ApplyFrame(ctx, dt, () => {
 
-                    // Block
-                    var blockLen = ctx.blockRepo.TakeAll(out var blockArr);
-                    for (int i = 0; i < blockLen; i++) {
-                        var block = blockArr[i];
-                        GameBlockDomain.ApplyFalling(ctx, block);
+                    // Cell
+                    var cellLen = ctx.cellRepo.TakeAll(out var cellArr);
+                    for (int i = 0; i < cellLen; i++) {
+                        var cell = cellArr[i];
+                        GameCellDomain.ApplyFalling(ctx, cell);
                     }
 
                     // Result
