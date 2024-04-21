@@ -50,15 +50,15 @@ namespace Alter {
         }
 
         public void Rotate() {
-            var _size = new Vector2(bounds.Size.x, bounds.Size.y);
-            Vector2Int center = PosInt + (_size / 2).RoundToVector2Int();
+            Vector2Int centerPos = PosInt + bounds.Center;
             foreach (var cell in cellList) {
-                Vector2Int offset = cell.PosInt - center;
-                Vector2Int newPos = center + new Vector2Int(offset.y, -offset.x);
-                cell.Pos_SetPos(newPos);
+                Vector2 shiftedPoint = new Vector2(cell.Pos.x - centerPos.x, cell.Pos.y - centerPos.y);
+                Vector2 rotatedPoint = new Vector2(shiftedPoint.y, -shiftedPoint.x); // 90度旋转
+                rotatedPoint += centerPos;
+                cell.Pos_SetPos(rotatedPoint.RoundToVector2Int());
             }
             var size = new Vector2Int(bounds.Size.y, bounds.Size.x);
-            center = new Vector2Int(center.y, center.x);
+            var center = new Vector2Int(bounds.Center.y, bounds.Center.x);
             bounds = new BoundsInt(center, size);
         }
 
@@ -93,7 +93,7 @@ namespace Alter {
 
         private void OnDrawGizmos() {
             Gizmos.color = Color.green;
-            var center = PosInt + bounds.Size / 2;
+            var center = PosInt + bounds.Center;
             Gizmos.DrawWireCube(center.ToVector3Int(), bounds.Size.ToVector3Int());
         }
 

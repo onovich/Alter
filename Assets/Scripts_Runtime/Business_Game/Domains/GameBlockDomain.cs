@@ -22,8 +22,8 @@ namespace Alter {
             var map = ctx.currentMapEntity;
             var block = ctx.currentBlock;
             blockTM.ForEachCellsLocalPos((localPos) => {
-                var blockPos = pos + localPos;
-                var cell = GameCellDomain.Spawn(ctx, blockPos);
+                var cellPos = pos + block.bounds.Center + localPos - block.bounds.Center / 2;
+                var cell = GameCellDomain.Spawn(ctx, cellPos);
                 block.AddCell(cell);
             });
         }
