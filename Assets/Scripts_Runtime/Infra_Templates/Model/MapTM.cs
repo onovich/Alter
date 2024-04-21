@@ -4,17 +4,14 @@ using UnityEngine.Tilemaps;
 
 namespace Alter {
 
-    [CreateAssetMenu(fileName = "SO_Map", menuName = "Alter/MapTM")]
+    [CreateAssetMenu(fileName = "TM_Map", menuName = "Alter/TM/Map")]
     public class MapTM : ScriptableObject {
 
         public int typeID;
-
+        public int seed;
+        public Vector2Int spawnPointTopOffset;
         public Vector2Int mapSize;
         public Vector2Int spawnPoint;
-
-        // Camera
-        public Vector2 cameraConfinerWorldMax;
-        public Vector2 cameraConfinerWorldMin;
 
     }
 
