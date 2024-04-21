@@ -27,15 +27,28 @@ namespace Alter {
             cell.Pos_SetPos(pos + dir);
         }
 
+        public static void CheckAndMarkMovable(GameBusinessContext ctx) {
+            var cellLen = ctx.cellRepo.TakeAllCurrentBlock(out var cellArr);
+            var dir = ctx.inputEntity.moveAxis;
+            bool allow = true;
+            for (int i = 0; i < cellLen; i++) {
+                var cell = cellArr[i];
+                var pos = cell.PosInt;
+                allow &= cell.Move_CheckInConstraint(ctx.currentMapEntity.mapSize,
+                                                      ctx.currentMapEntity.Pos,
+                                                      pos,
+                                                      dir);
+                if (!allow) {
+                    break;
+                }
+            }
+            if (!allow) {
+                ctx.inputEntity.ResetMoveAxis();
+            }
+        }
+
         public static void ApplyMove(GameBusinessContext ctx, CellEntity cell, Vector2Int dir) {
             var pos = cell.PosInt;
-            var allow = cell.Move_CheckInConstraint(ctx.currentMapEntity.mapSize,
-                                                   ctx.currentMapEntity.Pos,
-                                                   pos,
-                                                   dir);
-            if (!allow) {
-                return;
-            }
             cell.Pos_SetPos(pos + dir);
         }
 
@@ -51,14 +64,14 @@ namespace Alter {
             if (!ctx.gameEntity.IsFallingFrame) {
                 return;
             }
-            var cellLen = ctx.cellRepo.TakeAll(out var cellArr);
+            var cellLen = ctx.cellRepo.TakeAllCurrentBlock(out var cellArr);
             bool notInLand = true;
             for (int i = 0; i < cellLen; i++) {
                 var cell = cellArr[i];
                 if (cell.fsmComponent.Status == CellFSMStatus.Landing) {
                     continue;
                 }
-                notInLand &= GameCellDomain.CheckInConstraint(ctx, cell);
+                notInLand &= GameCellDomain.CheckInAir(ctx, cell);
                 notInLand &= GameCellDomain.CheckNextIsNotLandingCell(ctx, cell);
                 if (!notInLand) {
                     break;
@@ -75,7 +88,7 @@ namespace Alter {
             }
         }
 
-        static bool CheckInConstraint(GameBusinessContext ctx, CellEntity cell) {
+        static bool CheckInAir(GameBusinessContext ctx, CellEntity cell) {
             var dir = Vector2Int.down;
             var pos = cell.PosInt;
             var map = ctx.currentMapEntity;

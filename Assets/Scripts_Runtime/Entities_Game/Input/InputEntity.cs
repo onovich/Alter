@@ -21,6 +21,10 @@ namespace Alter {
             this.inputInterval = inputInterval;
         }
 
+        public void ResetMoveAxis() {
+            moveAxis = Vector2Int.zero;
+        }
+
         public void ProcessInput(Camera camera, float dt) {
 
             inputTimer += dt;

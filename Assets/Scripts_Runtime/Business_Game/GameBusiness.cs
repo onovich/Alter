@@ -58,6 +58,9 @@ namespace Alter {
                 // Cell In Block
                 var cellLen = ctx.cellRepo.TakeAllCurrentBlock(out var cellArr);
                 for (int i = 0; i < cellLen; i++) {
+                    GameCellDomain.CheckAndMarkMovable(ctx);
+                }
+                for (int i = 0; i < cellLen; i++) {
                     var cell = cellArr[i];
                     GameCellFSMController.TickFSM(ctx, cell, dt);
                 }
@@ -67,7 +70,6 @@ namespace Alter {
                     ctx.cellRepo.UpdatePos(cell.lastPosInt, cell);
                 }
                 for (int i = 0; i < cellLen; i++) {
-                    var cell = cellArr[i];
                     GameCellDomain.ApplyCheckAllCellLanding(ctx);
                 }
 
