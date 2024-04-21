@@ -26,7 +26,7 @@ namespace Alter {
         }
 
         // Move
-        public bool Move_CheckConstraint(Vector2 constraintSize, Vector2 constraintCenter, Vector2 pos, Vector2 axis) {
+        public bool Move_CheckConstraint(Vector2Int constraintSize, Vector2 constraintCenter, Vector2 pos, Vector2Int axis) {
             var min = constraintCenter - constraintSize / 2 + constraintCenter - Vector2.one;
             var max = constraintCenter + constraintSize / 2 + constraintCenter;
             if (pos.x + axis.x >= max.x || pos.x + axis.x <= min.x) {
