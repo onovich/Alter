@@ -32,42 +32,10 @@ namespace Alter {
             return prefab;
         }
 
-        public GameObject Entity_GetRole() {
-            var has = Entity_TryGet("Entity_Role", out var prefab);
-            if (!has) {
-                GLog.LogError($"Entity Role not found");
-            }
-            return prefab;
-        }
-
         public GameObject Entity_GetBlock() {
             var has = Entity_TryGet("Entity_Block", out var prefab);
             if (!has) {
                 GLog.LogError($"Entity Block not found");
-            }
-            return prefab;
-        }
-
-        public GameObject Entity_GetWall() {
-            var has = Entity_TryGet("Entity_Wall", out var prefab);
-            if (!has) {
-                GLog.LogError($"Entity Wall not found");
-            }
-            return prefab;
-        }
-
-        public GameObject Entity_GetSpike() {
-            var has = Entity_TryGet("Entity_Spike", out var prefab);
-            if (!has) {
-                GLog.LogError($"Entity Spike not found");
-            }
-            return prefab;
-        }
-
-        public GameObject Entity_GetGoal() {
-            var has = Entity_TryGet("Entity_Goal", out var prefab);
-            if (!has) {
-                GLog.LogError($"Entity Goal not found");
             }
             return prefab;
         }

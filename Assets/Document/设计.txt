@@ -1,13 +1,3 @@
-游戏玩法：推箱
-
-1. Role 可以移动
-2. Block 可以被 Role 推动
-3. Wall 阻挡 Block 和 Role
-4. Spike 杀死 Role 和 Block
-5. Gate 传送门
-6. EndPoint 终点
-7. Enemy 可以被 Spike 杀死，仅在遇到 Wall 和 Block、看到 Role 时改变方向，杀死 Role
-8. Boss 可以杀死 Spike、Block、Role，遇到 Wall 、看到 Role时改变方向
-9. Spike 可能有 Pathing 组件，即可移动
-
-特殊玩法：三消箱子、合成箱子、用两个箱子挤死敌人、潜行、利用刺传送箱子、利用敌人摧毁刺、华容道
+游戏玩法：俄罗斯方块
+消除和颜色相关
+负方块落地后可以消除方块
