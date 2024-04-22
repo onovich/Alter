@@ -4,3 +4,9 @@
 
 待实现
 1. 旋转的帧率应该和移动的帧率分开，理论上旋转的帧率需要略低于移动的帧率
+
+设计
+1. 落地规则: 《俄罗斯方块大师》的规则：落地前也会在与地面零距离的高度停顿一下，然后才正式落地; 而非世界规则:落地瞬间即固定落地位置
+2. 旋转规则: 待选择; 总之不能是数学上的旋转，而是需要根据特定形状进行旋转，考虑一开始就把多方向图烘焙进 TM; 旋转规则搭配了对应的踢墙规则
+   ARS: https://tetris.huijiwiki.com/wiki/Arika_%E6%97%8B%E8%BD%AC%E7%B3%BB%E7%BB%9F
+   SRS: https://tetris.fandom.com/wiki/SRS#Wall_Kicks_Illustration
