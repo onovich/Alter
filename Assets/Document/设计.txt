@@ -7,6 +7,9 @@
 
 设计
 1. 落地规则: 《俄罗斯方块大师》的规则：落地前也会在与地面零距离的高度停顿一下，然后才正式落地; 而非世界规则:落地瞬间即固定落地位置
-2. 旋转规则: 待选择; 总之不能是数学上的旋转，而是需要根据特定形状进行旋转，考虑一开始就把多方向图烘焙进 TM; 旋转规则搭配了对应的踢墙规则
+2. 旋转规则: 
    ARS: https://tetris.huijiwiki.com/wiki/Arika_%E6%97%8B%E8%BD%AC%E7%B3%BB%E7%BB%9F
    SRS: https://tetris.fandom.com/wiki/SRS#Wall_Kicks_Illustration
+   SRS 更主流更现代更复杂，ARS 更简单，暂定 ARS
+   需要根据特定形状进行旋转，考虑一开始就把多方向图烘焙进 TM; 旋转规则搭配了对应的踢墙规则
+3. 目前是用 Bounds 判断落地，不正确，应该采用 Block 内的 Cell 遍历检测, 之后的踢墙预测也应该如此。基本上用不到 Bounds，除了越界判定
