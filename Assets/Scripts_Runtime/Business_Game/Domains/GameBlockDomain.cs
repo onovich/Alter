@@ -21,12 +21,12 @@ namespace Alter {
             }
             var map = ctx.currentMapEntity;
             var block = ctx.currentBlock;
-            blockTM.ForEachCellsLocalPos((localPos) => {
-                var cellPos = pos + localPos;
-                Debug.Log($"Spawn Cell {cellPos} = {localPos} + {pos}");
-                var cell = GameCellDomain.Spawn(ctx, cellPos);
-                block.AddCell(cell);
-            });
+            // blockTM.ForEachCellsLocalPos((localPos) => {
+            //     var cellPos = pos + localPos;
+            //     Debug.Log($"Spawn Cell {cellPos} = {localPos} + {pos}");
+            //     var cell = GameCellDomain.Spawn(ctx, cellPos);
+            //     block.AddCell(cell);
+            // });
         }
 
         public static void ApplyConstraint(GameBusinessContext ctx) {

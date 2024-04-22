@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using Sirenix.OdinInspector;
 using Sirenix.Utilities;
@@ -20,8 +21,8 @@ namespace Alter {
         public Sprite mesh;
         public Material meshMaterial;
 
-        [Header("Block Cells")]
-        public Vector2Int size;
+        [Header("Block Shapes")]
+        public BlockShapeTM[] shapes;
 
         [Button("Load")]
         void Load() {
@@ -29,19 +30,26 @@ namespace Alter {
             typeName = blockTM.typeName;
             mesh = blockTM.mesh;
             meshMaterial = blockTM.meshMaterial;
-            size = blockTM.size;
-            GetCells();
+            GetShapes();
             EditorUtility.SetDirty(this);
             AssetDatabase.SaveAssets();
         }
 
-        void BakeCells() {
-            blockTM.cells = new bool[size.x * size.y];
-            for (int x = 0; x < size.x; x++) {
-                for (int y = 0; y < size.y; y++) {
-                    blockTM.cells[x + y * size.x] = cells[x, y];
-                }
+        void GetShapes() {
+            shapes = new BlockShapeTM[blockTM.shapeArr.Length];
+            for (int i = 0; i < blockTM.shapeArr.Length; i++) {
+                var shape = blockTM.shapeArr[i];
+                shapes[i] = shape;
             }
+        }
+
+        void BakeShapes() {
+            var shapeList = new List<BlockShapeTM>();
+            for (int i = 0; i < shapes.Length; i++) {
+                var shape = shapes[i];
+                shapeList.Add(shape);
+            }
+            blockTM.shapeArr = shapeList.ToArray();
         }
 
         [Button("Bake")]
@@ -50,53 +58,11 @@ namespace Alter {
             blockTM.typeName = typeName;
             blockTM.mesh = mesh;
             blockTM.meshMaterial = meshMaterial;
-            blockTM.size = size;
-            BakeCells();
+            BakeShapes();
             EditorUtility.SetDirty(blockTM);
             AssetDatabase.SaveAssets();
         }
 
-        void GetCells() {
-            cells = new bool[size.x, size.y];
-            for (int x = 0; x < size.x; x++) {
-                for (int y = 0; y < size.y; y++) {
-                    cells[x, y] = blockTM.cells[x + y * size.x];
-                }
-            }
-        }
-
-        [Button("Clear")]
-        void Clear() {
-            cells = new bool[size.x, size.y];
-        }
-
-        [Button("Resize")]
-        void Resize() {
-            var newCells = new bool[size.x, size.y];
-            for (int x = 0; x < Mathf.Min(size.x, cells.GetLength(0)); x++) {
-                for (int y = 0; y < Mathf.Min(size.y, cells.GetLength(1)); y++) {
-                    newCells[x, y] = cells[x, y];
-                }
-            }
-            cells = newCells;
-        }
-
-        [TableMatrix(DrawElementMethod = "DrawCell", SquareCells = true)]
-        public bool[,] cells;
-
-        bool DrawCell(Rect rect, bool value) {
-            if (Event.current.type == EventType.MouseDown &&
-            rect.Contains(Event.current.mousePosition)) {
-                value = !value;
-                GUI.changed = true;
-                Event.current.Use();
-            }
-            EditorGUI.DrawRect(
-                rect.Padding(1),
-                value ? new UnityEngine.Color(0.1f, 0.8f, 0.2f) :
-                new UnityEngine.Color(0, 0, 0, 0.5f));
-            return value;
-        }
     }
 
 }

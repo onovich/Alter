@@ -49,9 +49,9 @@ namespace Alter {
             if (!has) {
                 GLog.LogError($"Block {id} not found");
             }
-            var center = blockTM.size / 2;
-            var bounds = new BoundsInt(center, blockTM.size);
-            block.bounds = bounds;
+            // var center = blockTM.size / 2;
+            // var bounds = new BoundsInt(center, blockTM.size);
+            // block.bounds = bounds;
 
             return block;
         }
