@@ -165,10 +165,12 @@ namespace Alter {
             loginBusinessContext.evt.Clear();
             uiAppContext.evt.Clear();
 
+            templateInfraContext.Clear();
+            assetsInfraContext.Clear();
+
             GameBusiness.TearDown(gameBusinessContext);
             AssetsInfra.ReleaseAssets(assetsInfraContext);
             TemplateInfra.Release(templateInfraContext);
-            // TemplateInfra.ReleaseAssets(templateInfraContext);
             // UIApp.TearDown(uiAppContext);
         }
 

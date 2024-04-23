@@ -48,6 +48,10 @@ namespace Alter {
             return prefab;
         }
 
+        public void Clear(){
+            entityDict.Clear();
+        }
+
     }
 
 }
