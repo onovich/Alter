@@ -14,4 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   centerInt: {x: 1, y: 1}
   sizeInt: {x: 3, y: 3}
-  cells: 000101000001000001
+  cells:
+  - {x: 1, y: 0}
+  - {x: 2, y: 0}
+  - {x: 2, y: 1}
+  - {x: 2, y: 2}
