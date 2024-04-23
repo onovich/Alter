@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using Sirenix.OdinInspector;
 using Sirenix.Utilities;
@@ -25,12 +26,15 @@ namespace Alter {
         }
 
         void BakeCells() {
-            shapeTM.cells = new bool[sizeInt.x * sizeInt.y];
+            List<Vector2Int> cellList = new List<Vector2Int>();
             for (int x = 0; x < sizeInt.x; x++) {
                 for (int y = 0; y < sizeInt.y; y++) {
-                    shapeTM.cells[x + y * sizeInt.x] = cells[x, y];
+                    if (cells[x, y]) {
+                        cellList.Add(new Vector2Int(x, y));
+                    }
                 }
             }
+            shapeTM.cells = cellList.ToArray();
         }
 
         [Button("Bake")]
@@ -44,10 +48,10 @@ namespace Alter {
 
         void GetCells() {
             cells = new bool[sizeInt.x, sizeInt.y];
-            for (int x = 0; x < sizeInt.x; x++) {
-                for (int y = 0; y < sizeInt.y; y++) {
-                    cells[x, y] = shapeTM.cells[x + y * sizeInt.x];
-                }
+            for (int i = 0; i < shapeTM.cells.Length; i++) {
+                var x = shapeTM.cells[i].x;
+                var y = shapeTM.cells[i].y;
+                cells[x, y] = true;
             }
         }
 

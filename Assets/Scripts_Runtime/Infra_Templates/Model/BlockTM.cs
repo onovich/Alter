@@ -19,7 +19,7 @@ namespace Alter {
 
         public void ForEachCellsLocalPos(int shapeIndex, Action<int, Vector2Int> action) {
             var shape = shapeArr[shapeIndex];
-            shape.ForEachCellsLocalPos(action);
+            shape.ForEachCells(action);
         }
 
     }
