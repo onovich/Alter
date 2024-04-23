@@ -5,3 +5,7 @@
 2. 目前是用 Bounds 判断落地，不正确，
 应该采用 Block 内的 Cell 遍历检测, 之后的踢墙预测也应该如此。
 基本上用不到 Bounds，除了越界判定
+
+3. 记录并更新 Cell 坐标的方式有问题。
+如果每帧更新 Cell 坐标，以 key 的方式存在 CellRepo 里，会出现：同一个 Block 内的 Cell 由于刷新顺序导致 key 冲突
+可行的方法是：当 Cell 在 Block 内时，不记录 Cell 的 Pos，当 Block 落地后，才将其更新到坐标字典里
