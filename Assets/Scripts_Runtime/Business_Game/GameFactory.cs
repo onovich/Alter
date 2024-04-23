@@ -53,8 +53,7 @@ namespace Alter {
             for (int i = 0; i < blockTM.shapeArr.Length; i++) {
                 var shapeTM = blockTM.shapeArr[i];
                 var shape = new Vector2Int[shapeTM.sizeInt.x * shapeTM.sizeInt.y];
-                shapeTM.ForEachCellsLocalPos((localPos) => {
-                    var index = localPos.x + localPos.y * shapeTM.sizeInt.x;
+                shapeTM.ForEachCellsLocalPos((index, localPos) => {
                     shape[index] = localPos;
                 });
                 var shapeModel = new BlockShapeModel {

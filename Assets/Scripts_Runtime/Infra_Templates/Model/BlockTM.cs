@@ -17,7 +17,7 @@ namespace Alter {
         [Header("Block Cells")]
         public BlockShapeTM[] shapeArr;
 
-        public void ForEachCellsLocalPos(int shapeIndex, Action<Vector2Int> action) {
+        public void ForEachCellsLocalPos(int shapeIndex, Action<int, Vector2Int> action) {
             var shape = shapeArr[shapeIndex];
             shape.ForEachCellsLocalPos(action);
         }

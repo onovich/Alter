@@ -22,7 +22,7 @@ namespace Alter {
             var map = ctx.currentMapEntity;
             var block = ctx.currentBlock;
             var index = block.currentIndex;
-            blockTM.ForEachCellsLocalPos(index, (localPos) => {
+            blockTM.ForEachCellsLocalPos(index, (cellIndex, localPos) => {
                 var cellPos = pos + localPos;
                 var cell = GameCellDomain.Spawn(ctx, cellPos);
                 block.AddCell(cell);

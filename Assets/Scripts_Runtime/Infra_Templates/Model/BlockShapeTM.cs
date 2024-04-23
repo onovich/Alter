@@ -14,12 +14,12 @@ namespace Alter {
             return new Vector2((float)sizeInt.x / 2, (float)centerInt.y / 2);
         }
 
-        public void ForEachCellsLocalPos(Action<Vector2Int> action) {
+        public void ForEachCellsLocalPos(Action<int, Vector2Int> action) {
             for (var x = 0; x < sizeInt.x; x++) {
                 for (var y = 0; y < sizeInt.y; y++) {
                     var index = x + y * sizeInt.x;
                     if (cells[index]) {
-                        action(new Vector2Int(x, sizeInt.y - 1 - y));
+                        action(index, new Vector2Int(x, sizeInt.y - 1 - y));
                     }
                 }
             }
