@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 927166653822307473}
   - component: {fileID: -8992238557563149393}
   m_Layer: 0
-  m_Name: BlockShapeEM_001
+  m_Name: BlockShapeEM_001_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -70,12 +70,6 @@ MonoBehaviour:
       Data: true
     - Name: 
       Entry: 5
-      Data: true
-    - Name: 
-      Entry: 5
-      Data: false
-    - Name: 
-      Entry: 5
       Data: false
     - Name: 
       Entry: 5
@@ -83,6 +77,12 @@ MonoBehaviour:
     - Name: 
       Entry: 5
       Data: false
+    - Name: 
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 5
+      Data: true
     - Name: 
       Entry: 5
       Data: false
@@ -95,7 +95,7 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  shapeTM: {fileID: 11400000, guid: 25201be8209e34ea0af6e977ac040512, type: 2}
+  shapeTM: {fileID: 11400000, guid: 0b1bfc0706a5a4bfeac29747cc83b210, type: 2}
   size: {x: 3, y: 3}
-  typeID: 0
+  typeID: 2
   typeName: 

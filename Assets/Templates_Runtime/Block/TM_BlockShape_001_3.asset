@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b7210e9be47544944b2631c2aa92aa9a, type: 3}
-  m_Name: TM_BlockShape_001_1
+  m_Name: TM_BlockShape_001_3
   m_EditorClassIdentifier: 
-  typeID: 1
+  typeID: 3
   typeName: 
   size: {x: 3, y: 3}
-  cells: 010000010000010100
+  cells: 000101000001000001

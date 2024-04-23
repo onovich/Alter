@@ -18,3 +18,6 @@ MonoBehaviour:
   meshMaterial: {fileID: 2100000, guid: 53e7422ec9caf46d68abbc371e4a5eac, type: 2}
   shapeArr:
   - {fileID: 11400000, guid: 25201be8209e34ea0af6e977ac040512, type: 2}
+  - {fileID: 11400000, guid: 0b1bfc0706a5a4bfeac29747cc83b210, type: 2}
+  - {fileID: 11400000, guid: aa4ed088d255e4bb9b61e7f0e6038ac6, type: 2}
+  - {fileID: 11400000, guid: aae28b579fa344cc6af1966f1461eb30, type: 2}
