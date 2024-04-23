@@ -19,15 +19,11 @@ namespace Alter {
         public void Add(CellEntity cell) {
             all.Add(cell.entityID, cell);
             posMap.Add(cell.PosInt, cell);
+            GLog.Log($"PosMap.Add Pos:{cell.PosInt}");
         }
 
         public bool Has(Vector2Int pos) {
             return posMap.ContainsKey(pos);
-        }
-
-        public bool HasDifferent(Vector2Int pos, int index) {
-            var has = posMap.TryGetValue(pos, out var cell);
-            return has && cell.entityID != index;
         }
 
         public int TakeAll(out CellEntity[] cells) {

@@ -89,18 +89,18 @@ namespace Alter {
         static bool CheckNextIsNoCell(GameBusinessContext ctx, BlockEntity block) {
             var pos = block.PosInt;
             var size = block.SizeInt;
-            pos += Vector2Int.down;
-            var noCell = true;
-            GridUtils.ForEachBottomGridBySize(pos, size, (grid) => {
-                var has = ctx.cellRepo.TryGetCellByPos(grid, out var cell);
-                noCell &= (!has) ||
-                          (has && !block.Cell_IsInBlock(cell.entityID));
-                if (!noCell) {
+            var hasCell = false;
+            block.cellSlotComponent.ForEach((index, cell) => {
+                var cellPos = cell.PosInt;
+                var next = cellPos + Vector2Int.down;
+                var hasNext = ctx.cellRepo.TryGetCellByPos(next, out var nextCell);
+                hasCell |= hasNext;
+                if (hasCell) {
                     return;
                 }
             });
 
-            return noCell;
+            return !hasCell;
         }
 
         public static void UnSpawn(GameBusinessContext ctx, BlockEntity cell) {
