@@ -23,11 +23,7 @@ namespace Alter {
             }
 
             // Block
-            // 临时代码
-            var blockTypeID = 1;
-            var spawnPoint = mapTM.spawnPoint;
-            GameBlockDomain.SpawnBlock(ctx, blockTypeID, spawnPoint);
-            GameBlockDomain.SpawnCellArrFromBlock(ctx, blockTypeID, spawnPoint);
+            GameBlockDomain.SpawnRandomBlock(ctx);
 
             // UI
             UIApp.GameInfo_Open(ctx.uiContext);

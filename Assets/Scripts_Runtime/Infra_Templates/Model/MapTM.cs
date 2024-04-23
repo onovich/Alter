@@ -8,7 +8,6 @@ namespace Alter {
     public class MapTM : ScriptableObject {
 
         public int typeID;
-        public int seed;
         public Vector2Int mapSize;
         public Vector2Int spawnPoint;
 

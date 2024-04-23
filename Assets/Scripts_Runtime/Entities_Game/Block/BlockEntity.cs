@@ -53,7 +53,8 @@ namespace Alter {
         }
 
         public void Rotate() {
-            currentIndex = (currentIndex + 1) % 4;
+            var shapeCount = shapeComponent.Count;
+            currentIndex = (currentIndex + 1) % shapeCount;
             var shape = shapeComponent.Get(currentIndex);
             cellSlotComponent.ForEach((index, cell) => {
                 cell.Pos_SetLocalPos(shape.shape[index]);

@@ -6,6 +6,7 @@ namespace Alter {
     public class BlockShapeComponent {
 
         SortedList<int/*index*/, BlockShapeModel> all;
+        public int Count => all.Count;
 
         public BlockShapeComponent() {
             all = new SortedList<int, BlockShapeModel>();

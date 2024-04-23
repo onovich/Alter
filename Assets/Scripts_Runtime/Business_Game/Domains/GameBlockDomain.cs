@@ -4,13 +4,22 @@ namespace Alter {
 
     public static class GameBlockDomain {
 
-        public static void SpawnBlock(GameBusinessContext ctx, int typeID, Vector2Int pos) {
+        public static void SpawnRandomBlock(GameBusinessContext ctx) {
+            var map = ctx.currentMapEntity;
+            var pos = map.spawnPoint;
+            var blockTM = ctx.templateInfraContext.Block_GetRandom(ctx.randomService);
+            SpawnBlock(ctx, blockTM.typeID, pos);
+        }
+
+        static void SpawnBlock(GameBusinessContext ctx, int typeID, Vector2Int pos) {
             var block = GameFactory.Block_Spawn(ctx.idRecordService,
                                                 ctx.templateInfraContext,
                                                 ctx.assetsInfraContext,
                                                 pos);
             ctx.SetCurrentBlock(block);
             block.fsmComponent.Moving_Enter();
+
+            SpawnCellArrFromBlock(ctx, typeID, pos);
         }
 
         public static void SpawnCellArrFromBlock(GameBusinessContext ctx, int typeID, Vector2Int pos) {

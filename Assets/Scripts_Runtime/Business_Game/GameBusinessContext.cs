@@ -24,6 +24,7 @@ namespace Alter {
 
         // Service
         public IDRecordService idRecordService;
+        public RandomService randomService;
 
         // Infra
         public TemplateInfraContext templateInfraContext;
@@ -39,6 +40,7 @@ namespace Alter {
             gameEntity = new GameEntity();
             playerEntity = new PlayerEntity();
             idRecordService = new IDRecordService();
+            randomService = new RandomService();
             cellRepo = new CellRepository();
             hitResults = new RaycastHit2D[100];
         }
