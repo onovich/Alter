@@ -19,7 +19,6 @@ namespace Alter {
         public void Add(CellEntity cell) {
             all.Add(cell.entityID, cell);
             posMap.Add(cell.PosInt, cell);
-            GLog.Log($"PosMap.Add Pos:{cell.PosInt}");
         }
 
         public bool Has(Vector2Int pos) {
