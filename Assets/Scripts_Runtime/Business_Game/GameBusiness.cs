@@ -59,7 +59,8 @@ namespace Alter {
 
                 GameGameDomain.ResetFallingFrame(ctx);
 
-                // All Cell
+                // Cell In Board
+                GameCellDomain.CheckCellFillRowsAndMark(ctx);
 
                 // Stage
                 GameGameDomain.ApplyGameStage(ctx);

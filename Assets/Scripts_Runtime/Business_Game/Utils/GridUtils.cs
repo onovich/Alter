@@ -5,6 +5,12 @@ namespace Alter {
 
     public static class GridUtils {
 
+        public static Vector2Int GridIndexToPositionInt(int column, int row, Vector2Int MapSize) {
+            var worldX = column - MapSize.x / 2;
+            var worldY = row - MapSize.y / 2;
+            return new Vector2Int(worldX, worldY);
+        }
+
         public static void ForEachGridBySize(Vector2Int pos, Vector2Int size, Action<Vector2Int> action) {
             for (int x = 0; x < size.x; x++) {
                 for (int y = 0; y < size.y; y++) {
