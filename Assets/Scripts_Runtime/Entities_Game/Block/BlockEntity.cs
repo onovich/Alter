@@ -7,6 +7,8 @@ namespace Alter {
         [SerializeField] Transform cellRoot;
 
         public int entityID;
+        public string typeName;
+        public int typeID;
 
         // Pos
         public Vector2 Pos => transform.position;

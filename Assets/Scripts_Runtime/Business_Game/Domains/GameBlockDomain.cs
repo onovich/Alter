@@ -13,11 +13,14 @@ namespace Alter {
 
         static void SpawnBlock(GameBusinessContext ctx, int typeID, Vector2Int pos) {
             var block = GameFactory.Block_Spawn(ctx.idRecordService,
+                                                typeID,
                                                 ctx.templateInfraContext,
                                                 ctx.assetsInfraContext,
                                                 pos);
             ctx.SetCurrentBlock(block);
             block.fsmComponent.Moving_Enter();
+
+            GLog.Log($"Spawn Block {block.typeName}");
 
             SpawnCellArrFromBlock(ctx, typeID, pos);
         }

@@ -29,6 +29,7 @@ namespace Alter {
         }
 
         public static BlockEntity Block_Spawn(IDRecordService idRecordService,
+                                              int typeID,
                                               TemplateInfraContext templateInfraContext,
                                               AssetsInfraContext assetsInfraContext,
                                               Vector2Int pos) {
@@ -37,19 +38,21 @@ namespace Alter {
             var block = GameObject.Instantiate(prefab).GetComponent<BlockEntity>();
             block.Ctor();
 
+            var has = templateInfraContext.Block_TryGet(typeID, out var blockTM);
+            if (!has) {
+                GLog.LogError($"Block {typeID} not found");
+            }
+
             // Set ID
             var id = idRecordService.PickBlockEntityID();
             block.entityID = id;
+            block.typeID = typeID;
+            block.typeName = blockTM.typeName;
 
             // Set Pos
             block.Pos_SetPos(pos);
 
             // Set Bounds
-            var has = templateInfraContext.Block_TryGet(id, out var blockTM);
-            if (!has) {
-                GLog.LogError($"Block {id} not found");
-            }
-
             for (int i = 0; i < blockTM.shapeArr.Length; i++) {
                 var shapeTM = blockTM.shapeArr[i];
                 var shape = new Vector2Int[shapeTM.sizeInt.x * shapeTM.sizeInt.y];
