@@ -6,6 +6,7 @@ namespace Alter {
 
         float fallingTimer;
         int currentFallingFrame;
+        public int CurrentFallingFrame => currentFallingFrame;
         float fallingInterval;
 
         bool isFallingFrame;
@@ -35,7 +36,6 @@ namespace Alter {
         }
 
         public void ResetFallingFrame() {
-            currentFallingFrame = 0;
             isFallingFrame = false;
         }
 

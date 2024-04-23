@@ -25,6 +25,9 @@ namespace Alter {
         // Transform
         public Transform cellBoard;
 
+        // Next Block
+        public int nextBlockTypeID;
+
         // Service
         public IDRecordService idRecordService;
         public RandomService randomService;
@@ -47,6 +50,7 @@ namespace Alter {
             cellRepo = new CellRepository();
             hitResults = new RaycastHit2D[100];
             this.cellBoard = cellBoard;
+            nextBlockTypeID = -1;
         }
 
         public void Reset() {

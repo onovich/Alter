@@ -579,5 +579,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeText: {fileID: 7065243674539223190}
-  gameStageCounterText: {fileID: 2624988336989321308}
+  stepText: {fileID: 2624988336989321308}
   restartBtn: {fileID: 7513456763904318170}

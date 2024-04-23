@@ -51,6 +51,10 @@ namespace Alter {
             PanelGameInfoDomain.RefreshTime(ctx, time);
         }
 
+        public static void GameInfo_RefreshStep(UIAppContext ctx, int step) {
+            PanelGameInfoDomain.RefreshStep(ctx, step);
+        }
+
         public static void GameInfo_Close(UIAppContext ctx) {
             PanelGameInfoDomain.Close(ctx);
         }

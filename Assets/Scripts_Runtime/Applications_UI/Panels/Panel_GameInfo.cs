@@ -9,6 +9,7 @@ namespace Alter.UI {
     public class Panel_GameInfo : MonoBehaviour, IPanel {
 
         [SerializeField] Text timeText;
+        [SerializeField] Text stepText;
         [SerializeField] Button restartBtn;
 
         public Action OnRestartBtnClickHandle;
@@ -21,6 +22,10 @@ namespace Alter.UI {
 
         public void RefreshTime(float time) {
             timeText.text = time.ToString("F0");
+        }
+
+        public void RefreshStep(int step) {
+            stepText.text = step.ToString();
         }
 
         public void OnDestroy() {

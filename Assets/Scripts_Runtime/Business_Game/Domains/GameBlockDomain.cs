@@ -7,8 +7,8 @@ namespace Alter {
         public static void SpawnRandomBlock(GameBusinessContext ctx) {
             var map = ctx.currentMapEntity;
             var pos = map.spawnPoint;
-            var blockTM = ctx.templateInfraContext.Block_GetRandom(ctx.randomService);
-            SpawnBlock(ctx, blockTM.typeID, pos);
+            var nextTypeID = ctx.nextBlockTypeID == -1 ? ctx.templateInfraContext.Block_GetRandom(ctx.randomService).typeID : ctx.nextBlockTypeID;
+            SpawnBlock(ctx, nextTypeID, pos);
         }
 
         static void SpawnBlock(GameBusinessContext ctx, int typeID, Vector2Int pos) {
@@ -23,6 +23,10 @@ namespace Alter {
             GLog.Log($"Spawn Block {block.typeName}");
 
             SpawnCellArrFromBlock(ctx, typeID, pos);
+
+            // Record Next Block Type ID
+            var nextBlockTM = ctx.templateInfraContext.Block_GetRandom(ctx.randomService);
+            ctx.nextBlockTypeID = nextBlockTM.typeID;
         }
 
         public static void SpawnCellArrFromBlock(GameBusinessContext ctx, int typeID, Vector2Int pos) {

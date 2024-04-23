@@ -83,11 +83,13 @@ namespace Alter {
 
         static void LateTick(GameBusinessContext ctx, float dt) {
             var game = ctx.gameEntity;
+            var input = ctx.inputEntity;
             var status = game.fsmComponent.status;
             if (status == GameStatus.Gaming) {
 
                 // UI
-                UIApp.GameInfo_RefreshTime(ctx.uiContext, game.fsmComponent.gaming_gameTime);
+                UIApp.GameInfo_RefreshTime(ctx.uiContext, game.CurrentFallingFrame);
+                UIApp.GameInfo_RefreshStep(ctx.uiContext, input.inputStep);
 
             }
             // VFX

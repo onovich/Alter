@@ -9,6 +9,8 @@ namespace Alter {
         public Vector2Int moveAxis;
         public bool isRotate;
 
+        public int inputStep;
+
         InputKeybindingComponent keybindingCom;
 
         public void Ctor() {
@@ -23,15 +25,19 @@ namespace Alter {
 
             if (keybindingCom.IsKeyDown(InputKeyEnum.MoveLeft)) {
                 moveAxis.x = -1;
+                inputStep++;
             }
             if (keybindingCom.IsKeyDown(InputKeyEnum.MoveRight)) {
                 moveAxis.x = 1;
+                inputStep++;
             }
             if (keybindingCom.IsKeyDown(InputKeyEnum.MoveUp)) {
                 isRotate = true;
+                inputStep++;
             }
             if (keybindingCom.IsKeyPressing(InputKeyEnum.MoveDown)) {
                 moveAxis.y = -1;
+                inputStep++;
             }
             if (moveAxis.x != 0 && moveAxis.y != 0) {
                 moveAxis.y = 0;
