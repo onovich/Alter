@@ -44,12 +44,28 @@ namespace Alter {
         public static void ApplyConstraint(GameBusinessContext ctx) {
             var block = ctx.currentBlock;
             var offset = block.Move_GetConstraintOffset(ctx.currentMapEntity.mapSize, ctx.currentMapEntity.PosInt);
+            block.cellSlotComponent.ForEach((index, cell) => {
+                cell.RecordLatPos();
+            });
+
             block.Pos_SetPos(block.PosInt + offset);
+
+            block.cellSlotComponent.ForEach((index, cell) => {
+                ctx.cellRepo.UpdatePos(cell.lastPosInt, cell);
+            });
         }
 
         public static void ApplyMove(GameBusinessContext ctx, BlockEntity block, Vector2Int dir) {
+            block.cellSlotComponent.ForEach((index, cell) => {
+                cell.RecordLatPos();
+            });
+
             var pos = block.PosInt;
             block.Pos_SetPos(pos + dir);
+
+            block.cellSlotComponent.ForEach((index, cell) => {
+                ctx.cellRepo.UpdatePos(cell.lastPosInt, cell);
+            });
         }
 
         public static void ApplyRotate(GameBusinessContext ctx) {

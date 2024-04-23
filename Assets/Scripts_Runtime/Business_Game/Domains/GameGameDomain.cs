@@ -64,6 +64,28 @@ namespace Alter {
             var config = ctx.templateInfraContext.Config_Get();
         }
 
+        public static void ApplyGameStage(GameBusinessContext ctx) {
+            var stageEnd = CheckCurrentBlockIsLanding(ctx);
+            if (stageEnd) {
+                NewTurn(ctx);
+            }
+        }
+
+        static void NewTurn(GameBusinessContext ctx) {
+            var block = ctx.currentBlock;
+            GameBlockDomain.UnSpawn(ctx, block);
+            GameBlockDomain.SpawnRandomBlock(ctx);
+        }
+
+        static bool CheckCurrentBlockIsLanding(GameBusinessContext ctx) {
+            var block = ctx.currentBlock;
+            var status = block.fsmComponent.Status;
+            if (status == BlockFSMStatus.Landing) {
+                return true;
+            }
+            return false;
+        }
+
         public static void ExitGame(GameBusinessContext ctx) {
             // Game
             var game = ctx.gameEntity;

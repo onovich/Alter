@@ -61,6 +61,9 @@ namespace Alter {
 
                 // All Cell
 
+                // Stage
+                GameGameDomain.ApplyGameStage(ctx);
+
                 // Result
                 GameGameDomain.ApplyGameResult(ctx);
 
