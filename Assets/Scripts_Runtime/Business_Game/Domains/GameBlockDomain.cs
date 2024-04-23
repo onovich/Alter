@@ -67,7 +67,7 @@ namespace Alter {
                 var cellPos = pos + localPos;
                 var hasCell = ctx.cellRepo.TryGetCellByPos(cellPos, out var cell);
                 spawnable &= !hasCell;
-                if(!spawnable) {
+                if (!spawnable) {
                     return;
                 }
             });
@@ -105,6 +105,10 @@ namespace Alter {
 
         public static void ApplyMove(GameBusinessContext ctx, BlockEntity block, Vector2Int dir) {
             var pos = block.PosInt;
+            var allow = CheckNextIsNoCell(ctx, block);
+            if (!allow) {
+                return;
+            }
             block.Pos_SetPos(pos + dir);
         }
 
