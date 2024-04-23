@@ -162,16 +162,15 @@ namespace Alter {
             }
             isTearDown = true;
 
-            loginBusinessContext.evt.Clear();
-            uiAppContext.evt.Clear();
-
-            templateInfraContext.Clear();
-            assetsInfraContext.Clear();
-
             GameBusiness.TearDown(gameBusinessContext);
             AssetsInfra.ReleaseAssets(assetsInfraContext);
             TemplateInfra.Release(templateInfraContext);
-            // UIApp.TearDown(uiAppContext);
+
+            loginBusinessContext.Clear();
+            uiAppContext.Clear();
+
+            templateInfraContext.Clear();
+            assetsInfraContext.Clear();
         }
 
         void OnDrawGizmos() {

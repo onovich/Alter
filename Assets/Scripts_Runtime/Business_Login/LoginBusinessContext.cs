@@ -1,4 +1,4 @@
-namespace Alter{
+namespace Alter {
 
     public class LoginBusinessContext {
 
@@ -7,6 +7,9 @@ namespace Alter{
 
         public LoginBusinessContext() {
             evt = new LoginEventCenter();
+        }
+        public void Clear() {
+            evt.Clear();
         }
 
     }

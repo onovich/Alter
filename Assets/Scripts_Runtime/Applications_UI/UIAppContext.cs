@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using MortiseFrame.Loom;
+using TenonKit.Loom;
 using UnityEngine;
 using Alter.UI;
 
@@ -59,6 +59,11 @@ namespace Alter {
             uiCore.MultiplePanel_CloseGroup<T>();
         }
         #endregion
+
+        public void Clear() {
+            uiCore.TearDown();
+            evt.Clear();
+        }
 
     }
 
