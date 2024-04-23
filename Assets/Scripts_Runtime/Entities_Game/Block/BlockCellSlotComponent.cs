@@ -17,6 +17,13 @@ namespace Alter {
             all.Add(cell.entityID, cell);
         }
 
+        public void ForEach(Action<int, CellEntity> action) {
+            for (int i = 0; i < all.Count; i++) {
+                var cell = all.Values[i];
+                action(i, cell);
+            }
+        }
+
         public CellEntity Get(int index) {
             if (all.ContainsKey(index)) {
                 return all[index];

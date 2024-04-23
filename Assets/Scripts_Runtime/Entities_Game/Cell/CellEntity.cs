@@ -30,6 +30,10 @@ namespace Alter {
             transform.position = pos.ToVector3Int();
         }
 
+        public void Pos_SetLocalPos(Vector2Int localPos) {
+            transform.localPosition = localPos.ToVector3Int();
+        }
+
         Vector2Int Pos_GetPosInt() {
             return transform.position.RoundToVector3Int().ToVector2Int();
         }
