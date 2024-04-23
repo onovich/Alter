@@ -163,6 +163,7 @@ namespace Alter {
             isTearDown = true;
 
             GameBusiness.TearDown(gameBusinessContext);
+            
             AssetsInfra.ReleaseAssets(assetsInfraContext);
             TemplateInfra.Release(templateInfraContext);
 

@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using UnityEngine;
 using UnityEditor;
 using System.Collections.Generic;
@@ -48,3 +49,4 @@ public class MissingScriptsSearchEditor : EditorWindow {
         return go.transform.parent == null ? go.name : FullPath(go.transform.parent.gameObject) + "/" + go.name;
     }
 }
+#endif
