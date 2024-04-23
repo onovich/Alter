@@ -30,7 +30,7 @@ namespace Alter {
             for (int x = 0; x < sizeInt.x; x++) {
                 for (int y = 0; y < sizeInt.y; y++) {
                     if (cells[x, y]) {
-                        cellList.Add(new Vector2Int(x, y));
+                        cellList.Add(new Vector2Int(x, sizeInt.y - 1 - y)); 
                     }
                 }
             }
@@ -50,7 +50,7 @@ namespace Alter {
             cells = new bool[sizeInt.x, sizeInt.y];
             for (int i = 0; i < shapeTM.cells.Length; i++) {
                 var x = shapeTM.cells[i].x;
-                var y = shapeTM.cells[i].y;
+                var y = sizeInt.y - 1 - shapeTM.cells[i].y;
                 cells[x, y] = true;
             }
         }

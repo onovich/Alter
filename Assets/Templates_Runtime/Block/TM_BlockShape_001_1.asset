@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: TM_BlockShape_001_1
   m_EditorClassIdentifier: 
   centerInt: {x: 1, y: 1}
-  sizeInt: {x: 3, y: 3}
+  sizeInt: {x: 2, y: 3}
   cells:
-  - {x: 0, y: 0}
-  - {x: 0, y: 1}
   - {x: 0, y: 2}
-  - {x: 1, y: 2}
+  - {x: 0, y: 1}
+  - {x: 0, y: 0}
+  - {x: 1, y: 0}

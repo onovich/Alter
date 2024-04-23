@@ -17,7 +17,6 @@ namespace Alter {
         }
 
         public static void Tick(GameBusinessContext ctx, float dt) {
-
             InputEntity inputEntity = ctx.inputEntity;
 
             ProcessInput(ctx, dt);
@@ -37,7 +36,6 @@ namespace Alter {
             }
             LateTick(ctx, dt);
             inputEntity.Reset();
-
         }
 
         public static void ProcessInput(GameBusinessContext ctx, float dt) {

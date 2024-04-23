@@ -58,10 +58,10 @@ MonoBehaviour:
       Data: 0|System.Boolean[,], mscorlib
     - Name: 
       Entry: 12
-      Data: 9
+      Data: 6
     - Name: ranks
       Entry: 1
-      Data: 3|3
+      Data: 2|3
     - Name: 
       Entry: 5
       Data: true
@@ -80,15 +80,6 @@ MonoBehaviour:
     - Name: 
       Entry: 5
       Data: true
-    - Name: 
-      Entry: 5
-      Data: false
-    - Name: 
-      Entry: 5
-      Data: false
-    - Name: 
-      Entry: 5
-      Data: false
     - Name: 
       Entry: 13
       Data: 
@@ -96,5 +87,5 @@ MonoBehaviour:
       Entry: 8
       Data: 
   shapeTM: {fileID: 11400000, guid: 25201be8209e34ea0af6e977ac040512, type: 2}
-  sizeInt: {x: 3, y: 3}
+  sizeInt: {x: 2, y: 3}
   centerInt: {x: 1, y: 1}
