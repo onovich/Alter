@@ -23,7 +23,11 @@ namespace Alter {
             }
 
             // Block
+            // First Block
+            ctx.nextBlockTypeID = ctx.templateInfraContext.Block_GetRandom(ctx.randomService).typeID;
             GameBlockDomain.SpawnRandomBlock(ctx);
+            // Preview Block
+            GameBlockDomain.SpawnPreviewBlock(ctx);
 
             // UI
             UIApp.GameInfo_Open(ctx.uiContext);
@@ -78,8 +82,9 @@ namespace Alter {
                 cell.SetParent(ctx.cellBoard);
             });
 
-            GameBlockDomain.UnSpawn(ctx, block);
+            GameBlockDomain.UnSpawnCurrent(ctx, block);
             GameBlockDomain.SpawnRandomBlock(ctx);
+            GameBlockDomain.RefreshPreviewBlock(ctx);
         }
 
         static bool CheckCurrentBlockIsLanding(GameBusinessContext ctx) {
@@ -109,7 +114,11 @@ namespace Alter {
             // Block
             var block = ctx.currentBlock;
             if (block != null) {
-                GameBlockDomain.UnSpawn(ctx, block);
+                GameBlockDomain.UnSpawnCurrent(ctx, block);
+            }
+            var previewBlock = ctx.previewBlock;
+            if (previewBlock != null) {
+                GameBlockDomain.UnSpawnPreview(ctx, previewBlock);
             }
 
             // Repo

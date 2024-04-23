@@ -24,6 +24,7 @@ namespace Alter {
 
             // Set Point
             map.spawnPoint = mapTM.spawnPoint;
+            map.previewPoint = mapTM.previewPoint;
 
             return map;
         }

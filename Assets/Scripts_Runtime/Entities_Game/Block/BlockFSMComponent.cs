@@ -11,6 +11,11 @@ namespace Alter {
         public bool moving_isEntering;
         public bool landing_isEntering;
 
+        public void None_Enter() {
+            Reset();
+            status = BlockFSMStatus.None;
+        }
+
         public void Moving_Enter() {
             Reset();
             status = BlockFSMStatus.Moving;

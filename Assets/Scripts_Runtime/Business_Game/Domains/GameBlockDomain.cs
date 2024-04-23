@@ -4,6 +4,26 @@ namespace Alter {
 
     public static class GameBlockDomain {
 
+        public static void SpawnPreviewBlock(GameBusinessContext ctx) {
+            var map = ctx.currentMapEntity;
+            var pos = map.previewPoint;
+            var nextTypeID = ctx.nextBlockTypeID;
+            var block = GameFactory.Block_Spawn(ctx.idRecordService,
+                                                nextTypeID,
+                                                ctx.templateInfraContext,
+                                                ctx.assetsInfraContext,
+                                                pos);
+            ctx.SetPreviewBlock(block);
+            block.fsmComponent.None_Enter();
+            SpawnCellArrFromBlock(ctx, block, nextTypeID, pos);
+        }
+
+        public static void RefreshPreviewBlock(GameBusinessContext ctx) {
+            var block = ctx.previewBlock;
+            UnSpawnPreview(ctx, block);
+            SpawnPreviewBlock(ctx);
+        }
+
         public static void SpawnRandomBlock(GameBusinessContext ctx) {
             var map = ctx.currentMapEntity;
             var pos = map.spawnPoint;
@@ -22,21 +42,20 @@ namespace Alter {
 
             GLog.Log($"Spawn Block {block.typeName}");
 
-            SpawnCellArrFromBlock(ctx, typeID, pos);
+            SpawnCellArrFromBlock(ctx, block, typeID, pos);
 
             // Record Next Block Type ID
             var nextBlockTM = ctx.templateInfraContext.Block_GetRandom(ctx.randomService);
             ctx.nextBlockTypeID = nextBlockTM.typeID;
         }
 
-        public static void SpawnCellArrFromBlock(GameBusinessContext ctx, int typeID, Vector2Int pos) {
+        public static void SpawnCellArrFromBlock(GameBusinessContext ctx, BlockEntity block, int typeID, Vector2Int pos) {
             var has = ctx.templateInfraContext.Block_TryGet(typeID, out var blockTM);
             if (!has) {
                 GLog.LogError($"Block {typeID} not found");
                 return;
             }
             var map = ctx.currentMapEntity;
-            var block = ctx.currentBlock;
             var index = block.currentIndex;
             blockTM.ForEachCellsLocalPos(index, (cellIndex, localPos) => {
                 var cellPos = pos + localPos;
@@ -107,8 +126,13 @@ namespace Alter {
             return !hasCell;
         }
 
-        public static void UnSpawn(GameBusinessContext ctx, BlockEntity cell) {
+        public static void UnSpawnCurrent(GameBusinessContext ctx, BlockEntity cell) {
             ctx.SetCurrentBlock(null);
+            cell.TearDown();
+        }
+
+        public static void UnSpawnPreview(GameBusinessContext ctx, BlockEntity cell) {
+            ctx.SetPreviewBlock(null);
             cell.TearDown();
         }
 

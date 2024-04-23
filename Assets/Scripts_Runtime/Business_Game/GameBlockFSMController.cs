@@ -9,7 +9,9 @@ namespace Alter {
             TickFSM_Any(ctx, block, dt);
 
             BlockFSMStatus status = block.fsmComponent.Status;
-            if (status == BlockFSMStatus.Moving) {
+            if (status == BlockFSMStatus.None) {
+                return;
+            } else if (status == BlockFSMStatus.Moving) {
                 TickFSM_Moving(ctx, block, dt);
             } else if (status == BlockFSMStatus.Landing) {
                 TickFSM_Landing(ctx, block, dt);
@@ -28,6 +30,7 @@ namespace Alter {
             if (fsm.moving_isEntering) {
                 fsm.moving_isEntering = false;
             }
+
             var moveDir = ctx.inputEntity.moveAxis;
             GameBlockDomain.ApplyMove(ctx, block, moveDir);
             GameBlockDomain.ApplyRotate(ctx);

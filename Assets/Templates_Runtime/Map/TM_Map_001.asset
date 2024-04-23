@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: TM_Map_001
   m_EditorClassIdentifier: 
   typeID: 1
-  seed: 0
   mapSize: {x: 10, y: 20}
   spawnPoint: {x: 0, y: 6}
+  previewPoint: {x: 7, y: 8}

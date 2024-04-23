@@ -12,6 +12,7 @@ namespace Alter {
         [SerializeField] SpriteRenderer spr;
 
         public Vector2Int spawnPoint;
+        public Vector2Int previewPoint;
         public Vector2Int PosInt => transform.position.RoundToVector2Int();
 
         public float timer;

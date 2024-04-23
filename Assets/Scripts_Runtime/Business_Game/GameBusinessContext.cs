@@ -14,6 +14,7 @@ namespace Alter {
 
         public CellRepository cellRepo;
         public BlockEntity currentBlock;
+        public BlockEntity previewBlock;
 
         // App
         public UIAppContext uiContext;
@@ -60,6 +61,10 @@ namespace Alter {
 
         public void SetCurrentBlock(BlockEntity block) {
             currentBlock = block;
+        }
+
+        public void SetPreviewBlock(BlockEntity block) {
+            previewBlock = block;
         }
 
     }

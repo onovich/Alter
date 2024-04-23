@@ -10,6 +10,7 @@ namespace Alter {
         public int typeID;
         public Vector2Int mapSize;
         public Vector2Int spawnPoint;
+        public Vector2Int previewPoint;
 
     }
 
