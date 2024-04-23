@@ -9,17 +9,10 @@ namespace Alter {
         public Vector2Int moveAxis;
         public bool isRotate;
 
-        float inputTimer;
-        float inputInterval;
-
         InputKeybindingComponent keybindingCom;
 
         public void Ctor() {
             keybindingCom.Ctor();
-        }
-
-        public void SetInputInterval(float inputInterval) {
-            this.inputInterval = inputInterval;
         }
 
         public void ResetMoveAxis() {
@@ -28,19 +21,13 @@ namespace Alter {
 
         public void ProcessInput(Camera camera, float dt) {
 
-            inputTimer += dt;
-            if (inputTimer < inputInterval) {
-                return;
-            }
-            inputTimer -= inputInterval;
-
-            if (keybindingCom.IsKeyPressing(InputKeyEnum.MoveLeft)) {
+            if (keybindingCom.IsKeyDown(InputKeyEnum.MoveLeft)) {
                 moveAxis.x = -1;
             }
-            if (keybindingCom.IsKeyPressing(InputKeyEnum.MoveRight)) {
+            if (keybindingCom.IsKeyDown(InputKeyEnum.MoveRight)) {
                 moveAxis.x = 1;
             }
-            if (keybindingCom.IsKeyPressing(InputKeyEnum.MoveUp)) {
+            if (keybindingCom.IsKeyDown(InputKeyEnum.MoveUp)) {
                 isRotate = true;
             }
             if (keybindingCom.IsKeyPressing(InputKeyEnum.MoveDown)) {

@@ -9,10 +9,6 @@ namespace Alter {
 
             var config = ctx.templateInfraContext.Config_Get();
 
-            // Input
-            var input = ctx.inputEntity;
-            input.SetInputInterval(config.gameInputIntervalTime);
-
             // Game
             var game = ctx.gameEntity;
             game.SetFallingInterval(config.gameFallingIntervalTime);
