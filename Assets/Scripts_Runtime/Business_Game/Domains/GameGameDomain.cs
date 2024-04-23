@@ -80,6 +80,7 @@ namespace Alter {
             block.cellSlotComponent.ForEach((index, cell) => {
                 GameCellDomain.AppToRepo(ctx, cell);
                 cell.SetParent(ctx.cellBoard);
+                cell.SetSprColor(Color.white);
             });
             GameBlockDomain.UnSpawnCurrent(ctx, block);
 
