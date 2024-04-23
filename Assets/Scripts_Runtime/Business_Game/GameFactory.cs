@@ -49,10 +49,23 @@ namespace Alter {
             if (!has) {
                 GLog.LogError($"Block {id} not found");
             }
-            // var center = blockTM.size / 2;
-            // var bounds = new BoundsInt(center, blockTM.size);
-            // block.bounds = bounds;
 
+            for (int i = 0; i < blockTM.shapeArr.Length; i++) {
+                var shapeTM = blockTM.shapeArr[i];
+                var shape = new Vector2Int[shapeTM.sizeInt.x * shapeTM.sizeInt.y];
+                shapeTM.ForEachCellsLocalPos((localPos) => {
+                    var index = localPos.x + localPos.y * shapeTM.sizeInt.x;
+                    shape[index] = localPos;
+                });
+                var shapeModel = new BlockShapeModel {
+                    index = i,
+                    shape = shape,
+                    sizeInt = shapeTM.sizeInt,
+                    centerInt = shapeTM.centerInt,
+                    centerFloat = shapeTM.GetCenterFloat()
+                };
+                block.shapeComponent.Add(shapeModel);
+            }
             return block;
         }
 

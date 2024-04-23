@@ -12,19 +12,22 @@ namespace Alter {
         public Vector2 Pos => transform.position;
         public Vector2Int PosInt => Pos_GetPosInt();
 
-        public BoundsInt bounds;
-
         public Vector2Int lastPosInt;
 
         // FSM
         public BlockFSMComponent fsmComponent;
 
         // Cell
-        public List<CellEntity> cellList;
+        public BlockCellSlotComponent cellSlotComponent;
+        public BlockShapeComponent shapeComponent;
+        public int currentIndex;
+        public Vector2Int SizeInt => GetSizeInt();
 
         public void Ctor() {
             fsmComponent = new BlockFSMComponent();
-            cellList = new List<CellEntity>();
+            cellSlotComponent = new BlockCellSlotComponent();
+            shapeComponent = new BlockShapeComponent();
+            currentIndex = 0;
         }
 
         public void RecordLatPos() {
@@ -42,30 +45,29 @@ namespace Alter {
         // Cell
         public void AddCell(CellEntity cell) {
             cell.transform.SetParent(cellRoot, true);
-            cellList.Add(cell);
+            cellSlotComponent.Add(cell);
         }
 
         public bool Cell_IsInBlock(int cellID) {
-            return cellList.Exists(cell => cell.entityID == cellID);
+            return cellSlotComponent.TryGetByEntityID(cellID, out _);
         }
 
         public void Rotate() {
-            Vector2Int centerPos = PosInt + bounds.Center;
-            foreach (var cell in cellList) {
-                Vector2 shiftedPoint = new Vector2(cell.Pos.x - centerPos.x, cell.Pos.y - centerPos.y);
-                Vector2 rotatedPoint = new Vector2(shiftedPoint.y, -shiftedPoint.x); // 90度旋转
-                rotatedPoint += centerPos;
-                cell.Pos_SetPos(rotatedPoint.RoundToVector2Int());
-            }
-            var size = new Vector2Int(bounds.Size.y, bounds.Size.x);
-            var center = new Vector2Int(bounds.Center.y, bounds.Center.x);
-            bounds = new BoundsInt(center, size);
+            currentIndex = (currentIndex + 1) % 4;
+
+        }
+
+        public Vector2Int GetSizeInt() {
+            var shape = shapeComponent.Get(currentIndex);
+            return shape.sizeInt;
         }
 
         // Move
         public Vector2Int Move_GetConstraintOffset(Vector2Int constraintSize, Vector2Int constraintCenter) {
+            var shape = shapeComponent.Get(currentIndex);
+
             Vector2Int blockMin = PosInt;
-            Vector2Int blockMax = PosInt + bounds.Size;
+            Vector2Int blockMax = PosInt + shape.sizeInt;
 
             Vector2Int min = constraintCenter - constraintSize / 2 + constraintCenter + Vector2Int.up;
             Vector2Int max = constraintCenter + constraintSize / 2 + constraintCenter;
@@ -92,13 +94,17 @@ namespace Alter {
         }
 
         private void OnDrawGizmos() {
+            var shape = shapeComponent.Get(currentIndex);
             Gizmos.color = Color.green;
-            var center = PosInt + bounds.Center;
-            Gizmos.DrawWireCube(center.ToVector3Int(), bounds.Size.ToVector3Int());
+            var center = PosInt + shape.centerFloat;
+            var size = shape.sizeInt;
+            Gizmos.DrawWireCube(center, size.ToVector3Int());
         }
 
         public void TearDown() {
-            cellList.Clear();
+            fsmComponent.Reset();
+            shapeComponent.Clear();
+            cellSlotComponent.Clear();
             Destroy(gameObject);
         }
 

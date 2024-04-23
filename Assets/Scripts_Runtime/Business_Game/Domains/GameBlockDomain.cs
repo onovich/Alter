@@ -21,12 +21,12 @@ namespace Alter {
             }
             var map = ctx.currentMapEntity;
             var block = ctx.currentBlock;
-            // blockTM.ForEachCellsLocalPos((localPos) => {
-            //     var cellPos = pos + localPos;
-            //     Debug.Log($"Spawn Cell {cellPos} = {localPos} + {pos}");
-            //     var cell = GameCellDomain.Spawn(ctx, cellPos);
-            //     block.AddCell(cell);
-            // });
+            var index = block.currentIndex;
+            blockTM.ForEachCellsLocalPos(index, (localPos) => {
+                var cellPos = pos + localPos;
+                var cell = GameCellDomain.Spawn(ctx, cellPos);
+                block.AddCell(cell);
+            });
         }
 
         public static void ApplyConstraint(GameBusinessContext ctx) {
@@ -76,7 +76,7 @@ namespace Alter {
 
         static bool CheckNextIsNoCell(GameBusinessContext ctx, BlockEntity block) {
             var pos = block.PosInt;
-            var size = block.bounds.Size;
+            var size = block.SizeInt;
             pos += Vector2Int.down;
             var noCell = true;
             GridUtils.ForEachBottomGridBySize(pos, size, (grid) => {
