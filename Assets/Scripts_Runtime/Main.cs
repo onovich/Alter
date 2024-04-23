@@ -34,11 +34,12 @@ namespace Alter {
             Transform hudFakeCanvas = GameObject.Find("HUDFakeCanvas").transform;
             Camera mainCamera = GameObject.Find("MainCamera").GetComponent<Camera>();
             Transform vfxRoot = GameObject.Find("VFXRoot").transform;
+            Transform cellBoard = GameObject.Find("CellBoard").transform;
 
             inputEntity = new InputEntity();
 
             loginBusinessContext = new LoginBusinessContext();
-            gameBusinessContext = new GameBusinessContext();
+            gameBusinessContext = new GameBusinessContext(cellBoard);
 
             uiAppContext = new UIAppContext("UI", mainCanvas, hudFakeCanvas, mainCamera);
             vfxAppContext = new VFXAppContext("VFX", vfxRoot);

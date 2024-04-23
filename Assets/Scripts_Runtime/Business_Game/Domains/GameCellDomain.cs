@@ -10,8 +10,11 @@ namespace Alter {
                                               ctx.assetsInfraContext,
                                               pos);
 
-            ctx.cellRepo.Add(cell);
             return cell;
+        }
+
+        public static void AppToRepo(GameBusinessContext ctx, CellEntity cell) {
+            ctx.cellRepo.Add(cell);
         }
 
         public static void UnSpawn(GameBusinessContext ctx, CellEntity cell) {

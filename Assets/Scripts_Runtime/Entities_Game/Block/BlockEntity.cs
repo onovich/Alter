@@ -112,13 +112,6 @@ namespace Alter {
         }
 
         public void TearDown() {
-            cellSlotComponent.ForEach((index, cell) => {
-                if (cell == null) {
-                    return;
-                }
-                cell.TearDown();
-            });
-
             fsmComponent.Reset();
             shapeComponent.Clear();
             cellSlotComponent.Clear();

@@ -10,8 +10,6 @@ namespace Alter {
         public Vector2 Pos => transform.position;
         public Vector2Int PosInt => Pos_GetPosInt();
 
-        public Vector2Int lastPosInt;
-
         // Render
         [SerializeField] SpriteRenderer spr;
 
@@ -20,10 +18,6 @@ namespace Alter {
 
         public void SetSprColor(Color color) {
             spr.color = color;
-        }
-
-        public void RecordLatPos() {
-            lastPosInt = PosInt;
         }
 
         public void Pos_SetPos(Vector2Int pos) {
@@ -36,6 +30,10 @@ namespace Alter {
 
         Vector2Int Pos_GetPosInt() {
             return transform.position.RoundToVector3Int().ToVector2Int();
+        }
+
+        public void SetParent(Transform parent) {
+            transform.SetParent(parent, true);
         }
 
         public void TearDown() {

@@ -73,6 +73,11 @@ namespace Alter {
 
         static void NewTurn(GameBusinessContext ctx) {
             var block = ctx.currentBlock;
+            block.cellSlotComponent.ForEach((index, cell) => {
+                GameCellDomain.AppToRepo(ctx, cell);
+                cell.SetParent(ctx.cellBoard);
+            });
+
             GameBlockDomain.UnSpawn(ctx, block);
             GameBlockDomain.SpawnRandomBlock(ctx);
         }

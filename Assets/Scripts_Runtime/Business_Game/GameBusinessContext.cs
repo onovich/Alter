@@ -22,6 +22,9 @@ namespace Alter {
         // Camera
         public Camera mainCamera;
 
+        // Transform
+        public Transform cellBoard;
+
         // Service
         public IDRecordService idRecordService;
         public RandomService randomService;
@@ -36,13 +39,14 @@ namespace Alter {
         // TEMP
         public RaycastHit2D[] hitResults;
 
-        public GameBusinessContext() {
+        public GameBusinessContext(Transform cellBoard) {
             gameEntity = new GameEntity();
             playerEntity = new PlayerEntity();
             idRecordService = new IDRecordService();
             randomService = new RandomService();
             cellRepo = new CellRepository();
             hitResults = new RaycastHit2D[100];
+            this.cellBoard = cellBoard;
         }
 
         public void Reset() {
