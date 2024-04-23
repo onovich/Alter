@@ -82,6 +82,14 @@ namespace Alter {
                 cell.SetParent(ctx.cellBoard);
             });
 
+            var game = ctx.gameEntity;
+            var config = ctx.templateInfraContext.Config_Get();
+            var spawnable = GameBlockDomain.CheckNextSpawnable(ctx);
+            if (!spawnable) {
+                game.fsmComponent.GameOver_Enter(config.gameResetEnterTime, GameResult.Lose);
+                return;
+            }
+
             GameBlockDomain.UnSpawnCurrent(ctx, block);
             GameBlockDomain.SpawnRandomBlock(ctx);
             GameBlockDomain.RefreshPreviewBlock(ctx);
