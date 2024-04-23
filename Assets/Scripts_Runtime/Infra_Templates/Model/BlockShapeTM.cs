@@ -6,7 +6,6 @@ namespace Alter {
     [CreateAssetMenu(fileName = "TM_BlockShape", menuName = "Alter/TM/BlockShape")]
     public class BlockShapeTM : ScriptableObject {
 
-        public Vector2Int centerInt;
         public Vector2Int sizeInt;
         public Vector2Int[] cells;
 
@@ -17,7 +16,7 @@ namespace Alter {
         }
 
         public Vector2 GetCenterFloat() {
-            return new Vector2((float)sizeInt.x / 2, (float)centerInt.y / 2);
+            return new Vector2((float)sizeInt.x / 2, (float)sizeInt.y / 2);
         }
 
     }

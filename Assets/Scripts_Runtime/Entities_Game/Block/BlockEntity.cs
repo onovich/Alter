@@ -72,7 +72,7 @@ namespace Alter {
             Vector2Int blockMin = PosInt;
             Vector2Int blockMax = PosInt + shape.sizeInt;
 
-            Vector2Int min = constraintCenter - constraintSize / 2 + constraintCenter + Vector2Int.up;
+            Vector2Int min = constraintCenter - constraintSize / 2 + constraintCenter;
             Vector2Int max = constraintCenter + constraintSize / 2 + constraintCenter;
 
             Vector2Int offset = Vector2Int.zero;
@@ -89,7 +89,7 @@ namespace Alter {
         }
 
         public bool Move_CheckInAir(Vector2Int constraintSize, Vector2Int constraintCenter, Vector2Int pos, Vector2Int axis) {
-            Vector2Int min = constraintCenter - constraintSize / 2 + constraintCenter;
+            Vector2Int min = constraintCenter - constraintSize / 2 + constraintCenter + Vector2Int.down;
             if (pos.y + axis.y <= min.y) {
                 return false;
             }
@@ -99,9 +99,13 @@ namespace Alter {
         private void OnDrawGizmos() {
             var shape = shapeComponent.Get(currentIndex);
             Gizmos.color = Color.green;
-            var center = PosInt + shape.centerFloat;
+            var center = Pos + shape.centerFloat;
             var size = shape.sizeInt;
-            Gizmos.DrawWireCube(center, size.ToVector3Int());
+            Gizmos.DrawWireCube(center, new Vector3(size.x, size.y, 0));
+            Gizmos.color = Color.red;
+            Gizmos.DrawCube(center, new Vector3(.2f, .2f, 0));
+            Gizmos.color = Color.white;
+            Gizmos.DrawCube(Pos, new Vector3(.2f, .2f, 0));
         }
 
         public void TearDown() {

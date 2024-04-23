@@ -16,7 +16,7 @@ namespace Alter {
 
             // Map
             var mapTypeID = config.originalMapTypeID;
-            var map = GameMapDomain.Spawn(ctx, mapTypeID);
+            var _ = GameMapDomain.Spawn(ctx, mapTypeID);
             var has = ctx.templateInfraContext.Map_TryGet(mapTypeID, out var mapTM);
             if (!has) {
                 GLog.LogError($"MapTM Not Found {mapTypeID}");

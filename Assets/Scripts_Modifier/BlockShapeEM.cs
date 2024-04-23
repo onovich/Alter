@@ -15,7 +15,6 @@ namespace Alter {
 
         [Header("Block Cells")]
         public Vector2Int sizeInt;
-        public Vector2Int centerInt;
 
         [Button("Load")]
         void Load() {
@@ -30,7 +29,7 @@ namespace Alter {
             for (int x = 0; x < sizeInt.x; x++) {
                 for (int y = 0; y < sizeInt.y; y++) {
                     if (cells[x, y]) {
-                        cellList.Add(new Vector2Int(x, sizeInt.y - 1 - y)); 
+                        cellList.Add(new Vector2Int(x, sizeInt.y - 1 - y));
                     }
                 }
             }
@@ -40,7 +39,6 @@ namespace Alter {
         [Button("Bake")]
         void Bake() {
             shapeTM.sizeInt = sizeInt;
-            shapeTM.centerInt = centerInt;
             BakeCells();
             EditorUtility.SetDirty(shapeTM);
             AssetDatabase.SaveAssets();

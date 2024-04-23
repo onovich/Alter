@@ -60,7 +60,6 @@ namespace Alter {
                     index = i,
                     shape = shape,
                     sizeInt = shapeTM.sizeInt,
-                    centerInt = shapeTM.centerInt,
                     centerFloat = shapeTM.GetCenterFloat()
                 };
                 block.shapeComponent.Add(shapeModel);
