@@ -35,8 +35,8 @@ namespace Alter {
             GameBlockDomain.ApplyMove(ctx, block, moveDir);
             GameBlockDomain.ApplyRotate(ctx);
             GameBlockDomain.ApplyFalling(ctx, block);
-            GameBlockDomain.ApplyCheckLanding(ctx);
             GameBlockDomain.ApplyConstraint(ctx);
+            GameBlockDomain.ApplyCheckLanding(ctx);
         }
 
         static void TickFSM_Landing(GameBusinessContext ctx, BlockEntity block, float fixdt) {

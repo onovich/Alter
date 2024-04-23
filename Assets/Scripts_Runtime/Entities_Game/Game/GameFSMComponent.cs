@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
 
@@ -8,8 +9,14 @@ namespace Alter {
         public GameStatus status;
 
         public bool notInGame_isEntering;
+
         public bool gaming_isEntering;
         public float gaming_gameTime;
+        
+        public bool clearing_isEntering;
+        public List<int> clearing_rowList;
+        public float clearing_duration;
+
         public bool gameOver_isEntering;
         public float gameOver_enterTime;
         public GameResult gameOver_result;

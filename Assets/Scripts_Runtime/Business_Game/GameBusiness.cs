@@ -62,9 +62,6 @@ namespace Alter {
                 // Cell In Board
                 GameCellDomain.CheckCellFillRowsAndMark(ctx);
 
-                // Stage
-                GameGameDomain.ApplyGameStage(ctx);
-
                 // Result
                 GameGameDomain.ApplyGameResult(ctx);
 

@@ -82,10 +82,18 @@ namespace Alter {
             }
             var map = ctx.currentMapEntity;
             var index = block.currentIndex;
+            has = ctx.templateInfraContext.Block_TryGet(typeID, out blockTM);
+            if (!has) {
+                GLog.LogError($"Block {typeID} not found");
+                return;
+            }
             blockTM.ForEachCellsLocalPos(index, (cellIndex, localPos) => {
                 var cellPos = pos + localPos;
                 var cell = GameCellDomain.Spawn(ctx, cellPos);
                 block.AddCell(cell);
+                cell.SetSpr(blockTM.mesh);
+                cell.SetSprColor(blockTM.meshColor);
+                cell.SetSprMaterial(blockTM.meshMaterial);
             });
         }
 
@@ -114,6 +122,7 @@ namespace Alter {
                 return;
             }
             block.fsmComponent.Landing_Enter();
+            GameGameDomain.ApplyGameStage(ctx);
         }
 
         public static void ApplyFalling(GameBusinessContext ctx, BlockEntity block) {

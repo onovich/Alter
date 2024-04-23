@@ -81,6 +81,7 @@ namespace Alter {
                 GameCellDomain.AppToRepo(ctx, cell);
                 cell.SetParent(ctx.cellBoard);
             });
+            GameBlockDomain.UnSpawnCurrent(ctx, block);
 
             var game = ctx.gameEntity;
             var config = ctx.templateInfraContext.Config_Get();
@@ -90,7 +91,6 @@ namespace Alter {
                 return;
             }
 
-            GameBlockDomain.UnSpawnCurrent(ctx, block);
             GameBlockDomain.SpawnRandomBlock(ctx);
             GameBlockDomain.RefreshPreviewBlock(ctx);
         }

@@ -20,6 +20,14 @@ namespace Alter {
             spr.color = color;
         }
 
+        public void SetSpr(Sprite sprite) {
+            spr.sprite = sprite;
+        }
+
+        public void SetSprMaterial(Material material) {
+            spr.material = material;
+        }
+
         public void Pos_SetPos(Vector2Int pos) {
             transform.position = pos.ToVector3Int();
         }

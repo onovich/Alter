@@ -15,7 +15,8 @@ MonoBehaviour:
   typeID: 2
   typeName: Block-T
   mesh: {fileID: 21300000, guid: 40eb3a4c3bff143cababfb54f86881bd, type: 3}
-  meshMaterial: {fileID: 2100000, guid: 53e7422ec9caf46d68abbc371e4a5eac, type: 2}
+  meshColor: {r: 0.28595585, g: 0.9496639, b: 0.9622642, a: 1}
+  meshMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   shapeArr:
   - {fileID: 11400000, guid: 02ee70b0e30834a8b8f129cce4ead0a9, type: 2}
   - {fileID: 11400000, guid: 63cf199efbb5e427b844ec208bbffd21, type: 2}

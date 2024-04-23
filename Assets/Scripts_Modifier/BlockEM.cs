@@ -19,6 +19,7 @@ namespace Alter {
 
         [Header("Block Mesh")]
         public Sprite mesh;
+        public UnityEngine.Color color;
         public Material meshMaterial;
 
         [Header("Block Shapes")]
@@ -29,6 +30,7 @@ namespace Alter {
             typeID = blockTM.typeID;
             typeName = blockTM.typeName;
             mesh = blockTM.mesh;
+            color = blockTM.meshColor;
             meshMaterial = blockTM.meshMaterial;
             GetShapes();
             EditorUtility.SetDirty(this);
@@ -57,6 +59,7 @@ namespace Alter {
             blockTM.typeID = typeID;
             blockTM.typeName = typeName;
             blockTM.mesh = mesh;
+            blockTM.meshColor = color;
             blockTM.meshMaterial = meshMaterial;
             BakeShapes();
             EditorUtility.SetDirty(blockTM);

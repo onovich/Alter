@@ -57,7 +57,8 @@ MonoBehaviour:
   typeID: 3
   typeName: Block-L
   mesh: {fileID: 21300000, guid: 40eb3a4c3bff143cababfb54f86881bd, type: 3}
-  meshMaterial: {fileID: 2100000, guid: 53e7422ec9caf46d68abbc371e4a5eac, type: 2}
+  color: {r: 0.9245283, g: 0.53931534, b: 0.082858644, a: 1}
+  meshMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   shapes:
   - {fileID: 11400000, guid: ceb076485cc9247fe97612953937abed, type: 2}
   - {fileID: 11400000, guid: 7f3c4e0fcb4be444ebe3161ba8914c8e, type: 2}
