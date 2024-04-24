@@ -32,18 +32,23 @@ namespace Alter {
             }
 
             var moveDir = ctx.inputEntity.moveAxis;
+            GameBlockDomain.ApplyFalling(ctx, block);
             GameBlockDomain.ApplyMove(ctx, block, moveDir);
             GameBlockDomain.ApplyRotate(ctx);
             GameBlockDomain.ApplyConstraint(ctx);
-            GameBlockDomain.ApplyFalling(ctx, block);
             GameBlockDomain.ApplyCheckLanding(ctx);
         }
 
         static void TickFSM_Landing(GameBusinessContext ctx, BlockEntity block, float fixdt) {
             BlockFSMComponent fsm = block.fsmComponent;
-            if (fsm.landing_isEntering) {
-                fsm.landing_isEntering = false;
+            if (!ctx.gameEntity.IsFallingFrame) {
+                var moveDir = ctx.inputEntity.moveAxis;
+                GameBlockDomain.ApplyMove(ctx, block, moveDir);
+                GameBlockDomain.ApplyConstraint(ctx);
+                GameBlockDomain.ApplyCheckLanding(ctx);
+                return;
             }
+            GameGameDomain.ApplyGameStage(ctx);
         }
 
     }

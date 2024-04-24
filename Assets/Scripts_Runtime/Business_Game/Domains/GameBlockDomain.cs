@@ -123,10 +123,10 @@ namespace Alter {
         public static void ApplyCheckLanding(GameBusinessContext ctx) {
             var block = ctx.currentBlock;
             if (CheckInAir(ctx, block) && CheckNextIsNoCell(ctx, block, Vector2Int.down)) {
+                block.fsmComponent.Moving_Enter();
                 return;
             }
             block.fsmComponent.Landing_Enter();
-            GameGameDomain.ApplyGameStage(ctx);
         }
 
         public static void ApplyFalling(GameBusinessContext ctx, BlockEntity block) {
