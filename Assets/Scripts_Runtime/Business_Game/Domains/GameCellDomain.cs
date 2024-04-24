@@ -22,6 +22,7 @@ namespace Alter {
             for (int y = 0; y < rows; y++) {
                 if (CheckCellFillARow(ctx, y)) {
                     MarkCellFillARow(ctx, y);
+                    return;
                 }
             }
         }
@@ -81,7 +82,16 @@ namespace Alter {
             var cellRepo = ctx.cellRepo;
             var row = cellRepo.GetFirstNotEmptyRow();
             var cell = cellRepo.DequeueClearingTask(row);
+            if (row == -1) {
+                GLog.LogWarning("row is -1");
+                return;
+            }
+            if (cell == null) {
+                GLog.LogWarning("cell is null, row: " + row);
+                return;
+            }
             UnSpawn(ctx, cell);
+
             if (cellRepo.GetCountOfClearingTask(row) == 0) {
                 game.fsmComponent.Gaming_Enter();
                 ApplyFallingAboveRow(ctx, row);
