@@ -105,7 +105,7 @@ namespace Alter {
 
         public static void ApplyMove(GameBusinessContext ctx, BlockEntity block, Vector2Int dir) {
             var pos = block.PosInt;
-            var allow = CheckNextIsNoCell(ctx, block);
+            var allow = CheckNextIsNoCell(ctx, block, dir);
             if (!allow) {
                 return;
             }
@@ -122,7 +122,7 @@ namespace Alter {
 
         public static void ApplyCheckLanding(GameBusinessContext ctx) {
             var block = ctx.currentBlock;
-            if (CheckInAir(ctx, block) && CheckNextIsNoCell(ctx, block)) {
+            if (CheckInAir(ctx, block) && CheckNextIsNoCell(ctx, block, Vector2Int.down)) {
                 return;
             }
             block.fsmComponent.Landing_Enter();
@@ -133,7 +133,7 @@ namespace Alter {
             if (!ctx.gameEntity.IsFallingFrame) {
                 return;
             }
-            var allow = CheckNextIsNoCell(ctx, block);
+            var allow = CheckNextIsNoCell(ctx, block, Vector2Int.down);
             if (!allow) {
                 return;
             }
@@ -151,11 +151,11 @@ namespace Alter {
             return block.Move_CheckInAir(mapSize, mapPos, pos, dir);
         }
 
-        static bool CheckNextIsNoCell(GameBusinessContext ctx, BlockEntity block) {
+        static bool CheckNextIsNoCell(GameBusinessContext ctx, BlockEntity block, Vector2Int dir) {
             var hasCell = false;
             block.cellSlotComponent.ForEach((index, cell) => {
                 var cellPos = cell.PosInt;
-                var next = cellPos + Vector2Int.down;
+                var next = cellPos + dir;
                 var hasNext = ctx.cellRepo.TryGetCellByPos(next, out var nextCell);
                 hasCell |= hasNext;
                 if (hasCell) {
