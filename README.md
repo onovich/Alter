@@ -12,3 +12,6 @@ The landing rule adopts the logic used in "Tetris: The Grand Master", where the 
 
 On this basis, some creative gameplay may be iterated in the future.<br/>
 **在此基础之上，后续可能迭代一些创意玩法。**
+
+No leveling rules and scoring rules have been implemented yet.<br/>
+**暂未做升关规则和计分规则。**
