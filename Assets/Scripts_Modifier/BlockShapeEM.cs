@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -88,3 +89,4 @@ namespace Alter {
     }
 
 }
+#endif
