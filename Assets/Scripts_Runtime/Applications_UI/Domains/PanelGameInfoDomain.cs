@@ -36,6 +36,14 @@ namespace Alter.UI {
             panel.RefreshStep(step);
         }
 
+        public static void RefreshScore(UIAppContext ctx, int score) {
+            var has = ctx.UniquePanel_TryGet<Panel_GameInfo>(out var panel);
+            if (!has) {
+                return;
+            }
+            panel.RefreshScore(score);
+        }
+
         public static void Close(UIAppContext ctx) {
             var has = ctx.UniquePanel_TryGet<Panel_GameOver>(out var panel);
             if (!has) {

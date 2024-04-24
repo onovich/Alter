@@ -95,6 +95,7 @@ namespace Alter {
                 // UI
                 UIApp.GameInfo_RefreshTime(ctx.uiContext, game.CurrentFallingFrame);
                 UIApp.GameInfo_RefreshStep(ctx.uiContext, input.inputStep);
+                UIApp.GameInfo_RefreshScore(ctx.uiContext, game.Score);
 
             }
             // VFX

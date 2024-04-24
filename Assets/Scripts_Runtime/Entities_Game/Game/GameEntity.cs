@@ -4,6 +4,10 @@ namespace Alter {
 
     public class GameEntity {
 
+        // Score
+        int score;
+        public int Score => score;
+
         // Falling
         float fallingTimer;
         int currentFallingFrame;
@@ -66,6 +70,11 @@ namespace Alter {
 
         public void ResetClearingFrame() {
             isClearingFrame = false;
+        }
+
+        // Score
+        public void AddScore(int score) {
+            this.score += score;
         }
 
     }

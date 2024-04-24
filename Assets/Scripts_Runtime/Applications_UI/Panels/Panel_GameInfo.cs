@@ -10,6 +10,7 @@ namespace Alter.UI {
 
         [SerializeField] Text timeText;
         [SerializeField] Text stepText;
+        [SerializeField] Text scoreText;
         [SerializeField] Button restartBtn;
 
         public Action OnRestartBtnClickHandle;
@@ -26,6 +27,10 @@ namespace Alter.UI {
 
         public void RefreshStep(int step) {
             stepText.text = step.ToString();
+        }
+
+        public void RefreshScore(int score) {
+            scoreText.text = score.ToString();
         }
 
         public void OnDestroy() {
