@@ -26,6 +26,24 @@ namespace Alter {
             }
         }
 
+        static void ApplyFallingAboveRow(GameBusinessContext ctx, int clearedRow) {
+            var cellRepo = ctx.cellRepo;
+            var columns = ctx.currentMapEntity.mapSize.x;
+            var rows = ctx.currentMapEntity.mapSize.y;
+            var map = ctx.currentMapEntity;
+            for (int column = 0; column < columns; column++) {
+                for (int row = clearedRow + 1; row < rows; row++) {
+                    var pos = GridUtils.GridIndexToPositionInt(column, row, map.mapSize);
+                    var has = cellRepo.TryGetCellByPos(pos, out var cell);
+                    if (has) {
+                        var newPos = GridUtils.GridIndexToPositionInt(column, row - 1, map.mapSize);
+                        cell.Pos_SetPos(newPos);
+                        cellRepo.UpdatePos(pos, cell);
+                    }
+                }
+            }
+        }
+
         static void MarkCellFillARow(GameBusinessContext ctx, int row) {
             var cellRepo = ctx.cellRepo;
             var columns = ctx.currentMapEntity.mapSize.x;
@@ -33,8 +51,7 @@ namespace Alter {
             for (int column = 0; column < columns; column++) {
                 var pos = GridUtils.GridIndexToPositionInt(column, row, map.mapSize);
                 if (cellRepo.TryGetCellByPos(pos, out var cell)) {
-                    cell.SetSprColor(Color.red);
-                    ctx.cellRepo.EnqueueClearingTask(cell);
+                    ctx.cellRepo.EnqueueClearingTask(cell, row);
                 }
             }
             var game = ctx.gameEntity;
@@ -62,10 +79,12 @@ namespace Alter {
             }
 
             var cellRepo = ctx.cellRepo;
-            var cell = cellRepo.DequeueClearingTask();
-            GameCellDomain.UnSpawn(ctx, cell);
-            if (cellRepo.ClearingTaskCount == 0) {
+            var row = cellRepo.GetFirstNotEmptyRow();
+            var cell = cellRepo.DequeueClearingTask(row);
+            UnSpawn(ctx, cell);
+            if (cellRepo.GetCountOfClearingTask(row) == 0) {
                 game.fsmComponent.Gaming_Enter();
+                ApplyFallingAboveRow(ctx, row);
             }
         }
 

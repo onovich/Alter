@@ -8,23 +8,42 @@ namespace Alter {
 
         Dictionary<int, CellEntity> all;
         Dictionary<Vector2Int, CellEntity> posMap;
-        Queue<CellEntity> clearingTaskQueue;
-        public int ClearingTaskCount => clearingTaskQueue.Count;
+        SortedList<int, Queue<CellEntity>> clearingTaskQueue;
         CellEntity[] temp;
 
         public CellRepository() {
             all = new Dictionary<int, CellEntity>();
             posMap = new Dictionary<Vector2Int, CellEntity>();
-            clearingTaskQueue = new Queue<CellEntity>();
+            clearingTaskQueue = new SortedList<int, Queue<CellEntity>>();
             temp = new CellEntity[220];
         }
 
-        public void EnqueueClearingTask(CellEntity cell) {
-            clearingTaskQueue.Enqueue(cell);
+        public int GetFirstNotEmptyRow() {
+            foreach (var pair in clearingTaskQueue) {
+                if (pair.Value.Count > 0) {
+                    return pair.Key;
+                }
+            }
+            return -1;
         }
 
-        public CellEntity DequeueClearingTask() {
-            return clearingTaskQueue.Dequeue();
+        public int GetCountOfClearingTask(int row) {
+            if (!clearingTaskQueue.TryGetValue(row, out var queue)) {
+                return 0;
+            }
+            return queue.Count;
+        }
+
+        public void EnqueueClearingTask(CellEntity cell, int row) {
+            if (!clearingTaskQueue.TryGetValue(row, out var queue)) {
+                queue = new Queue<CellEntity>();
+                clearingTaskQueue.Add(row, queue);
+            }
+            queue.Enqueue(cell);
+        }
+
+        public CellEntity DequeueClearingTask(int row) {
+            return clearingTaskQueue[row].Dequeue();
         }
 
         public void Add(CellEntity cell) {
