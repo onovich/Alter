@@ -64,10 +64,17 @@ namespace Alter {
 
                 // Result
                 GameGameDomain.ApplyGameResult(ctx);
-
+                return;
+            }
+            if (status == GameStatus.Clearing) {
+                GameGameDomain.ApplyClearingFrame(ctx, dt);
+                GameCellDomain.ApplyClearing(ctx, dt);
+                GameGameDomain.ResetClearingFrame(ctx);
+                return;
             }
             if (status == GameStatus.GameOver) {
                 GameGameDomain.ApplyGameOver(ctx, dt);
+                return;
             }
         }
 

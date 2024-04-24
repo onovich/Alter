@@ -8,12 +8,23 @@ namespace Alter {
 
         Dictionary<int, CellEntity> all;
         Dictionary<Vector2Int, CellEntity> posMap;
+        Queue<CellEntity> clearingTaskQueue;
+        public int ClearingTaskCount => clearingTaskQueue.Count;
         CellEntity[] temp;
 
         public CellRepository() {
             all = new Dictionary<int, CellEntity>();
             posMap = new Dictionary<Vector2Int, CellEntity>();
+            clearingTaskQueue = new Queue<CellEntity>();
             temp = new CellEntity[220];
+        }
+
+        public void EnqueueClearingTask(CellEntity cell) {
+            clearingTaskQueue.Enqueue(cell);
+        }
+
+        public CellEntity DequeueClearingTask() {
+            return clearingTaskQueue.Dequeue();
         }
 
         public void Add(CellEntity cell) {

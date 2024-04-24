@@ -12,7 +12,7 @@ namespace Alter {
             // Game
             var game = ctx.gameEntity;
             game.SetFallingInterval(config.gameFallingIntervalTime);
-            game.fsmComponent.Gaming_Enter(config.gameTotalTime);
+            game.fsmComponent.Gaming_Enter();
 
             // Map
             var mapTypeID = config.originalMapTypeID;
@@ -46,6 +46,7 @@ namespace Alter {
             }
         }
 
+        // Falling
         public static void ApplyFallingFrame(GameBusinessContext ctx, float dt) {
             var game = ctx.gameEntity;
             game.ApplyFallingInterval(dt);
@@ -54,6 +55,17 @@ namespace Alter {
         public static void ResetFallingFrame(GameBusinessContext ctx) {
             var game = ctx.gameEntity;
             game.ResetFallingFrame();
+        }
+
+        // Clearing
+        public static void ApplyClearingFrame(GameBusinessContext ctx, float dt) {
+            var game = ctx.gameEntity;
+            game.ApplyClearingInterval(dt);
+        }
+
+        public static void ResetClearingFrame(GameBusinessContext ctx) {
+            var game = ctx.gameEntity;
+            game.ResetClearingFrame();
         }
 
         public static void RestartGame(GameBusinessContext ctx) {

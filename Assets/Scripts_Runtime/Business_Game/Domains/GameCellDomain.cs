@@ -34,8 +34,11 @@ namespace Alter {
                 var pos = GridUtils.GridIndexToPositionInt(column, row, map.mapSize);
                 if (cellRepo.TryGetCellByPos(pos, out var cell)) {
                     cell.SetSprColor(Color.red);
+                    ctx.cellRepo.EnqueueClearingTask(cell);
                 }
             }
+            var game = ctx.gameEntity;
+            game.fsmComponent.Clearing_Enter();
         }
 
         static bool CheckCellFillARow(GameBusinessContext ctx, int row) {
@@ -50,6 +53,20 @@ namespace Alter {
                 }
             }
             return true;
+        }
+
+        public static void ApplyClearing(GameBusinessContext ctx, float dt) {
+            var game = ctx.gameEntity;
+            if (!game.IsClearingFrame) {
+                return;
+            }
+
+            var cellRepo = ctx.cellRepo;
+            var cell = cellRepo.DequeueClearingTask();
+            GameCellDomain.UnSpawn(ctx, cell);
+            if (cellRepo.ClearingTaskCount == 0) {
+                game.fsmComponent.Gaming_Enter();
+            }
         }
 
         public static void UnSpawn(GameBusinessContext ctx, CellEntity cell) {

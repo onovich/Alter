@@ -4,13 +4,21 @@ namespace Alter {
 
     public class GameEntity {
 
+        // Falling
         float fallingTimer;
         int currentFallingFrame;
         public int CurrentFallingFrame => currentFallingFrame;
         float fallingInterval;
-
         bool isFallingFrame;
         public bool IsFallingFrame => isFallingFrame;
+
+        // Clearing
+        float clearingTimer;
+        int currentClearingFrame;
+        public int CurrentClearingFrame => currentClearingFrame;
+        float clearingInterval;
+        bool isClearingFrame;
+        public bool IsClearingFrame => isClearingFrame;
 
         public GameFSMComponent fsmComponent;
 
@@ -20,6 +28,7 @@ namespace Alter {
             isFallingFrame = false;
         }
 
+        // Falling
         public void SetFallingInterval(float fallingInterval) {
             this.fallingInterval = fallingInterval;
         }
@@ -37,6 +46,26 @@ namespace Alter {
 
         public void ResetFallingFrame() {
             isFallingFrame = false;
+        }
+
+        // Clearing
+        public void SetClearingInterval(float clearingInterval) {
+            this.clearingInterval = clearingInterval;
+        }
+
+        public void ApplyClearingInterval(float dt) {
+            clearingTimer += dt;
+            if (clearingTimer < clearingInterval) {
+                return;
+            }
+            clearingTimer -= clearingInterval;
+
+            currentClearingFrame++;
+            isClearingFrame = true;
+        }
+
+        public void ResetClearingFrame() {
+            isClearingFrame = false;
         }
 
     }
