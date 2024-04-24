@@ -16,6 +16,18 @@ namespace Alter {
             all.Add(model.index, model);
         }
 
+        public BlockShapeModel GetNext(int index) {
+            var nextIndex = index + 1;
+            if (nextIndex >= all.Count) {
+                nextIndex = 0;
+            }
+            if (all.ContainsKey(nextIndex)) {
+                return all[nextIndex];
+            }
+            Debug.LogError($"BlockShapeComponent.GetNext: {nextIndex} not found");
+            return default;
+        }
+
         public BlockShapeModel Get(int index) {
             if (all.ContainsKey(index)) {
                 return all[index];

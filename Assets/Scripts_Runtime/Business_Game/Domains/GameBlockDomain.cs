@@ -117,6 +117,10 @@ namespace Alter {
                 return;
             }
             var block = ctx.currentBlock;
+            var allow = CheckNextShapeIsNoCell(ctx, block);
+            if (!allow) {
+                return;
+            }
             block.Rotate();
         }
 
@@ -149,6 +153,21 @@ namespace Alter {
             var mapSize = map.mapSize;
             var mapPos = map.PosInt;
             return block.Move_CheckInAir(mapSize, mapPos, pos, dir);
+        }
+
+        static bool CheckNextShapeIsNoCell(GameBusinessContext ctx, BlockEntity block) {
+            var shape = block.shapeComponent.GetNext(block.currentIndex);
+            var hasCell = false;
+            shape.ForEachCell((cellPos) => {
+                var next = block.PosInt + cellPos;
+                var hasNext = ctx.cellRepo.TryGetCellByPos(next, out var nextCell);
+                hasCell |= hasNext;
+                if (hasNext) {
+                    return;
+                }
+            });
+
+            return !hasCell;
         }
 
         static bool CheckNextIsNoCell(GameBusinessContext ctx, BlockEntity block, Vector2Int dir) {
