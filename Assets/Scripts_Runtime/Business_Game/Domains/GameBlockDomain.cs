@@ -133,6 +133,10 @@ namespace Alter {
             if (!ctx.gameEntity.IsFallingFrame) {
                 return;
             }
+            var allow = CheckNextIsNoCell(ctx, block);
+            if (!allow) {
+                return;
+            }
             var dir = Vector2Int.down;
             var pos = block.PosInt;
             block.Pos_SetPos(pos + dir);
@@ -148,8 +152,6 @@ namespace Alter {
         }
 
         static bool CheckNextIsNoCell(GameBusinessContext ctx, BlockEntity block) {
-            var pos = block.PosInt;
-            var size = block.SizeInt;
             var hasCell = false;
             block.cellSlotComponent.ForEach((index, cell) => {
                 var cellPos = cell.PosInt;
