@@ -18,6 +18,7 @@ namespace Alter {
         // Color
         [Header("Cell Color")]
         public Color[] colorArr;
+        public int[] colorWeightArr;
 
         // Camera
         [Header("Shake Config")]

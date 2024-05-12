@@ -58,9 +58,12 @@ namespace Alter {
             var shapeCount = shapeComponent.Count;
             currentIndex = (currentIndex + 1) % shapeCount;
             var shape = shapeComponent.Get(currentIndex);
-            cellSlotComponent.ForEach((index, cell) => {
+            var len = cellSlotComponent.TakeAll(out var cells);
+            for (int i = 0; i < len; i++) {
+                var cell = cells[i];
+                var index = i;
                 cell.Pos_SetLocalPos(shape.shape[index]);
-            });
+            }
         }
 
         public Vector2Int GetSizeInt() {

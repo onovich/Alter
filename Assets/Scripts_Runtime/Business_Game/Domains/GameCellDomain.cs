@@ -30,7 +30,7 @@ namespace Alter {
         public static void CheckCellFillRowsAndMark(GameBusinessContext ctx) {
             var rows = ctx.currentMapEntity.mapSize.y;
             for (int y = 0; y < rows; y++) {
-                if (CheckCellFillARow(ctx, y)) {
+                if (CheckCellFillARowWithSameColor(ctx, y)) {
                     MarkCellFillARow(ctx, y);
                     return;
                 }
@@ -69,13 +69,20 @@ namespace Alter {
             game.fsmComponent.Clearing_Enter();
         }
 
-        static bool CheckCellFillARow(GameBusinessContext ctx, int row) {
+        static bool CheckCellFillARowWithSameColor(GameBusinessContext ctx, int row) {
             var cellRepo = ctx.cellRepo;
             var columns = ctx.currentMapEntity.mapSize.x;
             var map = ctx.currentMapEntity;
+            var first = GridUtils.GridIndexToPositionInt(0, row, map.mapSize);
+            var hasFirst = cellRepo.TryGetCellByPos(first, out var firstCell);
+            if (!hasFirst) {
+                return false;
+            }
+            var firstColor = firstCell.LogicColor_Get();
             for (int column = 0; column < columns; column++) {
                 var pos = GridUtils.GridIndexToPositionInt(column, row, map.mapSize);
-                var has = cellRepo.TryGetCellByPos(pos, out var cell);
+                var has = cellRepo.TryGetCellByPos(pos, out var cell)
+                && cell.LogicColor_Get() == firstColor;
                 if (!has) {
                     return false;
                 }

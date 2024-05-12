@@ -108,7 +108,7 @@ namespace Alter {
 
         public static void ApplyMove(GameBusinessContext ctx, BlockEntity block, Vector2Int dir) {
             var pos = block.PosInt;
-            var allow = CheckNextIsNoCellInSameColor(ctx, block, dir);
+            var allow = CheckNextIsNoCellInSameColorOrWhite(ctx, block, dir);
             if (!allow) {
                 return;
             }
@@ -129,7 +129,7 @@ namespace Alter {
 
         public static void ApplyCheckLanding(GameBusinessContext ctx) {
             var block = ctx.currentBlock;
-            if (CheckInAir(ctx, block) && CheckNextIsNoCellInSameColor(ctx, block, Vector2Int.down)) {
+            if (CheckInAir(ctx, block) && CheckNextIsNoCellInSameColorOrWhite(ctx, block, Vector2Int.down)) {
                 block.fsmComponent.Moving_Enter();
                 return;
             }
@@ -140,7 +140,7 @@ namespace Alter {
             if (!ctx.gameEntity.IsFallingFrame) {
                 return;
             }
-            var allow = CheckNextIsNoCellInSameColor(ctx, block, Vector2Int.down);
+            var allow = CheckNextIsNoCellInSameColorOrWhite(ctx, block, Vector2Int.down);
             if (!allow) {
                 return;
             }
@@ -149,13 +149,16 @@ namespace Alter {
             block.Pos_SetPos(pos + dir);
 
             // Color
-            block.cellSlotComponent.ForEach((index, cell) => {
-                var has = ctx.cellRepo.TryGetCellByPos(cell.PosInt, out var oldCell);
+            var len = block.cellSlotComponent.TakeAll(out var cells);
+            for (int i = 0; i < len; i++) {
+                var cell = cells[i];
+                var cellPos = cell.PosInt;
+                var has = ctx.cellRepo.TryGetCellByPos(cellPos, out var oldCell);
                 if (!has) {
-                    return;
+                    continue;
                 }
                 GameColorDomain.CombineRenderColor(ctx, oldCell, cell);
-            });
+            }
         }
 
         static bool CheckInAir(GameBusinessContext ctx, BlockEntity block) {
@@ -182,22 +185,28 @@ namespace Alter {
             return !hasCell;
         }
 
-        static bool CheckNextIsNoCellInSameColor(GameBusinessContext ctx, BlockEntity block, Vector2Int dir) {
+        static bool CheckNextIsNoCellInSameColorOrWhite(GameBusinessContext ctx, BlockEntity block, Vector2Int dir) {
             var hasSameColorCell = false;
-            block.cellSlotComponent.ForEach((index, cell) => {
+            var hasWhiteCell = false;
+            var len = block.cellSlotComponent.TakeAll(out var cells);
+            for (int i = 0; i < len; i++) {
+                var cell = cells[i];
                 var cellPos = cell.PosInt;
                 var next = cellPos + dir;
                 var hasNext = ctx.cellRepo.TryGetCellByPos(next, out var nextCell);
                 if (hasNext) {
                     hasSameColorCell |= hasNext & nextCell.LogicColor_Get() == cell.LogicColor_Get();
+                    hasWhiteCell |= hasNext & nextCell.LogicColor_Get() == Color.white;
                 } else {
                     hasSameColorCell = false;
                 }
                 if (hasSameColorCell) {
-                    return;
+                    return false;
                 }
-            });
-
+                if (hasWhiteCell) {
+                    return false;
+                }
+            }
             return !hasSameColorCell;
         }
 

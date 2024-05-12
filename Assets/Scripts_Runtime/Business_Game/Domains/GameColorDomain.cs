@@ -14,8 +14,24 @@ namespace Alter {
         public static Color PickRandomColor(GameBusinessContext ctx) {
             var config = ctx.templateInfraContext.Config_Get();
             var colorArr = config.colorArr;
-            var randomIndex = ctx.randomService.NextIntRange(0, colorArr.Length);
-            return colorArr[randomIndex];
+            var colorWeightArr = config.colorWeightArr;
+
+            int totalWeight = 0;
+            foreach (var weight in colorWeightArr) {
+                totalWeight += weight;
+            }
+
+            int randomWeight = ctx.randomService.NextIntRange(0, totalWeight + 1);
+
+            int cumulativeWeight = 0;
+            for (int i = 0; i < colorArr.Length; i++) {
+                cumulativeWeight += colorWeightArr[i];
+                if (randomWeight <= cumulativeWeight) {
+                    return colorArr[i];
+                }
+            }
+
+            return Color.white;
         }
 
         public static void CombineLogicColor(GameBusinessContext ctx, CellEntity src, CellEntity dst) {
