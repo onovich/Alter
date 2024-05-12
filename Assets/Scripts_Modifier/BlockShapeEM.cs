@@ -29,7 +29,7 @@ namespace Alter.Modifier {
             List<Vector2Int> cellList = new List<Vector2Int>();
             for (int x = 0; x < sizeInt.x; x++) {
                 for (int y = 0; y < sizeInt.y; y++) {
-                    if (cells[x, y]) {
+                    if (cells[x, y] > 0) {
                         cellList.Add(new Vector2Int(x, sizeInt.y - 1 - y));
                     }
                 }
@@ -46,22 +46,23 @@ namespace Alter.Modifier {
         }
 
         void GetCells() {
-            cells = new bool[sizeInt.x, sizeInt.y];
+            cells = new int[sizeInt.x, sizeInt.y];
             for (int i = 0; i < shapeTM.cells.Length; i++) {
                 var x = shapeTM.cells[i].x;
                 var y = sizeInt.y - 1 - shapeTM.cells[i].y;
-                cells[x, y] = true;
+                cells[x, y] = i + 1;
             }
+            indexRecord = shapeTM.cells.Length;
         }
 
         [Button("Clear")]
         void Clear() {
-            cells = new bool[sizeInt.x, sizeInt.y];
+            cells = new int[sizeInt.x, sizeInt.y];
         }
 
         [Button("Resize")]
         void Resize() {
-            var newCells = new bool[sizeInt.x, sizeInt.y];
+            var newCells = new int[sizeInt.x, sizeInt.y];
             for (int x = 0; x < Mathf.Min(sizeInt.x, cells.GetLength(0)); x++) {
                 for (int y = 0; y < Mathf.Min(sizeInt.y, cells.GetLength(1)); y++) {
                     newCells[x, y] = cells[x, y];
@@ -71,19 +72,26 @@ namespace Alter.Modifier {
         }
 
         [TableMatrix(DrawElementMethod = "DrawCell", SquareCells = true)]
-        public bool[,] cells;
-
-        bool DrawCell(Rect rect, bool value) {
-            if (Event.current.type == EventType.MouseDown &&
-            rect.Contains(Event.current.mousePosition)) {
-                value = !value;
+        public int[,] cells;
+        [SerializeField] int indexRecord;
+        int DrawCell(Rect rect, int value) {
+            Event e = Event.current;
+            if (e.type == EventType.MouseDown && rect.Contains(e.mousePosition)) {
+                if (e.button == 0) {  // 鼠标左键
+                    value = indexRecord;
+                    indexRecord++;
+                } else if (e.button == 1) {  // 鼠标右键
+                    value = 0;
+                    indexRecord = Math.Max(0, indexRecord - 1);
+                }
                 GUI.changed = true;
-                Event.current.Use();
+                e.Use();
             }
             EditorGUI.DrawRect(
                 rect.Padding(1),
-                value ? new UnityEngine.Color(0.1f, 0.8f, 0.2f) :
-                new UnityEngine.Color(0, 0, 0, 0.5f));
+                value > 0 ? UnityEngine.Color.grey :
+                UnityEngine.Color.black);
+            EditorGUI.LabelField(rect, value.ToString());
             return value;
         }
     }
