@@ -4,7 +4,7 @@ namespace Alter {
 
     public class CellEntity : MonoBehaviour {
 
-        public int entityID;
+        public int index;
 
         // Pos
         public Vector2 Pos => transform.position;

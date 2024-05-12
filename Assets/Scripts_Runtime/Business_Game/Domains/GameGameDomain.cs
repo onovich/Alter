@@ -105,7 +105,7 @@ namespace Alter {
                 return;
             }
 
-            GameBlockDomain.SpawnRandomBlock(ctx);
+            GameBlockDomain.SpawnBlockFromPreview(ctx);
             GameBlockDomain.RefreshPreviewBlock(ctx);
         }
 

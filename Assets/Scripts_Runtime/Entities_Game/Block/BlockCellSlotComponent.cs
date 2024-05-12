@@ -6,17 +6,15 @@ namespace Alter {
     public class BlockCellSlotComponent {
 
         SortedList<int/*index*/, CellEntity> all;
-        SortedList<int/*entityID*/, CellEntity> allEntityID;
         CellEntity[] temp;
 
         public BlockCellSlotComponent() {
             all = new SortedList<int, CellEntity>();
-            allEntityID = new SortedList<int, CellEntity>();
             temp = new CellEntity[10];
         }
 
         public void Add(CellEntity cell) {
-            all.Add(cell.entityID, cell);
+            all.Add(cell.index, cell);
         }
 
         public int TakeAll(out CellEntity[] cells) {
@@ -36,13 +34,8 @@ namespace Alter {
             return null;
         }
 
-        public bool TryGetByEntityID(int entityID, out CellEntity cell) {
-            return all.TryGetValue(entityID, out cell);
-        }
-
         public void Clear() {
             all.Clear();
-            allEntityID.Clear();
         }
 
     }

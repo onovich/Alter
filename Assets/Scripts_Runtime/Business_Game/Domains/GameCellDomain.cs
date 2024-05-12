@@ -5,10 +5,11 @@ namespace Alter {
 
     public static class GameCellDomain {
 
-        public static CellEntity Spawn(GameBusinessContext ctx, Vector2Int pos) {
+        public static CellEntity Spawn(GameBusinessContext ctx, Vector2Int pos, int index) {
             var cell = GameFactory.Cell_Spawn(ctx.idRecordService,
                                               ctx.assetsInfraContext,
-                                              pos);
+                                              pos,
+                                              index);
 
             return cell;
         }
@@ -18,7 +19,8 @@ namespace Alter {
                 GameColorDomain.CombineLogicColor(ctx, cell, oldCell);
                 cell.TearDown();
             } else {
-                ctx.cellRepo.Add(cell);
+                var id = ctx.idRecordService.PickCellEntityID();
+                ctx.cellRepo.Add(cell, id);
                 SetSortingLayerToCell(ctx, cell);
             }
         }

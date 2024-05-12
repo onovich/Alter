@@ -32,6 +32,24 @@ namespace Alter {
             SpawnPreviewBlock(ctx);
         }
 
+        public static void SpawnBlockFromPreview(GameBusinessContext ctx) {
+            var map = ctx.currentMapEntity;
+            var pos = map.spawnPoint;
+            var previewBlock = ctx.previewBlock;
+            var nextTypeID = previewBlock.typeID;
+            var block = SpawnBlock(ctx, nextTypeID, pos);
+            var len = previewBlock.cellSlotComponent.TakeAll(out var previewCells);
+            for (int i = 0; i < len; i++) {
+                var previewCell = previewBlock.cellSlotComponent.Get(i);
+                var cell = block.cellSlotComponent.Get(i);
+                if (previewCell == null) {
+                    continue;
+                }
+                cell.SetRenderColor(previewCell.LogicColor_Get());
+                cell.SetLogicColor(previewCell.LogicColor_Get());
+            }
+        }
+
         public static void SpawnRandomBlock(GameBusinessContext ctx) {
             var map = ctx.currentMapEntity;
             var pos = map.spawnPoint;
@@ -39,7 +57,7 @@ namespace Alter {
             SpawnBlock(ctx, nextTypeID, pos);
         }
 
-        static void SpawnBlock(GameBusinessContext ctx, int typeID, Vector2Int pos) {
+        static BlockEntity SpawnBlock(GameBusinessContext ctx, int typeID, Vector2Int pos) {
             var block = GameFactory.Block_Spawn(ctx.idRecordService,
                                                 typeID,
                                                 ctx.templateInfraContext,
@@ -53,6 +71,7 @@ namespace Alter {
             // Record Next Block Type ID
             var nextBlockTM = ctx.templateInfraContext.Block_GetRandom(ctx.randomService);
             ctx.nextBlockTypeID = nextBlockTM.typeID;
+            return block;
         }
 
         public static bool CheckCellArrSpawnable(GameBusinessContext ctx, BlockEntity block, int typeID, Vector2Int pos) {
@@ -81,15 +100,15 @@ namespace Alter {
                 return;
             }
             var map = ctx.currentMapEntity;
-            var index = block.currentIndex;
+            var shapeIndex = block.currentIndex;
             has = ctx.templateInfraContext.Block_TryGet(typeID, out blockTM);
             if (!has) {
                 GLog.LogError($"Block {typeID} not found");
                 return;
             }
-            blockTM.ForEachCellsLocalPos(index, (cellIndex, localPos) => {
+            blockTM.ForEachCellsLocalPos(shapeIndex, (cellIndex, localPos) => {
                 var cellPos = pos + localPos;
-                var cell = GameCellDomain.Spawn(ctx, cellPos);
+                var cell = GameCellDomain.Spawn(ctx, cellPos, cellIndex);
                 block.AddCell(cell);
                 cell.SetSpr(blockTM.mesh);
                 var color = blockTM.useRandomColor ? GameColorDomain.PickRandomColor(ctx) : blockTM.meshColor;

@@ -50,10 +50,6 @@ namespace Alter {
             cellSlotComponent.Add(cell);
         }
 
-        public bool Cell_IsInBlock(int cellID) {
-            return cellSlotComponent.TryGetByEntityID(cellID, out _);
-        }
-
         public void Rotate() {
             var shapeCount = shapeComponent.Count;
             currentIndex = (currentIndex + 1) % shapeCount;

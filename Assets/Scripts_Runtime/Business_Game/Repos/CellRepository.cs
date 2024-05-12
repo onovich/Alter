@@ -46,8 +46,8 @@ namespace Alter {
             return clearingTaskQueue[row].Dequeue();
         }
 
-        public void Add(CellEntity cell) {
-            all.Add(cell.entityID, cell);
+        public void Add(CellEntity cell, int entityID) {
+            all.Add(entityID, cell);
             posMap.Add(cell.PosInt, cell);
         }
 
@@ -75,44 +75,12 @@ namespace Alter {
         }
 
         public void Remove(CellEntity cell) {
-            all.Remove(cell.entityID);
+            all.Remove(cell.index);
             posMap.Remove(cell.PosInt);
-        }
-
-        public bool TryGetCell(int index, out CellEntity cell) {
-            return all.TryGetValue(index, out cell);
         }
 
         public bool TryGetCellByPos(Vector2Int pos, out CellEntity cell) {
             return posMap.TryGetValue(pos, out cell);
-        }
-
-        public bool IsInRange(int entityID, in Vector2 pos, float range) {
-            bool has = TryGetCell(entityID, out var cell);
-            if (!has) {
-                return false;
-            }
-            return Vector2.SqrMagnitude(cell.Pos - pos) <= range * range;
-        }
-
-        public void ForEach(Action<CellEntity> action) {
-            foreach (var cell in all.Values) {
-                action(cell);
-            }
-        }
-
-        public CellEntity GetNeareast(Vector2 pos, float radius) {
-            CellEntity nearestBlock = null;
-            float nearestDist = float.MaxValue;
-            float radiusSqr = radius * radius;
-            foreach (var cell in all.Values) {
-                float dist = Vector2.SqrMagnitude(cell.Pos - pos);
-                if (dist <= radiusSqr && dist < nearestDist) {
-                    nearestDist = dist;
-                    nearestBlock = cell;
-                }
-            }
-            return nearestBlock;
         }
 
         public void Clear() {
