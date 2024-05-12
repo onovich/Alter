@@ -90,9 +90,9 @@ namespace Alter {
         static void NewTurn(GameBusinessContext ctx) {
             var block = ctx.currentBlock;
             block.cellSlotComponent.ForEach((index, cell) => {
-                GameCellDomain.AppToRepo(ctx, cell);
+                GameCellDomain.CombineToRepo(ctx, cell);
                 cell.SetParent(ctx.cellBoard);
-                cell.SetSprColor(Color.white);
+                // cell.SetColor(Color.white);
             });
             GameBlockDomain.UnSpawnCurrent(ctx, block);
 

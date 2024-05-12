@@ -16,8 +16,12 @@ namespace Alter {
         public void Ctor() {
         }
 
-        public void SetSprColor(Color color) {
+        public void SetColor(Color color) {
             spr.color = color;
+        }
+
+        public Color Color_Get() {
+            return spr.color;
         }
 
         public void SetSpr(Sprite sprite) {

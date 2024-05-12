@@ -92,7 +92,7 @@ namespace Alter {
                 var cell = GameCellDomain.Spawn(ctx, cellPos);
                 block.AddCell(cell);
                 cell.SetSpr(blockTM.mesh);
-                cell.SetSprColor(blockTM.meshColor);
+                cell.SetColor(blockTM.meshColor);
                 cell.SetSprMaterial(blockTM.meshMaterial);
             });
         }
@@ -105,7 +105,7 @@ namespace Alter {
 
         public static void ApplyMove(GameBusinessContext ctx, BlockEntity block, Vector2Int dir) {
             var pos = block.PosInt;
-            var allow = CheckNextIsNoCell(ctx, block, dir);
+            var allow = CheckNextIsNoCellInSameColor(ctx, block, dir);
             if (!allow) {
                 return;
             }
@@ -126,7 +126,7 @@ namespace Alter {
 
         public static void ApplyCheckLanding(GameBusinessContext ctx) {
             var block = ctx.currentBlock;
-            if (CheckInAir(ctx, block) && CheckNextIsNoCell(ctx, block, Vector2Int.down)) {
+            if (CheckInAir(ctx, block) && CheckNextIsNoCellInSameColor(ctx, block, Vector2Int.down)) {
                 block.fsmComponent.Moving_Enter();
                 return;
             }
@@ -137,7 +137,7 @@ namespace Alter {
             if (!ctx.gameEntity.IsFallingFrame) {
                 return;
             }
-            var allow = CheckNextIsNoCell(ctx, block, Vector2Int.down);
+            var allow = CheckNextIsNoCellInSameColor(ctx, block, Vector2Int.down);
             if (!allow) {
                 return;
             }
@@ -170,24 +170,28 @@ namespace Alter {
             return !hasCell;
         }
 
-        static bool CheckNextIsNoCell(GameBusinessContext ctx, BlockEntity block, Vector2Int dir) {
-            var hasCell = false;
+        static bool CheckNextIsNoCellInSameColor(GameBusinessContext ctx, BlockEntity block, Vector2Int dir) {
+            var hasSameColorCell = false;
             block.cellSlotComponent.ForEach((index, cell) => {
                 var cellPos = cell.PosInt;
                 var next = cellPos + dir;
                 var hasNext = ctx.cellRepo.TryGetCellByPos(next, out var nextCell);
-                hasCell |= hasNext;
-                if (hasCell) {
+                if (hasNext) {
+                    hasSameColorCell |= hasNext & nextCell.Color_Get() == cell.Color_Get();
+                } else {
+                    hasSameColorCell = false;
+                }
+                if (hasSameColorCell) {
                     return;
                 }
             });
 
-            return !hasCell;
+            return !hasSameColorCell;
         }
 
-        public static void UnSpawnCurrent(GameBusinessContext ctx, BlockEntity cell) {
+        public static void UnSpawnCurrent(GameBusinessContext ctx, BlockEntity block) {
             ctx.SetCurrentBlock(null);
-            cell.TearDown();
+            block.TearDown();
         }
 
         public static void UnSpawnPreview(GameBusinessContext ctx, BlockEntity cell) {

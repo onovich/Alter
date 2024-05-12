@@ -13,8 +13,20 @@ namespace Alter {
             return cell;
         }
 
-        public static void AppToRepo(GameBusinessContext ctx, CellEntity cell) {
-            ctx.cellRepo.Add(cell);
+        public static void CombineToRepo(GameBusinessContext ctx, CellEntity cell) {
+            if (ctx.cellRepo.TryGetCellByPos(cell.PosInt, out var oldCell)) {
+                CombineColor(ctx, cell, oldCell);
+                cell.TearDown();
+            } else {
+                ctx.cellRepo.Add(cell);
+            }
+        }
+
+        static void CombineColor(GameBusinessContext ctx, CellEntity newCell, CellEntity oldCell) {
+            var oldColor = oldCell.Color_Get();
+            var newColor = newCell.Color_Get();
+            var nextColor = oldColor + newColor;
+            oldCell.SetColor(nextColor);
         }
 
         public static void CheckCellFillRowsAndMark(GameBusinessContext ctx) {
