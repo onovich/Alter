@@ -8,10 +8,11 @@ namespace Alter {
 
         public Vector2Int sizeInt;
         public Vector2Int[] cells;
+        public int[] cellIndexs;
 
         public void ForEachCells(Action<int, Vector2Int> action) {
             for (int i = 0; i < cells.Length; i++) {
-                action(i, cells[i]);
+                action(cellIndexs[i], cells[i]);
             }
         }
 

@@ -52,7 +52,6 @@ namespace Alter.Modifier {
                 var y = sizeInt.y - 1 - shapeTM.cells[i].y;
                 cells[x, y] = i + 1;
             }
-            indexRecord = shapeTM.cells.Length;
         }
 
         [Button("Clear")]
@@ -73,16 +72,15 @@ namespace Alter.Modifier {
 
         [TableMatrix(DrawElementMethod = "DrawCell", SquareCells = true)]
         public int[,] cells;
-        [SerializeField] int indexRecord;
         int DrawCell(Rect rect, int value) {
             Event e = Event.current;
             if (e.type == EventType.MouseDown && rect.Contains(e.mousePosition)) {
                 if (e.button == 0) {  // 鼠标左键
-                    value = indexRecord;
-                    indexRecord++;
+                    value = FixNextIndex(value + 1);
+                    value = Math.Min(value, shapeTM.cells.Length);
                 } else if (e.button == 1) {  // 鼠标右键
-                    value = 0;
-                    indexRecord = Math.Max(0, indexRecord - 1);
+                    value = FixLastIndex(value - 1);
+                    value = Math.Max(0, value);
                 }
                 GUI.changed = true;
                 e.Use();
@@ -93,6 +91,30 @@ namespace Alter.Modifier {
                 UnityEngine.Color.black);
             EditorGUI.LabelField(rect, value.ToString());
             return value;
+        }
+
+        int FixNextIndex(int value) {
+            if (value == 0) return 0;
+            for (int i = 0; i < cells.GetLength(0); i++) {
+                for (int j = 0; j < cells.GetLength(1); j++) {
+                    if (cells[i, j] == value) {
+                        return ++value;
+                    }
+                }
+            }
+            return 0;
+        }
+
+        int FixLastIndex(int value) {
+            if (value == 0) return 0;
+            for (int i = 0; i < cells.GetLength(0); i++) {
+                for (int j = 0; j < cells.GetLength(1); j++) {
+                    if (cells[i, j] == value) {
+                        return --value;
+                    }
+                }
+            }
+            return 0;
         }
     }
 
