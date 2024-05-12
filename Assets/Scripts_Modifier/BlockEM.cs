@@ -7,7 +7,7 @@ using Sirenix.Utilities;
 using UnityEditor;
 using UnityEngine;
 
-namespace Alter {
+namespace Alter.Modifier {
 
     public class BlockEM : SerializedMonoBehaviour {
 
@@ -20,6 +20,7 @@ namespace Alter {
 
         [Header("Block Mesh")]
         public Sprite mesh;
+        public bool useRandomColor;
         public UnityEngine.Color color;
         public Material meshMaterial;
 
@@ -32,6 +33,7 @@ namespace Alter {
             typeName = blockTM.typeName;
             mesh = blockTM.mesh;
             color = blockTM.meshColor;
+            useRandomColor = blockTM.useRandomColor;
             meshMaterial = blockTM.meshMaterial;
             GetShapes();
             EditorUtility.SetDirty(this);
@@ -61,8 +63,10 @@ namespace Alter {
             blockTM.typeName = typeName;
             blockTM.mesh = mesh;
             blockTM.meshColor = color;
+            blockTM.useRandomColor = useRandomColor;
             blockTM.meshMaterial = meshMaterial;
             BakeShapes();
+            AddressableHelper.SetAddressable(blockTM, "TM_Block", "TM_Block", true);
             EditorUtility.SetDirty(blockTM);
             AssetDatabase.SaveAssets();
         }

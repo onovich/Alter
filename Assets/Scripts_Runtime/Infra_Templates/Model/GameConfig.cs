@@ -15,6 +15,10 @@ namespace Alter {
         public float gameFallingIntervalTime;
         public float gameInputIntervalTime;
 
+        // Color
+        [Header("Cell Color")]
+        public Color[] colorArr;
+
         // Camera
         [Header("Shake Config")]
         public float cameraShakeFrequency_roleDamage;

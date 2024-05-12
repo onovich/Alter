@@ -16,8 +16,7 @@ namespace Alter {
         // Color
         public Color logicColor;
 
-        public void Ctor(Color logicColor) {
-            this.logicColor = logicColor;
+        public void Ctor() {
         }
 
         public void SetRenderColor(Color color) {

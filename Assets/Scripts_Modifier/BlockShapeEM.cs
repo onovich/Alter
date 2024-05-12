@@ -7,7 +7,7 @@ using Sirenix.Utilities;
 using UnityEditor;
 using UnityEngine;
 
-namespace Alter {
+namespace Alter.Modifier {
 
     public class BlockShapeEM : SerializedMonoBehaviour {
 

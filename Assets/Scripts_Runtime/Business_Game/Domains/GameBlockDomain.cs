@@ -89,10 +89,12 @@ namespace Alter {
             }
             blockTM.ForEachCellsLocalPos(index, (cellIndex, localPos) => {
                 var cellPos = pos + localPos;
-                var cell = GameCellDomain.Spawn(ctx, cellPos, blockTM.meshColor);
+                var cell = GameCellDomain.Spawn(ctx, cellPos);
                 block.AddCell(cell);
                 cell.SetSpr(blockTM.mesh);
-                cell.SetRenderColor(blockTM.meshColor);
+                var color = blockTM.useRandomColor ? GameColorDomain.PickRandomColor(ctx) : blockTM.meshColor;
+                cell.SetRenderColor(color);
+                cell.SetLogicColor(color);
                 cell.SetSprMaterial(blockTM.meshMaterial);
                 cell.SetSortingLayer(SortingLayerConst.Block);
             });
@@ -152,7 +154,7 @@ namespace Alter {
                 if (!has) {
                     return;
                 }
-                GameCellDomain.CombineRenderColor(ctx, oldCell, cell);
+                GameColorDomain.CombineRenderColor(ctx, oldCell, cell);
             });
         }
 

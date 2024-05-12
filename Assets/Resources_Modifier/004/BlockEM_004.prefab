@@ -57,6 +57,7 @@ MonoBehaviour:
   typeID: 4
   typeName: Block-J
   mesh: {fileID: 21300000, guid: 40eb3a4c3bff143cababfb54f86881bd, type: 3}
+  useRandomColor: 1
   color: {r: 0.058823552, g: 0.72227895, b: 0.9529412, a: 1}
   meshMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   shapes:
