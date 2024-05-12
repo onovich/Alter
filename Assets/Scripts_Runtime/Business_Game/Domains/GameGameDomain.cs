@@ -130,7 +130,9 @@ namespace Alter {
             int cellLen = ctx.cellRepo.TakeAll(out var cellArr);
             for (int i = 0; i < cellLen; i++) {
                 var cell = cellArr[i];
-                GameCellDomain.UnSpawn(ctx, cell);
+                if (cell != null) {
+                    GameCellDomain.UnSpawn(ctx, cell);
+                }
             }
 
             // Block
