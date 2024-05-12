@@ -73,11 +73,12 @@ namespace Alter {
 
         public static CellEntity Cell_Spawn(IDRecordService idRecordService,
                                                AssetsInfraContext assetsInfraContext,
-                                               Vector2Int pos) {
+                                               Vector2Int pos,
+                                               Color logicColor) {
 
             var prefab = assetsInfraContext.Entity_GetCell();
             var cell = GameObject.Instantiate(prefab).GetComponent<CellEntity>();
-            cell.Ctor();
+            cell.Ctor(logicColor);
 
             // Set ID
             var id = idRecordService.PickCellEntityID();

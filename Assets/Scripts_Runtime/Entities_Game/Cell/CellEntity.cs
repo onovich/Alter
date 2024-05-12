@@ -13,15 +13,27 @@ namespace Alter {
         // Render
         [SerializeField] SpriteRenderer spr;
 
-        public void Ctor() {
+        // Color
+        public Color logicColor;
+
+        public void Ctor(Color logicColor) {
+            this.logicColor = logicColor;
         }
 
-        public void SetColor(Color color) {
+        public void SetRenderColor(Color color) {
             spr.color = color;
         }
 
-        public Color Color_Get() {
-            return spr.color;
+        public void SetLogicColor(Color color) {
+            this.logicColor = color;
+        }
+
+        public void SetSortingLayer(string layer) {
+            this.spr.sortingLayerName = layer;
+        }
+
+        public Color LogicColor_Get() {
+            return logicColor;
         }
 
         public void SetSpr(Sprite sprite) {

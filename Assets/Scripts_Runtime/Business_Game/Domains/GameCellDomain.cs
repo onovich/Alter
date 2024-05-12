@@ -5,28 +5,42 @@ namespace Alter {
 
     public static class GameCellDomain {
 
-        public static CellEntity Spawn(GameBusinessContext ctx, Vector2Int pos) {
+        public static CellEntity Spawn(GameBusinessContext ctx, Vector2Int pos, Color logicColor) {
             var cell = GameFactory.Cell_Spawn(ctx.idRecordService,
                                               ctx.assetsInfraContext,
-                                              pos);
+                                              pos,
+                                              logicColor);
 
             return cell;
         }
 
         public static void CombineToRepo(GameBusinessContext ctx, CellEntity cell) {
             if (ctx.cellRepo.TryGetCellByPos(cell.PosInt, out var oldCell)) {
-                CombineColor(ctx, cell, oldCell);
+                CombineLogicColor(ctx, cell, oldCell);
                 cell.TearDown();
             } else {
                 ctx.cellRepo.Add(cell);
+                SetSortingLayerToCell(ctx, cell);
             }
         }
 
-        static void CombineColor(GameBusinessContext ctx, CellEntity newCell, CellEntity oldCell) {
-            var oldColor = oldCell.Color_Get();
-            var newColor = newCell.Color_Get();
+        public static void CombineRenderColor(GameBusinessContext ctx, CellEntity src, CellEntity dst) {
+            var oldColor = dst.LogicColor_Get();
+            var newColor = src.LogicColor_Get();
             var nextColor = oldColor + newColor;
-            oldCell.SetColor(nextColor);
+            dst.SetRenderColor(nextColor);
+        }
+
+        public static void SetSortingLayerToCell(GameBusinessContext ctx, CellEntity cell) {
+            cell.SetSortingLayer(SortingLayerConst.Cell);
+        }
+
+        public static void CombineLogicColor(GameBusinessContext ctx, CellEntity src, CellEntity dst) {
+            var oldColor = dst.LogicColor_Get();
+            var newColor = src.LogicColor_Get();
+            var nextColor = oldColor + newColor;
+            dst.SetRenderColor(nextColor);
+            dst.SetLogicColor(nextColor);
         }
 
         public static void CheckCellFillRowsAndMark(GameBusinessContext ctx) {

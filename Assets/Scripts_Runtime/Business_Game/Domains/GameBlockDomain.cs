@@ -89,11 +89,12 @@ namespace Alter {
             }
             blockTM.ForEachCellsLocalPos(index, (cellIndex, localPos) => {
                 var cellPos = pos + localPos;
-                var cell = GameCellDomain.Spawn(ctx, cellPos);
+                var cell = GameCellDomain.Spawn(ctx, cellPos, blockTM.meshColor);
                 block.AddCell(cell);
                 cell.SetSpr(blockTM.mesh);
-                cell.SetColor(blockTM.meshColor);
+                cell.SetRenderColor(blockTM.meshColor);
                 cell.SetSprMaterial(blockTM.meshMaterial);
+                cell.SetSortingLayer(SortingLayerConst.Block);
             });
         }
 
@@ -144,6 +145,15 @@ namespace Alter {
             var dir = Vector2Int.down;
             var pos = block.PosInt;
             block.Pos_SetPos(pos + dir);
+
+            // Color
+            block.cellSlotComponent.ForEach((index, cell) => {
+                var has = ctx.cellRepo.TryGetCellByPos(cell.PosInt, out var oldCell);
+                if (!has) {
+                    return;
+                }
+                GameCellDomain.CombineRenderColor(ctx, oldCell, cell);
+            });
         }
 
         static bool CheckInAir(GameBusinessContext ctx, BlockEntity block) {
@@ -177,7 +187,7 @@ namespace Alter {
                 var next = cellPos + dir;
                 var hasNext = ctx.cellRepo.TryGetCellByPos(next, out var nextCell);
                 if (hasNext) {
-                    hasSameColorCell |= hasNext & nextCell.Color_Get() == cell.Color_Get();
+                    hasSameColorCell |= hasNext & nextCell.LogicColor_Get() == cell.LogicColor_Get();
                 } else {
                     hasSameColorCell = false;
                 }
