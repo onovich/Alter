@@ -58,7 +58,7 @@ namespace Alter {
             var shapeModel = new BlockShapeModel {
                 shape = shapeTM.cells,
                 sizeInt = shapeTM.sizeInt,
-                centerFloat = shapeTM.GetCenterFloat()
+                centerFloat = shapeTM.centerFloat
             };
             block.shapeComponent.shape = shapeModel;
             return block;

@@ -17,9 +17,13 @@ namespace Alter.Modifier {
         [Header("Block Cells")]
         public Vector2Int sizeInt;
 
+        [Button("Block Center")]
+        public Vector2 center;
+
         [Button("Load")]
         void Load() {
             sizeInt = shapeTM.sizeInt;
+            center = shapeTM.centerFloat;
             GetCells();
             EditorUtility.SetDirty(this);
             AssetDatabase.SaveAssets();
@@ -40,6 +44,7 @@ namespace Alter.Modifier {
         [Button("Bake")]
         void Bake() {
             shapeTM.sizeInt = sizeInt;
+            shapeTM.centerFloat = center;
             BakeCells();
             EditorUtility.SetDirty(shapeTM);
             AssetDatabase.SaveAssets();
