@@ -25,7 +25,7 @@ namespace Alter.Modifier {
         public Material meshMaterial;
 
         [Header("Block Shapes")]
-        public BlockShapeTM[] shapes;
+        public BlockShapeTM shape;
 
         [Button("Load")]
         void Load() {
@@ -41,20 +41,11 @@ namespace Alter.Modifier {
         }
 
         void GetShapes() {
-            shapes = new BlockShapeTM[blockTM.shapeArr.Length];
-            for (int i = 0; i < blockTM.shapeArr.Length; i++) {
-                var shape = blockTM.shapeArr[i];
-                shapes[i] = shape;
-            }
+            shape = blockTM.shape;
         }
 
         void BakeShapes() {
-            var shapeList = new List<BlockShapeTM>();
-            for (int i = 0; i < shapes.Length; i++) {
-                var shape = shapes[i];
-                shapeList.Add(shape);
-            }
-            blockTM.shapeArr = shapeList.ToArray();
+            blockTM.shape = shape;
         }
 
         [Button("Bake")]

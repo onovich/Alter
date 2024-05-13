@@ -53,21 +53,14 @@ namespace Alter {
             // Set Pos
             block.Pos_SetPos(pos);
 
-            // Set Models
-            for (int i = 0; i < blockTM.shapeArr.Length; i++) {
-                var shapeTM = blockTM.shapeArr[i];
-                var shape = new Vector2Int[shapeTM.sizeInt.x * shapeTM.sizeInt.y];
-                shapeTM.ForEachCells((index, localPos) => {
-                    shape[index] = localPos;
-                });
-                var shapeModel = new BlockShapeModel {
-                    index = i,
-                    shape = shape,
-                    sizeInt = shapeTM.sizeInt,
-                    centerFloat = shapeTM.GetCenterFloat()
-                };
-                block.shapeComponent.Add(shapeModel);
-            }
+            // Set Model
+            var shapeTM = blockTM.shape;
+            var shapeModel = new BlockShapeModel {
+                shape = shapeTM.cells,
+                sizeInt = shapeTM.sizeInt,
+                centerFloat = shapeTM.GetCenterFloat()
+            };
+            block.shapeComponent.shape = shapeModel;
             return block;
         }
 

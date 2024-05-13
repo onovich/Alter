@@ -22,14 +22,12 @@ namespace Alter {
         // Cell
         public BlockCellSlotComponent cellSlotComponent;
         public BlockShapeComponent shapeComponent;
-        public int currentIndex;
         public Vector2Int SizeInt => GetSizeInt();
 
         public void Ctor() {
             fsmComponent = new BlockFSMComponent();
             cellSlotComponent = new BlockCellSlotComponent();
             shapeComponent = new BlockShapeComponent();
-            currentIndex = 0;
         }
 
         public void RecordLatPos() {
@@ -51,9 +49,8 @@ namespace Alter {
         }
 
         public void Rotate() {
-            var shapeCount = shapeComponent.Count;
-            currentIndex = (currentIndex + 1) % shapeCount;
-            var shape = shapeComponent.Get(currentIndex);
+            var shape = shapeComponent.shape;
+            var next = shape.TurnToNextShape();
             var len = cellSlotComponent.TakeAll(out var cells);
             for (int i = 0; i < len; i++) {
                 var cell = cells[i];
@@ -63,13 +60,12 @@ namespace Alter {
         }
 
         public Vector2Int GetSizeInt() {
-            var shape = shapeComponent.Get(currentIndex);
-            return shape.sizeInt;
+            return shapeComponent.shape.sizeInt;
         }
 
         // Move
         public Vector2Int Move_GetConstraintOffset(Vector2Int constraintSize, Vector2Int constraintCenter) {
-            var shape = shapeComponent.Get(currentIndex);
+            var shape = shapeComponent.shape;
 
             Vector2Int blockMin = PosInt;
             Vector2Int blockMax = PosInt + shape.sizeInt;
@@ -99,7 +95,7 @@ namespace Alter {
         }
 
         private void OnDrawGizmos() {
-            var shape = shapeComponent.Get(currentIndex);
+            var shape = shapeComponent.shape;
             Gizmos.color = Color.green;
             var center = Pos + shape.centerFloat;
             var size = shape.sizeInt;

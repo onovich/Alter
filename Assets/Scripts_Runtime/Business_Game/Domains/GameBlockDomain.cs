@@ -80,9 +80,8 @@ namespace Alter {
                 GLog.LogError($"Block {typeID} not found");
             }
             var map = ctx.currentMapEntity;
-            var index = block.currentIndex;
             var spawnable = true;
-            blockTM.ForEachCellsLocalPos(index, (cellIndex, localPos) => {
+            blockTM.ForEachCellsLocalPos((cellIndex, localPos) => {
                 var cellPos = pos + localPos;
                 var hasCell = ctx.cellRepo.TryGetCellByPos(cellPos, out var cell);
                 spawnable &= !hasCell;
@@ -100,13 +99,12 @@ namespace Alter {
                 return;
             }
             var map = ctx.currentMapEntity;
-            var shapeIndex = block.currentIndex;
             has = ctx.templateInfraContext.Block_TryGet(typeID, out blockTM);
             if (!has) {
                 GLog.LogError($"Block {typeID} not found");
                 return;
             }
-            blockTM.ForEachCellsLocalPos(shapeIndex, (cellIndex, localPos) => {
+            blockTM.ForEachCellsLocalPos((cellIndex, localPos) => {
                 var cellPos = pos + localPos;
                 var cell = GameCellDomain.Spawn(ctx, cellPos, cellIndex);
                 block.AddCell(cell);
@@ -190,17 +188,17 @@ namespace Alter {
         }
 
         static bool CheckNextShapeIsNoCell(GameBusinessContext ctx, BlockEntity block) {
-            var shape = block.shapeComponent.GetNext(block.currentIndex);
+            var len = block.shapeComponent.shape.TakeNextShape(out var nextShape);
             var hasCell = false;
-            shape.ForEachCell((cellPos) => {
+            for (int i = 0; i < len; i++) {
+                var cellPos = nextShape[i];
                 var next = block.PosInt + cellPos;
                 var hasNext = ctx.cellRepo.TryGetCellByPos(next, out var nextCell);
                 hasCell |= hasNext;
                 if (hasNext) {
-                    return;
+                    return false;
                 }
-            });
-
+            }
             return !hasCell;
         }
 

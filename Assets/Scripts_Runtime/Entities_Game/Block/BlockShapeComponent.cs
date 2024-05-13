@@ -5,38 +5,12 @@ using UnityEngine;
 namespace Alter {
     public class BlockShapeComponent {
 
-        SortedList<int/*index*/, BlockShapeModel> all;
-        public int Count => all.Count;
+        public BlockShapeModel shape;
 
         public BlockShapeComponent() {
-            all = new SortedList<int, BlockShapeModel>();
-        }
-
-        public void Add(BlockShapeModel model) {
-            all.Add(model.index, model);
-        }
-
-        public BlockShapeModel GetNext(int index) {
-            var nextIndex = index + 1;
-            if (nextIndex >= all.Count) {
-                nextIndex = 0;
-            }
-            if (all.ContainsKey(nextIndex)) {
-                return all[nextIndex];
-            }
-            Debug.LogError($"BlockShapeComponent.GetNext: {nextIndex} not found");
-            return default;
-        }
-
-        public BlockShapeModel Get(int index) {
-            if (all.ContainsKey(index)) {
-                return all[index];
-            }
-            return default;
         }
 
         public void Clear() {
-            all.Clear();
         }
 
     }

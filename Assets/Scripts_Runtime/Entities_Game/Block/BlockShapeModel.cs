@@ -5,7 +5,6 @@ using UnityEngine;
 namespace Alter {
     public struct BlockShapeModel {
 
-        public int index;
         public Vector2Int[] shape;
         public Vector2Int sizeInt;
         public Vector2 centerFloat;
@@ -14,6 +13,22 @@ namespace Alter {
             foreach (var cell in shape) {
                 action(cell);
             }
+        }
+
+        public int TakeNextShape(out Vector2Int[] nextShape) {
+            var len = GridUtils.GetRotateGridsWithoutGC(shape, centerFloat, 90, out nextShape);
+            return len;
+        }
+
+        public Vector2Int GetNextSize() {
+            return new Vector2Int(sizeInt.y, sizeInt.x);
+        }
+
+        public Vector2Int[] TurnToNextShape() {
+            var len = GridUtils.GetRotateGridsWithoutGC(shape, centerFloat, 90, out var rotatedPoints);
+            Array.Copy(rotatedPoints, shape, len);
+            sizeInt = new Vector2Int(sizeInt.y, sizeInt.x);
+            return shape;
         }
 
     }
