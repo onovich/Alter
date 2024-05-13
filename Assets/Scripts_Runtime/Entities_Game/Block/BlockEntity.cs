@@ -107,7 +107,7 @@ namespace Alter {
 
         bool CheckInAir(Vector2Int constraintSize, Vector2Int constraintCenter, Vector2Int pos) {
             Vector2Int min = constraintCenter - constraintSize / 2 + constraintCenter;
-            if (pos.y <= min.y) {
+            if (pos.y < min.y) {
                 return false;
             }
             return true;
