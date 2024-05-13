@@ -44,12 +44,12 @@ namespace Alter.UI {
             panel.RefreshScore(score);
         }
 
-        public static void RefreshNextScore(UIAppContext ctx, int score) {
+        public static void RefreshNextScore(UIAppContext ctx, int score, Color color) {
             var has = ctx.UniquePanel_TryGet<Panel_GameInfo>(out var panel);
             if (!has) {
                 return;
             }
-            panel.RefreshNextScore(score);
+            panel.RefreshNextScore(score, color);
         }
 
         public static void Close(UIAppContext ctx) {

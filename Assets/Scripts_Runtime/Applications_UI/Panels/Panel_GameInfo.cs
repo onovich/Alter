@@ -34,8 +34,9 @@ namespace Alter.UI {
             scoreText.text = score.ToString();
         }
 
-        public void RefreshNextScore(int score) {
+        public void RefreshNextScore(int score, Color color) {
             nextScoreText.text = score.ToString();
+            nextScoreText.color = color;
         }
 
         public void OnDestroy() {

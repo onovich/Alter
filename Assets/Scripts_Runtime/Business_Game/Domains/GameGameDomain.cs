@@ -26,11 +26,12 @@ namespace Alter {
             // First Block
             ctx.nextBlockTypeID = ctx.templateInfraContext.Block_GetRandom(ctx.randomService).typeID;
             GameBlockDomain.SpawnRandomBlock(ctx);
-            // Preview Block
-            GameBlockDomain.SpawnPreviewBlock(ctx);
 
             // UI
             UIApp.GameInfo_Open(ctx.uiContext);
+
+            // Preview Block
+            GameBlockDomain.SpawnPreviewBlock(ctx);
 
         }
 

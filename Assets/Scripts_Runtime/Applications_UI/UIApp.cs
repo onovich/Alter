@@ -59,8 +59,8 @@ namespace Alter {
             PanelGameInfoDomain.RefreshScore(ctx, score);
         }
 
-        public static void GameInfo_RefreshNextScore(UIAppContext ctx, int score) {
-            PanelGameInfoDomain.RefreshNextScore(ctx, score);
+        public static void GameInfo_RefreshNextScore(UIAppContext ctx, int score, Color color) {
+            PanelGameInfoDomain.RefreshNextScore(ctx, score, color);
         }
 
         public static void GameInfo_Close(UIAppContext ctx) {
