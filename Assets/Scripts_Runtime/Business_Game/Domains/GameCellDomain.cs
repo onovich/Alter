@@ -114,7 +114,7 @@ namespace Alter {
             if (cellRepo.GetCountOfClearingTask(row) == 0) {
                 game.fsmComponent.Gaming_Enter();
                 ApplyFallingAboveRow(ctx, row);
-                game.AddScore(1);
+                GameScoreDomain.AddScore(ctx, cell.logicColor);
             }
         }
 

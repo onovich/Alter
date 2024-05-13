@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace Alter {
@@ -7,6 +8,7 @@ namespace Alter {
 
         GameConfig config;
         public AsyncOperationHandle configHandle;
+        public Dictionary<Color, int> colorScoreDict;
 
         Dictionary<int, MapTM> mapDict;
         public AsyncOperationHandle mapHandle;
@@ -19,11 +21,25 @@ namespace Alter {
             mapDict = new Dictionary<int, MapTM>();
             blockDict = new Dictionary<int, BlockTM>();
             blockList = new List<BlockTM>();
+            colorScoreDict = new Dictionary<Color, int>();
         }
 
         // Game
         public void Config_Set(GameConfig config) {
             this.config = config;
+            for (int i = 0; i < config.colorArr.Length; i++) {
+                var color = config.colorArr[i];
+                var score = config.colorScoreArr[i];
+                colorScoreDict.Add(color, score);
+            }
+        }
+
+        public int Config_GetColorScore(Color color) {
+            var has = colorScoreDict.TryGetValue(color, out var score);
+            if (!has) {
+                GLog.LogError($"Color {color} not found");
+            }
+            return score;
         }
 
         public GameConfig Config_Get() {

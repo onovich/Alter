@@ -77,6 +77,10 @@ namespace Alter {
             this.score += score;
         }
 
+        public void ResetScore() {
+            score = 0;
+        }
+
     }
 
 }
