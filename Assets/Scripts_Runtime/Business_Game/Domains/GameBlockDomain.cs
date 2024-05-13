@@ -16,14 +16,17 @@ namespace Alter {
             var map = ctx.currentMapEntity;
             var pos = map.previewPoint;
             var nextTypeID = ctx.nextBlockTypeID;
+            var config = ctx.templateInfraContext.Config_Get();
             var block = GameFactory.Block_Spawn(ctx.idRecordService,
+                                                ctx.randomService,
+                                                config,
                                                 nextTypeID,
                                                 ctx.templateInfraContext,
                                                 ctx.assetsInfraContext,
                                                 pos);
             ctx.SetPreviewBlock(block);
             block.fsmComponent.None_Enter();
-            SpawnCellArrFromBlock(ctx, block, nextTypeID, pos);
+            SpawnCellArrFromBlock(ctx, block, nextTypeID, pos, block.color);
         }
 
         public static void RefreshPreviewBlock(GameBusinessContext ctx) {
@@ -58,15 +61,17 @@ namespace Alter {
         }
 
         static BlockEntity SpawnBlock(GameBusinessContext ctx, int typeID, Vector2Int pos) {
+            var config = ctx.templateInfraContext.Config_Get();
             var block = GameFactory.Block_Spawn(ctx.idRecordService,
+                                                ctx.randomService,
+                                                config,
                                                 typeID,
                                                 ctx.templateInfraContext,
                                                 ctx.assetsInfraContext,
                                                 pos);
             ctx.SetCurrentBlock(block);
             block.fsmComponent.Moving_Enter();
-
-            SpawnCellArrFromBlock(ctx, block, typeID, pos);
+            SpawnCellArrFromBlock(ctx, block, typeID, pos, block.color);
 
             // Record Next Block Type ID
             var nextBlockTM = ctx.templateInfraContext.Block_GetRandom(ctx.randomService);
@@ -92,7 +97,7 @@ namespace Alter {
             return spawnable;
         }
 
-        public static void SpawnCellArrFromBlock(GameBusinessContext ctx, BlockEntity block, int typeID, Vector2Int pos) {
+        public static void SpawnCellArrFromBlock(GameBusinessContext ctx, BlockEntity block, int typeID, Vector2Int pos, Color color) {
             var has = ctx.templateInfraContext.Block_TryGet(typeID, out var blockTM);
             if (!has) {
                 GLog.LogError($"Block {typeID} not found");
@@ -110,7 +115,6 @@ namespace Alter {
                 var cell = GameCellDomain.Spawn(ctx, cellPos, ++cellIndex);
                 block.AddCell(cell);
                 cell.SetSpr(blockTM.mesh);
-                var color = blockTM.useRandomColor ? GameColorDomain.PickRandomColor(ctx) : blockTM.meshColor;
                 cell.SetRenderColor(color);
                 cell.SetLogicColor(color);
                 cell.SetSprMaterial(blockTM.meshMaterial);

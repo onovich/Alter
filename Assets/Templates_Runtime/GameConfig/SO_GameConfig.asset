@@ -16,13 +16,13 @@ MonoBehaviour:
   gameTotalTime: 60
   originalMapTypeID: 1
   gameFallingIntervalTime: 1
-  gameInputIntervalTime: 0.1
+  gameInputIntervalTime: 0.33333334
   colorArr:
   - {r: 1, g: 0.029988142, b: 0, a: 1}
   - {r: 1, g: 1, b: 1, a: 1}
   - {r: 0, g: 0.618978, b: 1, a: 1}
   - {r: 0, g: 1, b: 0.031594515, a: 1}
-  colorWeightArr: 04000000640000000400000004000000
+  colorWeightArr: 0a000000500000000a0000000a000000
   cameraShakeFrequency_roleDamage: 6
   cameraShakeAmplitude_roleDamage: 0.2
   cameraShakeDuration_roleDamage: 0.1

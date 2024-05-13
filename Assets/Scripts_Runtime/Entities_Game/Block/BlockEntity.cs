@@ -24,6 +24,9 @@ namespace Alter {
         public BlockShapeComponent shapeComponent;
         public Vector2Int SizeInt => GetSizeInt();
 
+        // Logic Color
+        public Color color;
+
         public void Ctor() {
             fsmComponent = new BlockFSMComponent();
             cellSlotComponent = new BlockCellSlotComponent();

@@ -11,8 +11,7 @@ namespace Alter {
             dst.SetRenderColor(nextColor);
         }
 
-        public static Color PickRandomColor(GameBusinessContext ctx) {
-            var config = ctx.templateInfraContext.Config_Get();
+        public static Color PickRandomColor(GameConfig config, RandomService rd) {
             var colorArr = config.colorArr;
             var colorWeightArr = config.colorWeightArr;
 
@@ -21,7 +20,7 @@ namespace Alter {
                 totalWeight += weight;
             }
 
-            int randomWeight = ctx.randomService.NextIntRange(0, totalWeight + 1);
+            int randomWeight = rd.NextIntRange(0, totalWeight + 1);
 
             int cumulativeWeight = 0;
             for (int i = 0; i < colorArr.Length; i++) {
