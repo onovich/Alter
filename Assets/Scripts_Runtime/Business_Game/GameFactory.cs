@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Alter {
@@ -55,8 +56,10 @@ namespace Alter {
 
             // Set Model
             var shapeTM = blockTM.shape;
+            var cells = new Vector2Int[shapeTM.cells.Length];
+            Array.Copy(shapeTM.cells, cells, shapeTM.cells.Length);
             block.shapeComponent = new BlockShapeComponent {
-                shape = shapeTM.cells,
+                shape = cells,
                 sizeInt = shapeTM.sizeInt,
                 centerFloat = shapeTM.centerFloat
             };
