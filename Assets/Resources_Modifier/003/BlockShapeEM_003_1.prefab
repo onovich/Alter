@@ -55,7 +55,7 @@ MonoBehaviour:
     SerializationNodes:
     - Name: cells
       Entry: 7
-      Data: 0|System.Int32[,], mscorlib
+      Data: 0|System.Boolean[,], mscorlib
     - Name: 
       Entry: 12
       Data: 6
@@ -63,23 +63,23 @@ MonoBehaviour:
       Entry: 1
       Data: 3|2
     - Name: 
-      Entry: 3
-      Data: 1
+      Entry: 5
+      Data: true
     - Name: 
-      Entry: 3
-      Data: 2
+      Entry: 5
+      Data: true
     - Name: 
-      Entry: 3
-      Data: 3
+      Entry: 5
+      Data: true
     - Name: 
-      Entry: 3
-      Data: 0
+      Entry: 5
+      Data: false
     - Name: 
-      Entry: 3
-      Data: 4
+      Entry: 5
+      Data: true
     - Name: 
-      Entry: 3
-      Data: 0
+      Entry: 5
+      Data: false
     - Name: 
       Entry: 13
       Data: 
