@@ -242,7 +242,7 @@ namespace Alter {
             if (block == null) {
                 return;
             }
-            var pos = block.Pos;
+            var pos = block.shapeComponent.GetSize() / 2 + block.PosInt;
             var size = block.SizeInt;
             Gizmos.color = Color.green;
             Gizmos.DrawWireCube(pos, new Vector3(size.x, size.y, 0));

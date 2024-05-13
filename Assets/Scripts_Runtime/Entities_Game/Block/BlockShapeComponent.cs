@@ -15,6 +15,10 @@ namespace Alter {
             }
         }
 
+        public Vector2 GetSize() {
+            return sizeInt;
+        }
+
         public int TakeNextShape(out Vector2Int[] nextShape) {
             var len = GridUtils.GetRotateGridsWithoutGC(shape, centerFloat, 90, out nextShape);
             return len;
