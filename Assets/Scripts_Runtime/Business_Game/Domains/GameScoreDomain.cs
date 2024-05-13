@@ -10,6 +10,13 @@ namespace Alter {
             game.AddScore(score);
         }
 
+        public static int GetNextSoce(GameBusinessContext ctx) {
+            var nextBlock = ctx.previewBlock;
+            var logicColor = nextBlock.logicColor;
+            var score = ctx.templateInfraContext.Config_GetColorScore(logicColor);
+            return score;
+        }
+
         public static void ResetScore(GameBusinessContext ctx) {
             var game = ctx.gameEntity;
             game.ResetScore();

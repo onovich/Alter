@@ -57,7 +57,7 @@ namespace Alter {
             block.Pos_SetPos(pos);
 
             // Set Logic Color
-            block.color = GameColorDomain.PickRandomColor(config, rd);
+            block.logicColor = GameColorDomain.PickRandomColor(config, rd);
 
             // Set Model
             var shapeTM = blockTM.shape;

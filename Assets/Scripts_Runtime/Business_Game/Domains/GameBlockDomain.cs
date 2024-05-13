@@ -26,13 +26,15 @@ namespace Alter {
                                                 pos);
             ctx.SetPreviewBlock(block);
             block.fsmComponent.None_Enter();
-            SpawnCellArrFromBlock(ctx, block, nextTypeID, pos, block.color);
+            SpawnCellArrFromBlock(ctx, block, nextTypeID, pos, block.logicColor);
         }
 
         public static void RefreshPreviewBlock(GameBusinessContext ctx) {
             var block = ctx.previewBlock;
             UnSpawnPreview(ctx, block);
             SpawnPreviewBlock(ctx);
+            var nextScore = GameScoreDomain.GetNextSoce(ctx);
+            UIApp.GameInfo_RefreshNextScore(ctx.uiContext, nextScore);
         }
 
         public static void SpawnBlockFromPreview(GameBusinessContext ctx) {
@@ -71,7 +73,7 @@ namespace Alter {
                                                 pos);
             ctx.SetCurrentBlock(block);
             block.fsmComponent.Moving_Enter();
-            SpawnCellArrFromBlock(ctx, block, typeID, pos, block.color);
+            SpawnCellArrFromBlock(ctx, block, typeID, pos, block.logicColor);
 
             // Record Next Block Type ID
             var nextBlockTM = ctx.templateInfraContext.Block_GetRandom(ctx.randomService);

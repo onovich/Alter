@@ -25,7 +25,7 @@ namespace Alter {
         public Vector2Int SizeInt => GetSizeInt();
 
         // Logic Color
-        public Color color;
+        public Color logicColor;
 
         public void Ctor() {
             fsmComponent = new BlockFSMComponent();

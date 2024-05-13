@@ -44,6 +44,14 @@ namespace Alter.UI {
             panel.RefreshScore(score);
         }
 
+        public static void RefreshNextScore(UIAppContext ctx, int score) {
+            var has = ctx.UniquePanel_TryGet<Panel_GameInfo>(out var panel);
+            if (!has) {
+                return;
+            }
+            panel.RefreshNextScore(score);
+        }
+
         public static void Close(UIAppContext ctx) {
             var has = ctx.UniquePanel_TryGet<Panel_GameOver>(out var panel);
             if (!has) {
