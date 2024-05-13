@@ -181,11 +181,10 @@ namespace Alter {
 
         static bool CheckInAir(GameBusinessContext ctx, BlockEntity block) {
             var dir = Vector2Int.down;
-            var pos = block.PosInt;
             var map = ctx.currentMapEntity;
             var mapSize = map.mapSize;
             var mapPos = map.PosInt;
-            return block.Move_CheckInAir(mapSize, mapPos, pos, dir);
+            return block.Move_CheckInAir(mapSize, mapPos, dir);
         }
 
         static bool CheckNextShapeIsNoCell(GameBusinessContext ctx, BlockEntity block) {

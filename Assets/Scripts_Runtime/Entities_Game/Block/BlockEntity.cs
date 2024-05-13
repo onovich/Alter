@@ -95,9 +95,19 @@ namespace Alter {
             return offset;
         }
 
-        public bool Move_CheckInAir(Vector2Int constraintSize, Vector2Int constraintCenter, Vector2Int pos, Vector2Int axis) {
-            Vector2Int min = constraintCenter - constraintSize / 2 + constraintCenter + Vector2Int.down;
-            if (pos.y + axis.y <= min.y) {
+        public bool Move_CheckInAir(Vector2Int constraintSize, Vector2Int constraintCenter, Vector2Int axis) {
+            var shape = shapeComponent;
+            var inAir = true;
+            shape.ForEachCell(cell => {
+                var pos = PosInt + cell + axis;
+                inAir &= CheckInAir(constraintSize, constraintCenter, pos);
+            });
+            return inAir;
+        }
+
+        bool CheckInAir(Vector2Int constraintSize, Vector2Int constraintCenter, Vector2Int pos) {
+            Vector2Int min = constraintCenter - constraintSize / 2 + constraintCenter;
+            if (pos.y <= min.y) {
                 return false;
             }
             return true;
