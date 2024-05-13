@@ -5,6 +5,27 @@ namespace Alter {
 
     public static class GridUtils {
 
+        static Vector2Int[] temp = new Vector2Int[20];
+
+        public static int GetRotateGridsWithoutGC(Vector2Int[] points, Vector2 center, float angleDegrees, out Vector2Int[] rotatedPoints) {
+            rotatedPoints = temp;
+            float angleRadians = angleDegrees * Mathf.Deg2Rad;
+            float cosTheta = Mathf.Cos(angleRadians);
+            float sinTheta = Mathf.Sin(angleRadians);
+            for (int i = 0; i < points.Length; i++) {
+                Vector2 translatedPoint = new Vector2(points[i].x - center.x, points[i].y - center.y);
+                Vector2 rotatedTranslatedPoint = new Vector2(
+                    translatedPoint.x * cosTheta - translatedPoint.y * sinTheta,
+                    translatedPoint.x * sinTheta + translatedPoint.y * cosTheta
+                );
+                rotatedPoints[i] = new Vector2Int(
+                    Mathf.RoundToInt(rotatedTranslatedPoint.x + center.x),
+                    Mathf.RoundToInt(rotatedTranslatedPoint.y + center.y)
+                );
+            }
+            return points.Length;
+        }
+
         public static Vector2Int GridIndexToPositionInt(int column, int row, Vector2Int MapSize) {
             var worldX = column - MapSize.x / 2;
             var worldY = row - MapSize.y / 2;
