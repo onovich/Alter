@@ -151,6 +151,19 @@ namespace Alter {
             block.Rotate();
         }
 
+        public static void ApplyHold(GameBusinessContext ctx) {
+            if (ctx.inputEntity.isHold == false) {
+                return;
+            }
+            ForceLand(ctx);
+        }
+
+        static void ForceLand(GameBusinessContext ctx) {
+            var block = ctx.currentBlock;
+            block.fsmComponent.ForceLanding_Enter();
+            Debug.Log("ForceLand:" + block.typeID);
+        }
+
         public static void ApplyCheckLanding(GameBusinessContext ctx) {
             var block = ctx.currentBlock;
             if (CheckInAir(ctx, block) && CheckNextIsNoCellInSameColorOrWhite(ctx, block, Vector2Int.down)) {

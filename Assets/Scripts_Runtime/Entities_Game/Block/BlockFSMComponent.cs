@@ -1,4 +1,3 @@
-using System.Diagnostics;
 using UnityEngine;
 
 namespace Alter {
@@ -10,6 +9,7 @@ namespace Alter {
 
         public bool moving_isEntering;
         public bool landing_isEntering;
+        public bool forceLanding_isEntering;
 
         public void None_Enter() {
             Reset();
@@ -28,9 +28,16 @@ namespace Alter {
             landing_isEntering = true;
         }
 
+        public void ForceLanding_Enter() {
+            Reset();
+            status = BlockFSMStatus.ForceLanding;
+            forceLanding_isEntering = true;
+        }
+
         public void Reset() {
             moving_isEntering = false;
             landing_isEntering = false;
+            forceLanding_isEntering = false;
         }
 
     }

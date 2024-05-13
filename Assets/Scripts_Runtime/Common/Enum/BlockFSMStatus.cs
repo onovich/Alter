@@ -5,6 +5,7 @@ namespace Alter {
         None,
         Moving,
         Landing,
+        ForceLanding,
 
     }
 

@@ -8,7 +8,7 @@ namespace Alter {
 
         public Vector2Int moveAxis;
         public bool isRotate;
-
+        public bool isHold;
         public int inputStep;
 
         InputKeybindingComponent keybindingCom;
@@ -39,6 +39,10 @@ namespace Alter {
                 moveAxis.y = -1;
                 inputStep++;
             }
+            if (keybindingCom.IsKeyDown(InputKeyEnum.Hold)) {
+                isHold = true;
+                inputStep++;
+            }
             if (moveAxis.x != 0 && moveAxis.y != 0) {
                 moveAxis.y = 0;
             }
@@ -51,6 +55,7 @@ namespace Alter {
         public void Reset() {
             moveAxis = Vector2Int.zero;
             isRotate = false;
+            isHold = false;
         }
 
     }

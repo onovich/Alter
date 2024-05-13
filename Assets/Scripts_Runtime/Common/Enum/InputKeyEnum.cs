@@ -7,6 +7,7 @@ namespace Alter {
         MoveLeft = 110,
         MoveUp = 120,
         MoveDown = 130,
+        Hold = 140,
 
     }
 

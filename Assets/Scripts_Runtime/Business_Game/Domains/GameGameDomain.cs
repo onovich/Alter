@@ -88,6 +88,10 @@ namespace Alter {
             }
         }
 
+        public static void ForceNewTurn(GameBusinessContext ctx) {
+            NewTurn(ctx);
+        }
+
         static void NewTurn(GameBusinessContext ctx) {
             var block = ctx.currentBlock;
             var len = block.cellSlotComponent.TakeAll(out var cells);

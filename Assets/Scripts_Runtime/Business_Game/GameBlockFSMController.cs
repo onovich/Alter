@@ -15,6 +15,8 @@ namespace Alter {
                 TickFSM_Moving(ctx, block, dt);
             } else if (status == BlockFSMStatus.Landing) {
                 TickFSM_Landing(ctx, block, dt);
+            } else if (status == BlockFSMStatus.ForceLanding) {
+                TickFSM_ForceLanding(ctx, block, dt);
             } else {
                 GLog.LogError($"GameRoleFSMController.TickFSM: unknown status: {status}");
             }
@@ -37,6 +39,7 @@ namespace Alter {
             GameBlockDomain.ApplyRotate(ctx);
             GameBlockDomain.ApplyConstraint(ctx);
             GameBlockDomain.ApplyCheckLanding(ctx);
+            GameBlockDomain.ApplyHold(ctx);
         }
 
         static void TickFSM_Landing(GameBusinessContext ctx, BlockEntity block, float fixdt) {
@@ -49,6 +52,14 @@ namespace Alter {
                 return;
             }
             GameGameDomain.ApplyGameStage(ctx);
+        }
+
+        static void TickFSM_ForceLanding(GameBusinessContext ctx, BlockEntity block, float fixdt) {
+            BlockFSMComponent fsm = block.fsmComponent;
+            if (fsm.forceLanding_isEntering) {
+                GameGameDomain.ForceNewTurn(ctx);
+                fsm.forceLanding_isEntering = false;
+            }
         }
 
     }
