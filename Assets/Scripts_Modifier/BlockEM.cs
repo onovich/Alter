@@ -20,8 +20,6 @@ namespace Alter.Modifier {
 
         [Header("Block Mesh")]
         public Sprite mesh;
-        public bool useRandomColor;
-        public UnityEngine.Color color;
         public Material meshMaterial;
 
         [Header("Block Shapes")]
@@ -32,8 +30,6 @@ namespace Alter.Modifier {
             typeID = blockTM.typeID;
             typeName = blockTM.typeName;
             mesh = blockTM.mesh;
-            color = blockTM.meshColor;
-            useRandomColor = blockTM.useRandomColor;
             meshMaterial = blockTM.meshMaterial;
             GetShapes();
             EditorUtility.SetDirty(this);
@@ -53,8 +49,6 @@ namespace Alter.Modifier {
             blockTM.typeID = typeID;
             blockTM.typeName = typeName;
             blockTM.mesh = mesh;
-            blockTM.meshColor = color;
-            blockTM.useRandomColor = useRandomColor;
             blockTM.meshMaterial = meshMaterial;
             BakeShapes();
             AddressableHelper.SetAddressable(blockTM, "TM_Block", "TM_Block", true);

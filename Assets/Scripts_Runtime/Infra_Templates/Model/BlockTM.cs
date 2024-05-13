@@ -12,8 +12,6 @@ namespace Alter {
 
         [Header("Block Mesh")]
         public Sprite mesh;
-        public UnityEngine.Color meshColor;
-        public bool useRandomColor;
         public Material meshMaterial;
 
         [Header("Block Cells")]

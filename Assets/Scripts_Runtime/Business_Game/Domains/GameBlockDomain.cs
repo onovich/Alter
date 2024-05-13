@@ -114,7 +114,7 @@ namespace Alter {
             var cellIndex = 0;
             blockTM.ForEachCellsLocalPos((localPos) => {
                 var cellPos = pos + localPos;
-                var cell = GameCellDomain.Spawn(ctx, cellPos, ++cellIndex);
+                var cell = GameCellDomain.Spawn(ctx, cellPos, cellIndex++);
                 block.AddCell(cell);
                 cell.SetSpr(blockTM.mesh);
                 cell.SetRenderColor(color);
