@@ -65,22 +65,32 @@ namespace Alter {
         // Move
         public Vector2Int Move_GetConstraintOffset(Vector2Int constraintSize, Vector2Int constraintCenter) {
             var shape = shapeComponent;
+            var maxOffset = Vector2Int.zero;
+            var minOffset = Vector2Int.zero;
+            shape.ForEachCell(cell => {
+                var offset = GetConstraintOffset(constraintSize, constraintCenter, PosInt + cell);
+                maxOffset = Vector2Int.Max(maxOffset, offset);
+                minOffset = Vector2Int.Min(minOffset, offset);
+            });
+            if (maxOffset == Vector2Int.zero) {
+                return minOffset;
+            }
+            return maxOffset;
+        }
 
-            Vector2Int blockMin = PosInt;
-            Vector2Int blockMax = PosInt + shape.sizeInt;
-
+        Vector2Int GetConstraintOffset(Vector2Int constraintSize, Vector2Int constraintCenter, Vector2Int pos) {
             Vector2Int min = constraintCenter - constraintSize / 2 + constraintCenter;
-            Vector2Int max = constraintCenter + constraintSize / 2 + constraintCenter;
+            Vector2Int max = constraintCenter + constraintSize / 2 + constraintCenter - Vector2Int.one;
 
             Vector2Int offset = Vector2Int.zero;
-            if (blockMax.x > max.x) {
-                offset.x += max.x - blockMax.x;
+            if (pos.x > max.x) {
+                offset.x += max.x - pos.x;
             }
-            if (blockMin.x <= min.x) {
-                offset.x += min.x - blockMin.x;
+            if (pos.x <= min.x) {
+                offset.x += min.x - pos.x;
             }
-            if (blockMin.y < min.y) {
-                offset.y += min.y - blockMin.y;
+            if (pos.y < min.y) {
+                offset.y += min.y - pos.y;
             }
             return offset;
         }
