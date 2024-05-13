@@ -93,18 +93,6 @@ namespace Alter {
             return true;
         }
 
-        private void OnDrawGizmos() {
-            var shape = shapeComponent;
-            Gizmos.color = Color.green;
-            var center = Pos + shape.centerFloat;
-            var size = shape.sizeInt;
-            Gizmos.DrawWireCube(center, new Vector3(size.x, size.y, 0));
-            Gizmos.color = Color.red;
-            Gizmos.DrawCube(center, new Vector3(.2f, .2f, 0));
-            Gizmos.color = Color.white;
-            Gizmos.DrawCube(Pos, new Vector3(.2f, .2f, 0));
-        }
-
         public void TearDown() {
             fsmComponent.Reset();
             cellSlotComponent.Clear();
