@@ -53,6 +53,7 @@ namespace Alter {
                 cell.SetRenderColor(previewCell.LogicColor_Get());
                 cell.SetLogicColor(previewCell.LogicColor_Get());
             }
+            block.logicColor = previewBlock.logicColor;
         }
 
         public static void SpawnRandomBlock(GameBusinessContext ctx) {
@@ -224,6 +225,7 @@ namespace Alter {
         static bool CheckNextIsNoCellInSameColorOrWhite(GameBusinessContext ctx, BlockEntity block, Vector2Int dir) {
             var hasSameColorCell = false;
             var hasWhiteCell = false;
+            var selfIsWhite = block.logicColor == Color.white;
             var len = block.cellSlotComponent.TakeAll(out var cells);
             for (int i = 0; i < len; i++) {
                 var cell = cells[i];
@@ -240,6 +242,9 @@ namespace Alter {
                     return false;
                 }
                 if (hasWhiteCell) {
+                    return false;
+                }
+                if (hasNext && selfIsWhite) {
                     return false;
                 }
             }

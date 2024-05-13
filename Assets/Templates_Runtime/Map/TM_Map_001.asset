@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   typeID: 1
   mapSize: {x: 10, y: 20}
-  spawnPoint: {x: 0, y: 6}
+  spawnPoint: {x: 0, y: 8}
   previewPoint: {x: 7, y: 8}
