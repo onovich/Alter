@@ -60,8 +60,4 @@ MonoBehaviour:
   useRandomColor: 1
   color: {r: 0.28595585, g: 0.9496639, b: 0.9622642, a: 1}
   meshMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
-  shapes:
-  - {fileID: 11400000, guid: 02ee70b0e30834a8b8f129cce4ead0a9, type: 2}
-  - {fileID: 11400000, guid: 63cf199efbb5e427b844ec208bbffd21, type: 2}
-  - {fileID: 11400000, guid: c7809b4a96d2c46c3b95e71c34b640e5, type: 2}
-  - {fileID: 11400000, guid: 8b38514a1e96e46c696f6aebaf0771fc, type: 2}
+  shape: {fileID: 11400000, guid: 02ee70b0e30834a8b8f129cce4ead0a9, type: 2}

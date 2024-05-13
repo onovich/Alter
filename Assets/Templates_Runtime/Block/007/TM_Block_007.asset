@@ -18,5 +18,4 @@ MonoBehaviour:
   meshColor: {r: 0.9528302, g: 0.95281166, b: 0.112362035, a: 1}
   useRandomColor: 1
   meshMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
-  shapeArr:
-  - {fileID: 11400000, guid: e7db62f280db747b8abe41ca77e7a738, type: 2}
+  shape: {fileID: 11400000, guid: e7db62f280db747b8abe41ca77e7a738, type: 2}

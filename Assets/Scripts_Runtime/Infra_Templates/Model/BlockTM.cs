@@ -19,7 +19,7 @@ namespace Alter {
         [Header("Block Cells")]
         public BlockShapeTM shape;
 
-        public void ForEachCellsLocalPos(Action<int, Vector2Int> action) {
+        public void ForEachCellsLocalPos(Action<Vector2Int> action) {
             shape.ForEachCells(action);
         }
 

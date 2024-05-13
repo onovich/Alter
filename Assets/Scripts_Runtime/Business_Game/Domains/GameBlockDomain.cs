@@ -81,7 +81,7 @@ namespace Alter {
             }
             var map = ctx.currentMapEntity;
             var spawnable = true;
-            blockTM.ForEachCellsLocalPos((cellIndex, localPos) => {
+            blockTM.ForEachCellsLocalPos((localPos) => {
                 var cellPos = pos + localPos;
                 var hasCell = ctx.cellRepo.TryGetCellByPos(cellPos, out var cell);
                 spawnable &= !hasCell;
@@ -104,9 +104,10 @@ namespace Alter {
                 GLog.LogError($"Block {typeID} not found");
                 return;
             }
-            blockTM.ForEachCellsLocalPos((cellIndex, localPos) => {
+            var cellIndex = 0;
+            blockTM.ForEachCellsLocalPos((localPos) => {
                 var cellPos = pos + localPos;
-                var cell = GameCellDomain.Spawn(ctx, cellPos, cellIndex);
+                var cell = GameCellDomain.Spawn(ctx, cellPos, ++cellIndex);
                 block.AddCell(cell);
                 cell.SetSpr(blockTM.mesh);
                 var color = blockTM.useRandomColor ? GameColorDomain.PickRandomColor(ctx) : blockTM.meshColor;

@@ -9,11 +9,10 @@ namespace Alter {
         public Vector2Int sizeInt;
         public Vector2Int[] cells;
         public Vector2 centerFloat;
-        public int[] cellIndexs;
 
-        public void ForEachCells(Action<int, Vector2Int> action) {
+        public void ForEachCells(Action<Vector2Int> action) {
             for (int i = 0; i < cells.Length; i++) {
-                action(cellIndexs[i], cells[i]);
+                action(cells[i]);
             }
         }
 

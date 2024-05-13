@@ -88,3 +88,4 @@ MonoBehaviour:
       Data: 
   shapeTM: {fileID: 11400000, guid: d01d3681303b6402a887dbb1465b2383, type: 2}
   sizeInt: {x: 3, y: 2}
+  center: {x: 1, y: 1}
