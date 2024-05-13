@@ -15,7 +15,7 @@ MonoBehaviour:
   gameResetEnterTime: 1
   gameTotalTime: 60
   originalMapTypeID: 1
-  gameFallingIntervalTime: 0.33333334
+  gameFallingIntervalTime: 1
   gameInputIntervalTime: 0.1
   colorArr:
   - {r: 1, g: 0.029988142, b: 0, a: 1}

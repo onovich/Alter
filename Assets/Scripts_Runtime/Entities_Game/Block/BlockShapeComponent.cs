@@ -3,14 +3,32 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace Alter {
-    public class BlockShapeComponent {
+    public struct BlockShapeComponent {
 
-        public BlockShapeModel shape;
+        public Vector2Int[] shape;
+        public Vector2Int sizeInt;
+        public Vector2 centerFloat;
 
-        public BlockShapeComponent() {
+        public void ForEachCell(Action<Vector2Int> action) {
+            foreach (var cell in shape) {
+                action(cell);
+            }
         }
 
-        public void Clear() {
+        public int TakeNextShape(out Vector2Int[] nextShape) {
+            var len = GridUtils.GetRotateGridsWithoutGC(shape, centerFloat, 90, out nextShape);
+            return len;
+        }
+
+        public Vector2Int GetNextSize() {
+            return new Vector2Int(sizeInt.y, sizeInt.x);
+        }
+
+        public Vector2Int[] TurnToNextShape() {
+            var len = GridUtils.GetRotateGridsWithoutGC(shape, centerFloat, 90, out var rotatedPoints);
+            Array.Copy(rotatedPoints, shape, len);
+            sizeInt = new Vector2Int(sizeInt.y, sizeInt.x);
+            return shape;
         }
 
     }

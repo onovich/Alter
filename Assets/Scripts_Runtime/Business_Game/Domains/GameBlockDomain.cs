@@ -189,7 +189,7 @@ namespace Alter {
         }
 
         static bool CheckNextShapeIsNoCell(GameBusinessContext ctx, BlockEntity block) {
-            var len = block.shapeComponent.shape.TakeNextShape(out var nextShape);
+            var len = block.shapeComponent.TakeNextShape(out var nextShape);
             var hasCell = false;
             for (int i = 0; i < len; i++) {
                 var cellPos = nextShape[i];
@@ -236,6 +236,17 @@ namespace Alter {
         public static void UnSpawnPreview(GameBusinessContext ctx, BlockEntity cell) {
             ctx.SetPreviewBlock(null);
             cell.TearDown();
+        }
+
+        public static void OnDrawGizmos(GameBusinessContext ctx) {
+            var block = ctx.currentBlock;
+            if (block == null) {
+                return;
+            }
+            var pos = block.Pos;
+            var size = block.SizeInt;
+            Gizmos.color = Color.green;
+            Gizmos.DrawWireCube(pos, new Vector3(size.x, size.y, 0));
         }
 
     }

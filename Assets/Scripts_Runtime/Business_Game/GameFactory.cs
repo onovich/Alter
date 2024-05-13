@@ -55,12 +55,11 @@ namespace Alter {
 
             // Set Model
             var shapeTM = blockTM.shape;
-            var shapeModel = new BlockShapeModel {
+            block.shapeComponent = new BlockShapeComponent {
                 shape = shapeTM.cells,
                 sizeInt = shapeTM.sizeInt,
                 centerFloat = shapeTM.centerFloat
             };
-            block.shapeComponent.shape = shapeModel;
             return block;
         }
 

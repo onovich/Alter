@@ -110,14 +110,15 @@ namespace Alter {
             }
         }
 
-        public static void OnDrawGizmos(GameBusinessContext ctx, bool drawCameraGizmos) {
+        public static void OnDrawGizmos(GameBusinessContext ctx, bool drawBlockSizeGizmos) {
             if (ctx == null) {
                 return;
             }
             var game = ctx.gameEntity;
             var status = game.fsmComponent.status;
             if (status == GameStatus.Gaming) {
-                if (drawCameraGizmos) {
+                if (drawBlockSizeGizmos) {
+                    GameBlockDomain.OnDrawGizmos(ctx);
                 }
             }
         }

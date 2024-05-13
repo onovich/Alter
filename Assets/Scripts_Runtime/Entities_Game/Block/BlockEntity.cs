@@ -49,23 +49,22 @@ namespace Alter {
         }
 
         public void Rotate() {
-            var shape = shapeComponent.shape;
-            var next = shape.TurnToNextShape();
+            var next = shapeComponent.TurnToNextShape();
             var len = cellSlotComponent.TakeAll(out var cells);
             for (int i = 0; i < len; i++) {
                 var cell = cells[i];
                 var index = i;
-                cell.Pos_SetLocalPos(shape.shape[index]);
+                cell.Pos_SetLocalPos(shapeComponent.shape[index]);
             }
         }
 
         public Vector2Int GetSizeInt() {
-            return shapeComponent.shape.sizeInt;
+            return shapeComponent.sizeInt;
         }
 
         // Move
         public Vector2Int Move_GetConstraintOffset(Vector2Int constraintSize, Vector2Int constraintCenter) {
-            var shape = shapeComponent.shape;
+            var shape = shapeComponent;
 
             Vector2Int blockMin = PosInt;
             Vector2Int blockMax = PosInt + shape.sizeInt;
@@ -95,7 +94,7 @@ namespace Alter {
         }
 
         private void OnDrawGizmos() {
-            var shape = shapeComponent.shape;
+            var shape = shapeComponent;
             Gizmos.color = Color.green;
             var center = Pos + shape.centerFloat;
             var size = shape.sizeInt;
@@ -108,7 +107,6 @@ namespace Alter {
 
         public void TearDown() {
             fsmComponent.Reset();
-            shapeComponent.Clear();
             cellSlotComponent.Clear();
             Destroy(gameObject);
         }

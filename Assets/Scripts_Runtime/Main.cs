@@ -9,7 +9,7 @@ namespace Alter {
 
     public class Main : MonoBehaviour {
 
-        [SerializeField] bool drawCameraGizmos;
+        [SerializeField] bool drawBlockSizeGizmos;
 
         InputEntity inputEntity;
 
@@ -164,7 +164,7 @@ namespace Alter {
             isTearDown = true;
 
             GameBusiness.TearDown(gameBusinessContext);
-            
+
             AssetsInfra.ReleaseAssets(assetsInfraContext);
             TemplateInfra.Release(templateInfraContext);
 
@@ -176,7 +176,7 @@ namespace Alter {
         }
 
         void OnDrawGizmos() {
-            GameBusiness.OnDrawGizmos(gameBusinessContext, drawCameraGizmos);
+            GameBusiness.OnDrawGizmos(gameBusinessContext, drawBlockSizeGizmos);
         }
 
     }
