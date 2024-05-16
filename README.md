@@ -4,14 +4,14 @@ Alter, a Tetris-like game, is named for its core gameplay mechanic of transforma
 
 ![](https://github.com/onovich/Alter/blob/main/Assets/Resources_Sample/gamecover_alter.png)
 
-The rotation rules are based on a simplified ARS (Arika Rotation System): all blocks can kick walls, with no center column rules. <br/>
-**旋转规则基于简化的 ARS 旋转系统（Arika Rotation System）：所有方块均可踢墙(暂未实现)，没有中心列规则。**
+The rotation method refers to the SRS (The Super Rotation System), but without wall kicks. <br/>
+**旋转方式参考了 SRS（The Super Rotation System），但没有踢墙。**
 
 The landing rule adopts the logic used in "Tetris: The Grand Master", where the piece does not lock immediately after landing.<br/>
-**落地规则则采用了 TGM 中使用的，落地后不立刻锁定的逻辑。**
+**落地规则采用了 TGM 中使用的，落地后不立刻锁定。**
 
-On this basis, some creative gameplay may be iterated in the future.<br/>
-**在此基础之上，后续可能迭代一些创意玩法。**
+Building on this, we added rules where different colored blocks overlap to form new colors and only blocks of the same color can be cleared. However, this seems to have made the game less enjoyable than the original version.<br/>
+**在此基础上，增加了不同颜色的方块会重叠成新的颜色、只有相同颜色方块才能消除的规则，但似乎让游戏变得不如原版好玩了。**
 
 No leveling rules and scoring rules have been implemented yet.<br/>
 **暂未做升关规则和计分规则。**
