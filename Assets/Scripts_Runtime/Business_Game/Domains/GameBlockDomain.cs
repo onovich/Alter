@@ -146,6 +146,7 @@ namespace Alter {
                 var cellPos = cell.PosInt;
                 var has = ctx.cellRepo.TryGetCellByPos(cellPos, out var oldCell);
                 if (!has) {
+                    GameColorDomain.ResetRenderColor(ctx, cell);
                     continue;
                 }
                 GameColorDomain.CombineRenderColor(ctx, oldCell, cell);
@@ -205,6 +206,7 @@ namespace Alter {
                 var cellPos = cell.PosInt;
                 var has = ctx.cellRepo.TryGetCellByPos(cellPos, out var oldCell);
                 if (!has) {
+                    GameColorDomain.ResetRenderColor(ctx, cell);
                     continue;
                 }
                 GameColorDomain.CombineRenderColor(ctx, oldCell, cell);

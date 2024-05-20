@@ -11,6 +11,11 @@ namespace Alter {
             dst.SetRenderColor(nextColor);
         }
 
+        public static void ResetRenderColor(GameBusinessContext ctx, CellEntity cell) {
+            var color = cell.LogicColor_Get();
+            cell.SetRenderColor(color);
+        }
+
         public static Color PickRandomColor(GameConfig config, RandomService rd) {
             var colorArr = config.colorArr;
             var colorWeightArr = config.colorWeightArr;
