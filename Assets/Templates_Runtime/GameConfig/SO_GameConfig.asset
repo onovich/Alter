@@ -18,11 +18,8 @@ MonoBehaviour:
   gameFallingIntervalTime: 1
   gameInputIntervalTime: 0.33333334
   colorArr:
-  - {r: 1, g: 0, b: 0, a: 1}
   - {r: 1, g: 1, b: 1, a: 1}
-  - {r: 0, g: 0.6666667, b: 1, a: 1}
-  - {r: 0, g: 1, b: 0, a: 1}
-  colorWeightArr: 0a0000003c0000001e00000014000000
+  colorWeightArr: 320000000000000000000000
   colorScoreArr: 28000000010000000a00000014000000
   colorTM: {fileID: 11400000, guid: 132c1e9e311c9459d97c123f27ceb810, type: 2}
   cameraShakeFrequency_roleDamage: 6
