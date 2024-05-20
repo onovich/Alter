@@ -138,6 +138,18 @@ namespace Alter {
                 return;
             }
             block.Pos_SetPos(pos + dir);
+
+            // Color
+            var len = block.cellSlotComponent.TakeAll(out var cells);
+            for (int i = 0; i < len; i++) {
+                var cell = cells[i];
+                var cellPos = cell.PosInt;
+                var has = ctx.cellRepo.TryGetCellByPos(cellPos, out var oldCell);
+                if (!has) {
+                    continue;
+                }
+                GameColorDomain.CombineRenderColor(ctx, oldCell, cell);
+            }
         }
 
         public static void ApplyRotate(GameBusinessContext ctx) {
