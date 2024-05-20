@@ -33,6 +33,7 @@ namespace Alter {
         public static BlockEntity Block_Spawn(IDRecordService idRecordService,
                                               RandomService rd,
                                               GameConfig config,
+                                              ColorTM colorTM,
                                               int typeID,
                                               TemplateInfraContext templateInfraContext,
                                               AssetsInfraContext assetsInfraContext,
@@ -57,7 +58,7 @@ namespace Alter {
             block.Pos_SetPos(pos);
 
             // Set Logic Color
-            block.logicColor = GameColorDomain.PickRandomColor(config, rd);
+            block.logicColor = GameColorDomain.PickRandomColor(config, colorTM, rd);
 
             // Set Model
             var shapeTM = blockTM.shape;

@@ -17,9 +17,11 @@ namespace Alter {
             var pos = map.previewPoint;
             var nextTypeID = ctx.nextBlockTypeID;
             var config = ctx.templateInfraContext.Config_Get();
+            var colorTM = ctx.templateInfraContext.Color_Get();
             var block = GameFactory.Block_Spawn(ctx.idRecordService,
                                                 ctx.randomService,
                                                 config,
+                                                colorTM,
                                                 nextTypeID,
                                                 ctx.templateInfraContext,
                                                 ctx.assetsInfraContext,
@@ -65,9 +67,11 @@ namespace Alter {
 
         static BlockEntity SpawnBlock(GameBusinessContext ctx, int typeID, Vector2Int pos) {
             var config = ctx.templateInfraContext.Config_Get();
+            var colorTM = ctx.templateInfraContext.Color_Get();
             var block = GameFactory.Block_Spawn(ctx.idRecordService,
                                                 ctx.randomService,
                                                 config,
+                                                colorTM,
                                                 typeID,
                                                 ctx.templateInfraContext,
                                                 ctx.assetsInfraContext,

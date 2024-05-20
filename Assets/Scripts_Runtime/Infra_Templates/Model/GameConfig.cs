@@ -1,5 +1,6 @@
 using System;
 using MortiseFrame.Swing;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Alter {
@@ -20,6 +21,18 @@ namespace Alter {
         public Color[] colorArr;
         public int[] colorWeightArr;
         public int[] colorScoreArr;
+        public ColorTM colorTM;
+
+        [Button("Fix Color")]
+        public void FixColor() {
+            if (colorArr == null || colorArr.Length == 0) {
+                return;
+            }
+            for (int i = 0; i < colorArr.Length; i++) {
+                colorArr[i] = ColorHelper.FindClosestWebSafeColor(colorArr[i], colorTM.colors);
+            }
+            Debug.Log("Fix Color Complete: " + colorArr.Length + " colors");
+        }
 
         // Camera
         [Header("Shake Config")]

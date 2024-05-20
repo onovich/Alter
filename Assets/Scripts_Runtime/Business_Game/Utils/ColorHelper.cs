@@ -1,11 +1,9 @@
-#if UNITY_EDITOR
-
 using System.Collections.Generic;
 using UnityEngine;
 using Alter;
 using System.Linq;
 
-namespace Alter.Modifier {
+namespace Alter {
 
     public static class ColorHelper {
 
@@ -38,4 +36,3 @@ namespace Alter.Modifier {
     }
 
 }
-#endif

@@ -17,6 +17,9 @@ namespace Alter {
         List<BlockTM> blockList;
         public AsyncOperationHandle blockHandle;
 
+        ColorTM colorTM;
+        public AsyncOperationHandle colorHandle;
+
         public TemplateInfraContext() {
             mapDict = new Dictionary<int, MapTM>();
             blockDict = new Dictionary<int, BlockTM>();
@@ -78,6 +81,15 @@ namespace Alter {
             var index = rd.NextIntRange(0, blockTypeCount);
             var block = blockList[index];
             return block;
+        }
+
+        // Color
+        public void Color_Set(ColorTM colorTM) {
+            this.colorTM = colorTM;
+        }
+
+        public ColorTM Color_Get() {
+            return colorTM;
         }
 
         // Clear

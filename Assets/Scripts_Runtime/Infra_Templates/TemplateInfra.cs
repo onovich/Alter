@@ -32,6 +32,13 @@ namespace Alter {
                 ctx.blockHandle = handle;
             }
 
+            {
+                var handle = Addressables.LoadAssetAsync<ColorTM>("TM_Color");
+                var colorTM = await handle.Task;
+                ctx.Color_Set(colorTM);
+                ctx.colorHandle = handle;
+            }
+
         }
 
         public static void Release(TemplateInfraContext ctx) {
@@ -43,6 +50,9 @@ namespace Alter {
             }
             if (ctx.blockHandle.IsValid()) {
                 Addressables.Release(ctx.blockHandle);
+            }
+            if (ctx.colorHandle.IsValid()) {
+                Addressables.Release(ctx.colorHandle);
             }
         }
 
