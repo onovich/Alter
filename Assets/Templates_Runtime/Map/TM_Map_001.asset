@@ -16,3 +16,4 @@ MonoBehaviour:
   mapSize: {x: 10, y: 20}
   spawnPoint: {x: 0, y: 8}
   previewPoint: {x: 7, y: 8}
+  hasGravity: 1

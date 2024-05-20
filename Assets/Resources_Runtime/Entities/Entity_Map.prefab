@@ -177,6 +177,7 @@ MonoBehaviour:
   typeID: 0
   mapSize: {x: 0, y: 0}
   spr: {fileID: 3731570324951007111}
-  cellBoard: {fileID: 0}
   spawnPoint: {x: 0, y: 0}
+  previewPoint: {x: 0, y: 0}
   timer: 0
+  hasGravity: 0

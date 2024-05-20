@@ -45,13 +45,14 @@ namespace Alter {
             var previewBlock = ctx.previewBlock;
             var nextTypeID = previewBlock.typeID;
             var block = SpawnBlock(ctx, nextTypeID, pos);
-            var len = previewBlock.cellSlotComponent.TakeAll(out var previewCells);
+            var previewLen = previewBlock.cellSlotComponent.TakeAll(out var previewCells);
+            var len = block.cellSlotComponent.TakeAll(out var cells);
             for (int i = 0; i < len; i++) {
-                var previewCell = previewBlock.cellSlotComponent.Get(i);
-                var cell = block.cellSlotComponent.Get(i);
+                var previewCell = previewCells[i];
                 if (previewCell == null) {
                     continue;
                 }
+                var cell = cells[i];
                 cell.SetRenderColor(previewCell.LogicColor_Get());
                 cell.SetLogicColor(previewCell.LogicColor_Get());
             }
@@ -116,10 +117,9 @@ namespace Alter {
                 GLog.LogError($"Block {typeID} not found");
                 return;
             }
-            var cellIndex = 0;
             blockTM.ForEachCellsLocalPos((localPos) => {
                 var cellPos = pos + localPos;
-                var cell = GameCellDomain.Spawn(ctx, cellPos, cellIndex++);
+                var cell = GameCellDomain.Spawn(ctx, cellPos);
                 block.AddCell(cell);
                 cell.SetSpr(blockTM.mesh);
                 cell.SetRenderColor(color);

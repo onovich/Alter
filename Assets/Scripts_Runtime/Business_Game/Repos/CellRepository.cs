@@ -75,7 +75,7 @@ namespace Alter {
         }
 
         public void Remove(CellEntity cell) {
-            all.Remove(cell.index);
+            all.Remove(cell.entityID);
             posMap.Remove(cell.PosInt);
         }
 

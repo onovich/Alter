@@ -27,6 +27,9 @@ namespace Alter {
             map.spawnPoint = mapTM.spawnPoint;
             map.previewPoint = mapTM.previewPoint;
 
+            // Set Gravity
+            map.hasGravity = mapTM.hasGravity;
+
             return map;
         }
 
@@ -74,15 +77,14 @@ namespace Alter {
 
         public static CellEntity Cell_Spawn(IDRecordService idRecordService,
                                                AssetsInfraContext assetsInfraContext,
-                                               Vector2Int pos,
-                                               int index) {
+                                               Vector2Int pos) {
 
             var prefab = assetsInfraContext.Entity_GetCell();
             var cell = GameObject.Instantiate(prefab).GetComponent<CellEntity>();
             cell.Ctor();
 
             // Set ID
-            cell.index = index;
+            cell.entityID = idRecordService.PickCellEntityID();
 
             // Set Pos
             cell.Pos_SetPos(pos);

@@ -5,11 +5,10 @@ namespace Alter {
 
     public static class GameCellDomain {
 
-        public static CellEntity Spawn(GameBusinessContext ctx, Vector2Int pos, int index) {
+        public static CellEntity Spawn(GameBusinessContext ctx, Vector2Int pos) {
             var cell = GameFactory.Cell_Spawn(ctx.idRecordService,
                                               ctx.assetsInfraContext,
-                                              pos,
-                                              index);
+                                              pos);
 
             return cell;
         }
@@ -19,8 +18,8 @@ namespace Alter {
                 GameColorDomain.CombineLogicColor(ctx, cell, oldCell);
                 cell.TearDown();
             } else {
-                var id = ctx.idRecordService.PickCellEntityID();
-                ctx.cellRepo.Add(cell, id);
+                ctx.cellRepo.Add(cell, cell.entityID);
+                cell.gameObject.name = "Cell_" + cell.entityID;
                 SetSortingLayerToCell(ctx, cell);
             }
         }
@@ -112,8 +111,11 @@ namespace Alter {
             UnSpawn(ctx, cell);
 
             if (cellRepo.GetCountOfClearingTask(row) == 0) {
+                var map = ctx.currentMapEntity;
                 game.fsmComponent.Gaming_Enter();
-                ApplyFallingAboveRow(ctx, row);
+                if (map.hasGravity) {
+                    ApplyFallingAboveRow(ctx, row);
+                }
                 GameScoreDomain.AddScore(ctx, cell.logicColor);
             }
         }

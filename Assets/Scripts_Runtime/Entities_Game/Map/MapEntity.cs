@@ -16,6 +16,7 @@ namespace Alter {
         public Vector2Int PosInt => transform.position.RoundToVector2Int();
 
         public float timer;
+        public bool hasGravity;
 
         public void Ctor() {
             timer = 0;

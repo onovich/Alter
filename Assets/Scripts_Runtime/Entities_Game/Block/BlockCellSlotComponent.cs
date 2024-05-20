@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Alter {
     public class BlockCellSlotComponent {
 
-        SortedList<int/*index*/, CellEntity> all;
+        SortedList<int/*entityID*/, CellEntity> all;
         CellEntity[] temp;
 
         public BlockCellSlotComponent() {
@@ -14,7 +14,7 @@ namespace Alter {
         }
 
         public void Add(CellEntity cell) {
-            all.Add(cell.index, cell);
+            all.Add(cell.entityID, cell);
         }
 
         public int TakeAll(out CellEntity[] cells) {
@@ -25,13 +25,6 @@ namespace Alter {
             all.Values.CopyTo(temp, 0);
             cells = temp;
             return count;
-        }
-
-        public CellEntity Get(int index) {
-            if (all.ContainsKey(index)) {
-                return all[index];
-            }
-            return null;
         }
 
         public void Clear() {
